@@ -4,11 +4,11 @@ import * as firebase from "firebase/app";
 import "firebase/firestore";
 
 @Component({
-  selector: "app-project",
-  templateUrl: "./project.page.html",
-  styleUrls: ["./project.page.scss"]
+  selector: "create-project",
+  templateUrl: "./create-project.html",
+  styleUrls: ["./create-project.scss"]
 })
-export class ProjectPage implements OnInit {
+export class CreateProjectPage implements OnInit {
   projectForm: FormGroup;
   db: any;
   projectsRef: any;
