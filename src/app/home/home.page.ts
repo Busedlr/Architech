@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 
 import * as firebase from "firebase/app";
 import "firebase/firestore";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-home",
@@ -13,7 +14,7 @@ export class HomePage {
   projectsRef: any;
   buse: {};
 
-  constructor() {
+  constructor(public router: Router) {
     this.db = firebase.firestore();
     this.projectsRef = this.db.collection("projects");
     this.buse = {
