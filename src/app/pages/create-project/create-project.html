@@ -1,37 +1,133 @@
 <ion-header translucent>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/home"></ion-back-button>
-      </ion-buttons>
-      <ion-title>project</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>project</ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content>
   <form [formGroup]="projectForm">
-    <ion-item>
-      <ion-label>First Name</ion-label>
-      <ion-input formControlName="firstName"></ion-input>
-    </ion-item>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Client Information</ion-card-title>
+      </ion-card-header>
+      <ion-item>
+        <ion-label>First Name</ion-label>
+        <ion-input formControlName="firstName"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label>Last Name</ion-label>
-      <ion-input formControlName="lastName"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label>Last Name</ion-label>
+        <ion-input formControlName="lastName"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label>job</ion-label>
-      <ion-input formControlName="job"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label>job</ion-label>
+        <ion-input formControlName="job"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label>email</ion-label>
-      <ion-input formControlName="email"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label>email</ion-label>
+        <ion-input formControlName="email"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label>phone </ion-label>
-      <ion-input formControlName="job"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label>phone</ion-label>
+        <ion-input formControlName="job"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>address</ion-label>
+        <ion-input formControlName="clientAddress"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>notes</ion-label>
+        <ion-textarea formControlName="clientNotes"></ion-textarea>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Project Information</ion-card-title>
+      </ion-card-header>
+      <ion-item>
+        <ion-label>project Name</ion-label>
+        <ion-input formControlName="projectName"></ion-input>
+      </ion-item>
+
+      <ion-list>
+        <ion-list-header>
+          <ion-label>project type</ion-label>
+        </ion-list-header>
+        <ion-grid>
+          <ion-radio-group formControlName="projectType">
+            <ion-row>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label>exterieur</ion-label>
+                  <ion-radio slot="start" value="exterior"></ion-radio>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label>interieur</ion-label>
+                  <ion-radio slot="start" value="interior"></ion-radio>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-radio-group>
+        </ion-grid>
+      </ion-list>
+
+      <ion-list>
+        <ion-list-header>
+          <ion-label>travaux type</ion-label>
+        </ion-list-header>
+
+        <ion-grid>
+          <ion-radio-group formControlName="workType">
+            <ion-row>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label>travaux sur existant</ion-label>
+                  <ion-radio slot="start" value="existing"></ion-radio>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label>travaux neuf</ion-label>
+                  <ion-radio slot="start" value="new"></ion-radio>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-radio-group>
+        </ion-grid>
+      </ion-list>
+
+      <ion-item>
+        <ion-label>address</ion-label>
+        <ion-input formControlName="projectAddress"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>budget</ion-label>
+        <ion-input formControlName="budget"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>surface</ion-label>
+        <ion-input formControlName="surface"></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>notes</ion-label>
+          <ion-textarea formControlName="projectNotes"></ion-textarea>
+        </ion-item>
+    </ion-card>
   </form>
+
+  <ion-button (click)="saveProject()">submit</ion-button>
 </ion-content>

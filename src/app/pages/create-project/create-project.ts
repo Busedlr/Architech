@@ -26,8 +26,8 @@ export class CreateProjectPage implements OnInit {
       firstName: [
         "",
         Validators.compose([
-          Validators.maxLength(15),
-          Validators.minLength(3),
+          Validators.maxLength(25),
+          Validators.minLength(2),
           Validators.required
         ])
       ],
@@ -35,8 +35,8 @@ export class CreateProjectPage implements OnInit {
       lastName: [
         "",
         Validators.compose([
-          Validators.maxLength(15),
-          Validators.minLength(3),
+          Validators.maxLength(25),
+          Validators.minLength(2),
           Validators.required
         ])
       ],
@@ -49,19 +49,62 @@ export class CreateProjectPage implements OnInit {
           Validators.required
         ])
       ],
-      email: ["", Validators.compose([Validators.required])],
-      phone: ["", Validators.compose([Validators.required])]
+      email: ["", Validators.compose([Validators.required, Validators.email])],
+      phone: [
+        "",
+        Validators.compose([
+          Validators.required,
+          Validators.pattern("[^a-zA-Z]*")
+        ])
+      ],
+      clientAddress: ["", Validators.maxLength(200)],
+      clientNotes: [""],
+      projectName: ["", Validators.required],
+      projectType: ["", Validators.required],
+      workType: ["", Validators.required],
+      projectAddress: [
+        "",
+        Validators.compose([Validators.maxLength(200), Validators.required])
+      ],
+      budget: [
+        "",
+        Validators.compose([
+          Validators.required,
+          Validators.pattern("^[0-9]*$")
+        ])
+      ],
+      surface: [
+        "",
+        Validators.compose([
+          Validators.required,
+          Validators.pattern("^[0-9]*$")
+        ])
+      ],
+      projectNotes: [""]
     });
   }
 
   saveProject() {
-    let projectData = {};
-    Object.keys(this.projectForm.controls).forEach(key => {
-      const controlValue = this.projectForm.controls[key].value;
-      this.projectForm.controls.name.setValue(controlValue)
-    });
+    const controls = this.projectForm.controls;
 
-    return this.projectsRef
+    const projectData = {
+      first_name: controls.firstName.value,
+      last_name: controls.lastName.value,
+      job: controls.job.value,
+      email: controls.email.value,
+      phone: controls.phone.value,
+      client_address: controls.clientAddress.value,
+      client_notes: controls.clientNotes.value,
+      project_name: controls.projectName.value,
+      project_type: controls.projectType.value,
+      work_type: controls.workType.value,
+      project_address: controls.projectAddress.value,
+      budget: controls.budget.value,
+      surface: controls.surface.value,
+      project_notes: controls.projectNotes.value
+    };
+
+    this.projectsRef
       .add(projectData)
       .then(doc => {
         console.log("document saved with id", doc.id);
