@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>project-detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <label for="projectImage" (click)="resetInput('projectImage')"
+    >Add an image for your project</label
+  >
+  <input
+    type="file"
+    id="projectImage"
+    (change)="selectFile($event)"
+    multiple/>
+
+  <ion-button (click)="saveImages()"></ion-button>
+</ion-content>

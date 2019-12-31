@@ -3,6 +3,7 @@ import { Component } from "@angular/core";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
 import { Router } from "@angular/router";
+import { ProjectData } from "src/app/services/project-data";
 
 @Component({
   selector: "app-home",
@@ -12,26 +13,21 @@ import { Router } from "@angular/router";
 export class HomePage {
   db: any;
   projectsRef: any;
-  buse: {};
+  projects = [];
 
-  constructor(public router: Router) {
+  constructor(public router: Router, public projectData: ProjectData) {
+    this.getProjects();
     this.db = firebase.firestore();
     this.projectsRef = this.db.collection("projects");
-    this.buse = {
-      name: "buse",
-      surname: "kilinc"
-    };
   }
 
-  saveProject() {
-    return this.projectsRef
-      .add(this.buse)
-      .then(doc => {
-        console.log("document saved with id", doc.id);
-        return doc;
-      })
-      .catch(error => {
-        console.log(error);
+  getProjects() {
+    this.projectData.getProjects().then(result => {
+      result.docs.forEach(doc => {
+        let project = doc.data();
+        this.projects.push(project);
       });
+      console.log(this.projects);
+    });
   }
 }

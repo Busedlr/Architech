@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import * as firebase from "firebase/app";
-import "firebase/firestore";
+import { ProjectData } from "src/app/services/project-data";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "create-project",
@@ -13,9 +13,11 @@ export class CreateProjectPage implements OnInit {
   db: any;
   projectsRef: any;
 
-  constructor(public formBuilder: FormBuilder) {
-    this.db = firebase.firestore();
-    this.projectsRef = this.db.collection("projects");
+  constructor(
+    public formBuilder: FormBuilder,
+    public ProjectData: ProjectData,
+    public router: Router
+  ) {
     this.initForm();
   }
 
@@ -24,7 +26,7 @@ export class CreateProjectPage implements OnInit {
   initForm() {
     this.projectForm = this.formBuilder.group({
       firstName: [
-        "",
+        "Buse",
         Validators.compose([
           Validators.maxLength(25),
           Validators.minLength(2),
@@ -33,7 +35,7 @@ export class CreateProjectPage implements OnInit {
       ],
 
       lastName: [
-        "",
+        "Kilinc",
         Validators.compose([
           Validators.maxLength(25),
           Validators.minLength(2),
@@ -42,39 +44,45 @@ export class CreateProjectPage implements OnInit {
       ],
 
       job: [
-        "",
+        "Developper",
         Validators.compose([
           Validators.maxLength(25),
           Validators.minLength(3),
           Validators.required
         ])
       ],
-      email: ["", Validators.compose([Validators.required, Validators.email])],
+      email: [
+        "b.dilara@live.com",
+        Validators.compose([Validators.required, Validators.email])
+      ],
       phone: [
-        "",
+        "0768524171",
         Validators.compose([
           Validators.required,
-          Validators.pattern("[^a-zA-Z]*")
+          Validators.pattern("^[0-9]*$")
         ])
       ],
-      clientAddress: ["", Validators.maxLength(200)],
+      clientAddress: [
+        "17 rue du parc cheviron sevres",
+        Validators.maxLength(200)
+      ],
       clientNotes: [""],
-      projectName: ["", Validators.required],
+      projectName: ["Buse's future home", Validators.required],
       projectType: ["", Validators.required],
       workType: ["", Validators.required],
       projectAddress: [
-        "",
+        "Istanbul",
         Validators.compose([Validators.maxLength(200), Validators.required])
       ],
       budget: [
-        "",
+        "800000",
         Validators.compose([
           Validators.required,
           Validators.pattern("^[0-9]*$")
         ])
       ],
       surface: [
-        "",
+        "120",
         Validators.compose([
           Validators.required,
           Validators.pattern("^[0-9]*$")
@@ -85,6 +93,7 @@ export class CreateProjectPage implements OnInit {
   }
 
   saveProject() {
+    console.log(this.projectForm);
     const controls = this.projectForm.controls;
 
     const projectData = {
@@ -103,15 +112,11 @@ export class CreateProjectPage implements OnInit {
       surface: controls.surface.value,
       project_notes: controls.projectNotes.value
     };
-
-    this.projectsRef
-      .add(projectData)
-      .then(doc => {
-        console.log("document saved with id", doc.id);
-        return doc;
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    if (this.projectForm.valid) {
+      this.ProjectData.saveProject(projectData);
+      this.router.navigate(['/project-detail'])
+    } else {
+      console.log("please complete the form");
+    }
   }
 }
