@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ProjectData } from "src/app/services/project-data";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "project-detail",
@@ -7,26 +8,34 @@ import { ProjectData } from "src/app/services/project-data";
   styleUrls: ["./project-detail.scss"]
 })
 export class ProjectDetail implements OnInit {
-  imageValid: boolean = false;
   files = [];
+  project: any;
 
-  constructor(
-    public projectData: ProjectData) {}
+  constructor(public projectData: ProjectData, public route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getProject();
+  }
+
+ async getProject() {
+    const id = this.route.snapshot.paramMap.get("id");
+    const project = await this.projectData.getProjectById(id);
+    this.project = project.data();
+    this.project.id = id;
+    console.log(this.project)
+  }
 
   resetInput(inputId) {
     let fileInput = document.getElementById(inputId) as HTMLInputElement;
     fileInput.value = "";
     this.files = [];
-    console.log("fileInput", fileInput.value);
+    
   }
 
   selectFile(event) {
     Object.keys(event.srcElement.files).forEach(key => {
       const value = event.srcElement.files[key];
       this.files.push(value);
-      console.log("files", this.files);
     });
   }
 
@@ -34,8 +43,8 @@ export class ProjectDetail implements OnInit {
     try {
       await this.projectData.saveImages(this.files);
       console.log("success");
-    } catch(error) {
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   }
 }

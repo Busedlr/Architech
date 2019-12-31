@@ -27,7 +27,6 @@ export class HomePage {
         let project = doc.data();
         this.projects.push(project);
       });
-      console.log(this.projects);
     });
   }
 }

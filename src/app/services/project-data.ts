@@ -19,10 +19,9 @@ export class ProjectData {
   }
 
   saveProject(projectData) {
-    this.projectsRef
+    return this.projectsRef
       .add(projectData)
       .then(doc => {
-        console.log("document saved with id", doc.id);
         return doc;
       })
       .catch(error => {
@@ -32,6 +31,18 @@ export class ProjectData {
 
   getProjects() {
     return this.projectsRef
+      .get()
+      .then(result => {
+        return result;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  getProjectById(id) {
+    return this.projectsRef
+      .doc(id)
       .get()
       .then(result => {
         return result;
