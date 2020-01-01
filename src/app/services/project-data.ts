@@ -52,11 +52,11 @@ export class ProjectData {
       });
   }
 
-  saveImages(files) {
+  saveImages(files, id) {
     const rawFiles = [];
     files.forEach(async file => {
       const promise = await this.storageRef
-        .child("projectImages/" + file.lastModified)
+        .child(id + "/" + file.lastModified)
         .put(file)
         .catch(error => {
           console.log(error);

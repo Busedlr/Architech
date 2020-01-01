@@ -41,7 +41,7 @@ export class ProjectDetail implements OnInit {
 
   async saveImages() {
     try {
-      await this.projectData.saveImages(this.files);
+      await this.projectData.saveImages(this.files, this.project.id);
       console.log("success");
     } catch (error) {
       console.log(error);
