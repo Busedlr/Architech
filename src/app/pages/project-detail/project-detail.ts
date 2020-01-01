@@ -10,6 +10,7 @@ import { ActivatedRoute } from "@angular/router";
 export class ProjectDetail implements OnInit {
   files = [];
   project: any;
+  urls = [];
 
   constructor(public projectData: ProjectData, public route: ActivatedRoute) {}
 
@@ -17,19 +18,18 @@ export class ProjectDetail implements OnInit {
     this.getProject();
   }
 
- async getProject() {
+  async getProject() {
     const id = this.route.snapshot.paramMap.get("id");
     const project = await this.projectData.getProjectById(id);
     this.project = project.data();
     this.project.id = id;
-    console.log(this.project)
+    this.getImages();
   }
 
   resetInput(inputId) {
     let fileInput = document.getElementById(inputId) as HTMLInputElement;
     fileInput.value = "";
     this.files = [];
-    
   }
 
   selectFile(event) {
@@ -46,5 +46,11 @@ export class ProjectDetail implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  getImages() {
+    this.projectData.getImages(this.project.id).then(urls => {
+      console.log("detail", urls)
+    })
   }
 }

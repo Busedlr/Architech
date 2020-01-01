@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
+import { UrlSegment } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
@@ -10,7 +11,6 @@ export class ProjectData {
   db: any;
   projectsRef: any;
   storageRef: any;
-  projectImagesRef: any;
 
   constructor() {
     this.db = firebase.firestore();
@@ -82,4 +82,24 @@ export class ProjectData {
     });
     return Promise.all(rawFiles);
   } // this one is without async await and above is the same code with async */
+
+
+  getImages(id) {
+    return firebase
+      .storage()
+      .ref(id)
+      .listAll()
+      .then(result => {
+        let urls = [];
+        result.items.forEach(imageRef => {
+          this.storageRef
+            .child(imageRef.fullPath)
+            .getDownloadURL()
+            .then(url => {
+              urls.push(url);
+            });
+        });
+        return urls;
+      });
+  }
 }
