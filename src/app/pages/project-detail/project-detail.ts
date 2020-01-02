@@ -42,15 +42,17 @@ export class ProjectDetail implements OnInit {
   async saveImages() {
     try {
       await this.projectData.saveImages(this.files, this.project.id);
+      this.getImages();
       console.log("success");
     } catch (error) {
       console.log(error);
     }
   }
 
-  getImages() {
-    this.projectData.getImages(this.project.id).then(urls => {
-      console.log("detail", urls)
-    })
+  async getImages() {
+    this.urls = [];
+    const url = await this.projectData.getImages(this.project.id);
+    this.urls = url;
+    console.log(this.urls[2]);
   }
 }

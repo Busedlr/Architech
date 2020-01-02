@@ -54,8 +54,8 @@ export class ProjectData {
 
   saveImages(files, id) {
     const rawFiles = [];
-    files.forEach(async file => {
-      const promise = await this.storageRef
+    files.forEach(file => {
+      const promise = this.storageRef
         .child(id + "/" + file.lastModified)
         .put(file)
         .catch(error => {
@@ -83,23 +83,20 @@ export class ProjectData {
     return Promise.all(rawFiles);
   } // this one is without async await and above is the same code with async */
 
-
   getImages(id) {
     return firebase
       .storage()
       .ref(id)
       .listAll()
       .then(result => {
-        let urls = [];
+        const rawFiles = [];
         result.items.forEach(imageRef => {
-          this.storageRef
+          const promise = this.storageRef
             .child(imageRef.fullPath)
-            .getDownloadURL()
-            .then(url => {
-              urls.push(url);
-            });
+            .getDownloadURL();
+          rawFiles.push(promise);
         });
-        return urls;
+        return Promise.all(rawFiles);
       });
   }
 }

@@ -1,6 +1,9 @@
-<ion-header>
+<ion-header translucent>
   <ion-toolbar>
-    <ion-title>project-detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/create-project"></ion-back-button>
+    </ion-buttons>
+    <ion-title>project detail</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,4 +18,9 @@
     multiple/>
 
   <ion-button (click)="saveImages()">save images</ion-button>
+
+  <img *ngFor="let url of urls"
+        src="{{ url }}"
+        alt="project image"
+      />
 </ion-content>

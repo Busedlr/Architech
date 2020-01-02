@@ -19,7 +19,7 @@ export class HomePage {
     this.getProjects();
     this.db = firebase.firestore();
     this.projectsRef = this.db.collection("projects");
-    console.log(this.projects)
+    console.log(this.projects);
   }
 
   getProjects() {
@@ -33,6 +33,7 @@ export class HomePage {
   }
 
   goToDetail(id) {
-    this.router.navigate(["/project-detail/" + id])
+    this.router.navigate(["/project-detail/" + id]);
   }
+
 }
