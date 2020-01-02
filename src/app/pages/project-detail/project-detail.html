@@ -8,19 +8,26 @@
 </ion-header>
 
 <ion-content>
-  <label for="projectImage" (click)="resetInput('projectImage')"
-    >Add an image for your project</label
-  >
-  <input
-    type="file"
-    id="projectImage"
-    (change)="selectFile($event)"
-    multiple/>
-
-  <ion-button (click)="saveImages()">save images</ion-button>
-
-  <img *ngFor="let url of urls"
-        src="{{ url }}"
-        alt="project image"
+  <div *ngIf="loading">LOADING</div>
+  <div *ngIf="!loading">
+    <div> {{project?.first_name}} </div>
+    <ion-card>
+      <label for="projectImage" (click)="resetInput('projectImage')"
+        >Add an image for your project</label
+      >
+      <input
+        type="file"
+        id="projectImage"
+        (change)="selectFile($event)"
+        multiple
       />
+  
+      <ion-button (click)="saveImages()">save images</ion-button>
+  
+      <img *ngFor="let url of urls" src="{{ url }}" alt="project image" />
+    </ion-card>
+  </div>
+  
+
+  
 </ion-content>

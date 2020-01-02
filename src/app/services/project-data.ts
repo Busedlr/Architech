@@ -99,4 +99,8 @@ export class ProjectData {
         return Promise.all(rawFiles);
       });
   }
+
+  updateProjectData(imageUrl, id) {
+    this.db.collection("projects").doc(id).update({ thumbnail: imageUrl });
+  }
 }

@@ -9,7 +9,7 @@
 <ion-content>
   <!-- <ion-card [routerLink]="['../project-detail/', project.id]" *ngFor="let project of projects"> -->
   <ion-card (click)="goToDetail(project.id)" *ngFor="let project of projects">
-    <img src="{{ project.url }}" alt="project image"/>
+    <img src="{{ project.thumbnail }}" alt="project image"/>
     <div>{{ project.project_name }}</div>
     <div>{{ project.first_name }} {{ project.last_name }}</div>
     <div>{{ project.project_address }}</div>

@@ -11,19 +11,26 @@ export class ProjectDetail implements OnInit {
   files = [];
   project: any;
   urls = [];
+  loading: boolean;
 
-  constructor(public projectData: ProjectData, public route: ActivatedRoute) {}
+  constructor(public projectData: ProjectData, public route: ActivatedRoute) {
+    
+  }
 
   ngOnInit() {
     this.getProject();
   }
 
   async getProject() {
+    this.loading = true
     const id = this.route.snapshot.paramMap.get("id");
     const project = await this.projectData.getProjectById(id);
     this.project = project.data();
     this.project.id = id;
-    this.getImages();
+    this.getImages().then(() => {
+      this.loading = false
+    })
+    console.log("project", this.project)
   }
 
   resetInput(inputId) {
@@ -53,6 +60,5 @@ export class ProjectDetail implements OnInit {
     this.urls = [];
     const url = await this.projectData.getImages(this.project.id);
     this.urls = url;
-    console.log(this.urls[2]);
   }
 }
