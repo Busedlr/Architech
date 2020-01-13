@@ -7,7 +7,6 @@
 
 .card-content {
   position: relative;
-  width: calc(100% - 10px);
   padding-top: 100%;
 }
 
@@ -29,12 +28,14 @@ ion-grid {
 }
 
 ion-card {
+  width: calc(100% - 10px);
   img {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    width: 50%;
+    width: calc(100% - 20px);
+    margin: 10px;
   }
 }
