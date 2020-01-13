@@ -5,19 +5,7 @@
   transform: translate(-50%, -50%);
 }
 
-.add-button {
-  width: 60px;
-  height: 60px;
-  margin: 0;
-
-  ion-icon {
-    padding: 5px;
-    font-size: 50px;
-    cursor: pointer;
-  }
-}
-
-.image-card {
+.card-content {
   position: relative;
   width: calc(100% - 10px);
   padding-top: 100%;

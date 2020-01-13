@@ -39,7 +39,7 @@
 
       <ion-row justify-content-start>
         <ion-col size="4">
-          <ion-card class="image-card">
+          <ion-card class="card-content">
             <ion-button class="card-button center">
               <label for="projectImage" (click)="resetInput('projectImage')">
                 <ion-icon class="center" name="add-circle"></ion-icon>
@@ -61,7 +61,7 @@
           </ion-card>
         </ion-col>
         <ion-col *ngFor="let url of urls" size="4">
-          <ion-card class="image-card">
+          <ion-card class="card-content">
             <img
               src="{{ url }}"
               alt="project image"
