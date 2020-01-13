@@ -12,6 +12,7 @@ export class ProjectDetail implements OnInit {
   project: any;
   urls = [];
   loading: boolean;
+  readyToSave: boolean = false;
 
   constructor(public projectData: ProjectData, public route: ActivatedRoute) {
     
@@ -44,9 +45,11 @@ export class ProjectDetail implements OnInit {
       const value = event.srcElement.files[key];
       this.files.push(value);
     });
+    this.readyToSave = true;
   }
 
   async saveImages() {
+    console.log("saving the images")
     try {
       await this.projectData.saveImages(this.files, this.project.id);
       this.getImages();

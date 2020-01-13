@@ -9,25 +9,66 @@
 
 <ion-content>
   <div *ngIf="loading">LOADING</div>
-  <div *ngIf="!loading">
-    <div> {{project?.first_name}} </div>
-    <ion-card>
-      <label for="projectImage" (click)="resetInput('projectImage')"
-        >Add an image for your project</label
-      >
-      <input
-        type="file"
-        id="projectImage"
-        (change)="selectFile($event)"
-        multiple
-      />
-  
-      <ion-button (click)="saveImages()">save images</ion-button>
-  
-      <img *ngFor="let url of urls" src="{{ url }}" alt="project image" />
-    </ion-card>
-  </div>
-  
 
-  
+  <div *ngIf="!loading">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card>
+            <div>Project Information</div>
+            <div>{{ project?.project_name }}</div>
+            <div>{{ project?.project_type }}</div>
+            <div>{{ project?.work_type }}</div>
+            <div>{{ project?.project_address }}</div>
+            <div>{{ project?.surface }}</div>
+            <div>{{ project?.budget }}</div>
+            <div>{{ project?.project_notes }}</div>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card>
+            <div>client Information</div>
+            <div>{{ project?.first_name }} {{ project?.last_name }}</div>
+            <div>{{ project?.job }}</div>
+            <div>{{ project?.client_address }}</div>
+            <div>{{ project?.phone }}</div>
+            <div>{{ project?.client_notes }}</div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row justify-content-start>
+        <ion-col size="4">
+          <ion-card class="image-card">
+            <ion-button class="card-button center">
+              <label for="projectImage" (click)="resetInput('projectImage')">
+                <ion-icon class="center" name="add-circle"></ion-icon>
+              </label>
+            </ion-button>
+            <input
+              type="file"
+              id="projectImage"
+              (change)="selectFile($event)"
+              multiple
+              style="display:none"
+            />
+            <ion-button
+              *ngIf="readyToSave"
+              class="center"
+              (click)="saveImages()"
+              >save images</ion-button
+            >
+          </ion-card>
+        </ion-col>
+        <ion-col *ngFor="let url of urls" size="4">
+          <ion-card class="image-card">
+            <img
+              src="{{ url }}"
+              alt="project image"
+            />
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

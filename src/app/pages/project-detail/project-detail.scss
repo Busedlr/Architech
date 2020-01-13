@@ -1,0 +1,52 @@
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.add-button {
+  width: 60px;
+  height: 60px;
+  margin: 0;
+
+  ion-icon {
+    padding: 5px;
+    font-size: 50px;
+    cursor: pointer;
+  }
+}
+
+.image-card {
+  position: relative;
+  width: calc(100% - 10px);
+  padding-top: 100%;
+}
+
+.card-button {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  margin: 0;
+
+  ion-icon {
+    padding: 5px;
+    font-size: 80px;
+    cursor: pointer;
+  }
+}
+
+ion-grid {
+  width: 80%;
+}
+
+ion-card {
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+  }
+}
