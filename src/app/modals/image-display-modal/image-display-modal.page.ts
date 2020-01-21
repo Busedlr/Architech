@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-image-display-modal',
@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./image-display-modal.page.scss'],
 })
 export class ImageDisplayModalPage implements OnInit {
+  @Input() imageUrl: any;
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.imageUrl)
   }
 
 }

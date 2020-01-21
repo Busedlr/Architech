@@ -1,8 +1,8 @@
 import { Component, OnInit, ɵConsole } from "@angular/core";
 import { ProjectData } from "src/app/services/project-data";
 import { ActivatedRoute } from "@angular/router";
-import { ImageDisplayModalPage } from 'src/app/modals/image-display-modal/image-display-modal.page';
-import { ModalController } from '@ionic/angular';
+import { ImageDisplayModalPage } from "src/app/modals/image-display-modal/image-display-modal.page";
+import { ModalController } from "@ionic/angular";
 
 @Component({
   selector: "project-detail",
@@ -15,7 +15,11 @@ export class ProjectDetail implements OnInit {
   urls = [];
   loading: boolean;
 
-  constructor(public projectData: ProjectData, public route: ActivatedRoute, public modalController: ModalController) {}
+  constructor(
+    public projectData: ProjectData,
+    public route: ActivatedRoute,
+    public modalController: ModalController
+  ) {}
 
   ngOnInit() {
     this.getProject();
@@ -64,10 +68,19 @@ export class ProjectDetail implements OnInit {
     this.urls = url;
   }
 
-  async openModal() {
+  async openModal(url) {
     const modal = await this.modalController.create({
-      component: ImageDisplayModalPage
+      component: ImageDisplayModalPage,
+      componentProps: {
+      imageUrl : url
+      }
     });
     return await modal.present();
+  }
+
+  dismiss() {
+    this.modalController.dismiss({
+      dismissed: true
+    });
   }
 }
