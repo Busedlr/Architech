@@ -12,26 +12,22 @@ export class ProjectDetail implements OnInit {
   project: any;
   urls = [];
   loading: boolean;
-  readyToSave: boolean = false;
 
-  constructor(public projectData: ProjectData, public route: ActivatedRoute) {
-    
-  }
+  constructor(public projectData: ProjectData, public route: ActivatedRoute) {}
 
   ngOnInit() {
     this.getProject();
   }
 
   async getProject() {
-    this.loading = true
+    this.loading = true;
     const id = this.route.snapshot.paramMap.get("id");
     const project = await this.projectData.getProjectById(id);
     this.project = project.data();
     this.project.id = id;
     this.getImages().then(() => {
-      this.loading = false
-    })
-    console.log("project", this.project)
+      this.loading = false;
+    });
   }
 
   resetInput(inputId) {
@@ -40,16 +36,21 @@ export class ProjectDetail implements OnInit {
     this.files = [];
   }
 
-  selectFile(event) {
+    selectFile(event) {
     Object.keys(event.srcElement.files).forEach(key => {
       const value = event.srcElement.files[key];
       this.files.push(value);
     });
-    this.readyToSave = true;
+    
+    setTimeout(() => {
+      this.saveImages();
+    }, 2000);
   }
 
+  
+
   async saveImages() {
-    console.log("saving the images")
+    console.log("saving the images");
     try {
       await this.projectData.saveImages(this.files, this.project.id);
       this.getImages();

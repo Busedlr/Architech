@@ -12,7 +12,7 @@
 
   <div *ngIf="!loading">
     <ion-grid>
-      <ion-row justify-content-start>
+      <ion-row>
         <ion-col size="6">
           <ion-card>
             <div>Project Information</div>
@@ -37,7 +37,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-row justify-content-start>
+      <ion-row>
         <ion-col size="4">
           <ion-card class="card-content">
             <ion-button class="card-button center">
@@ -52,20 +52,11 @@
               multiple
               style="display:none"
             />
-            <ion-button
-              *ngIf="readyToSave"
-              class="center"
-              (click)="saveImages()"
-              >save images</ion-button
-            >
           </ion-card>
         </ion-col>
         <ion-col *ngFor="let url of urls" size="4">
           <ion-card class="card-content">
-            <img
-              src="{{ url }}"
-              alt="project image"
-            />
+            <img src="{{ url }}" alt="project image" />
           </ion-card>
         </ion-col>
       </ion-row>
