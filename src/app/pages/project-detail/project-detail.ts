@@ -68,13 +68,15 @@ export class ProjectDetail implements OnInit {
     this.urls = url;
   }
 
-  async openModal(url) {
+  async openModal(i) {
     const modal = await this.modalController.create({
       component: ImageDisplayModalPage,
       componentProps: {
-      imageUrl : url
+        index : i,
+        urls: this.urls
       }
     });
+    console.log(i)  
     return await modal.present();
   }
 

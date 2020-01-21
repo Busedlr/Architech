@@ -54,8 +54,8 @@
             />
           </ion-card>
         </ion-col>
-        <ion-col *ngFor="let url of urls" size="4">
-          <ion-card (click)="openModal(url)" class="card-content">
+        <ion-col *ngFor="let url of urls; let i = index" size="4">
+          <ion-card (click)="openModal(i)" class="card-content">
             <img src="{{ url }}" alt="project image" />
           </ion-card>
         </ion-col>
