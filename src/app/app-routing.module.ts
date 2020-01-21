@@ -26,6 +26,10 @@ const routes: Routes = [
       import("./pages/project-detail/project-detail.module").then(
         m => m.ProjectDetailModule
       )
+  },
+  {
+    path: 'image-display-modal',
+    loadChildren: () => import('./modals/image-display-modal/image-display-modal.module').then( m => m.ImageDisplayModalPageModule)
   }
 ];
 

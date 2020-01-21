@@ -55,7 +55,7 @@
           </ion-card>
         </ion-col>
         <ion-col *ngFor="let url of urls" size="4">
-          <ion-card class="card-content">
+          <ion-card (click)="openModal()" class="card-content">
             <img src="{{ url }}" alt="project image" />
           </ion-card>
         </ion-col>
