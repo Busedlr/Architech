@@ -66,14 +66,13 @@ export class ProjectDetail implements OnInit {
   async getImages() {
     this.images = [];
     const storedImages = await this.projectData.getImages(this.project.id);
-	this.images = storedImages;
-	console.log(this.images)
+    this.images = storedImages;
   }
 
   imageClick(i) {
     if (this.editImages) {
-	  const clickedImage = document.getElementById(i) as HTMLInputElement;
-	  clickedImage.checked = !clickedImage.checked
+      const clickedImage = document.getElementById(i) as HTMLInputElement;
+      clickedImage.checked = !clickedImage.checked;
     } else this.openModal(i);
   }
 
@@ -85,7 +84,6 @@ export class ProjectDetail implements OnInit {
         images: this.images
       }
     });
-    console.log(i);
     return await modal.present();
   }
 
@@ -93,5 +91,10 @@ export class ProjectDetail implements OnInit {
     this.modalController.dismiss({
       dismissed: true
     });
+  }
+
+  editImagesClick() {
+	  ///i need to get all the images that are clicked in an array and uncheck them all here when cancel is clicked. :)
+	this.editImages = !this.editImages;
   }
 }
