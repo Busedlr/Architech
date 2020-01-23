@@ -14,7 +14,7 @@ export class ProjectDetail implements OnInit {
   project: any;
   images = [];
   loading: boolean;
-  editImages: boolean = false;
+  editImages: boolean = true;
   checkedImages: any = [];
 
   constructor(
@@ -49,12 +49,10 @@ export class ProjectDetail implements OnInit {
       const value = await event.srcElement.files[key];
       this.files.push(value);
     }
-    console.log("images to be saved", this.files);
     this.saveImages();
   }
 
   async saveImages() {
-    console.log("saving the images");
     try {
       await this.projectData.saveImages(this.files, this.project.id);
       this.getImages();
@@ -75,24 +73,37 @@ export class ProjectDetail implements OnInit {
       };
       this.images.push(image);
     }
-    console.log("images", this.images);
   }
 
-  imageClick(i) {
+  imageClick(i, image) {
     if (this.editImages) {
       const clickedImage = document.getElementById(i) as HTMLInputElement;
       clickedImage.checked = !clickedImage.checked;
+
       if (clickedImage.checked) {
-		  this.checkedImages = [];
-        this.checkedImages.push(clickedImage.id);
+        this.checkedImages.push(image);
       } else {
-        this.checkedImages.splice[(clickedImage.id, 1)];
+        const index = this.checkedImages.findIndex(
+          obj => obj.fullPath === image.fullPath
+        );
+        this.checkedImages.splice(index, 1);
       }
     } else this.openModal(i);
+    console.log(this.checkedImages);
   }
 
-  editImagesClick() {
+  toogleEditImages() {
     this.editImages = !this.editImages;
+    this.checkedImages = [];
+    if(!this.editImages) this.resetCheckedImages();
+  }
+
+  resetCheckedImages() {
+    this.images.forEach((img, index) => {
+      // we need the img here even tho we dont use it so that we can get the index bc index needs to be the second parameter
+      const image = document.getElementById(index.toString()) as HTMLInputElement;
+      image.checked = false;
+    })
   }
 
   async openModal(i) {
@@ -103,7 +114,7 @@ export class ProjectDetail implements OnInit {
         images: this.images
       }
     });
-    console.log(i);
+    
     return await modal.present();
   }
 

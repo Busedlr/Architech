@@ -89,7 +89,6 @@ export class ProjectData {
       .ref(id)
       .listAll()
       .then(res => {
-        console.log("res", res);
         return res;
       });
   }
