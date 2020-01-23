@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
-import { UrlSegment } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
@@ -66,24 +65,7 @@ export class ProjectData {
     return Promise.all(rawFiles);
   }
 
-  /* saveImages(files) {
-    const rawFiles = [];
-    files.forEach(file => {
-      const promise = this.storageRef
-        .child("projectImages/" + file.lastModified)
-        .put(file)
-        .then(result => {
-          return result
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      rawFiles.push(promise);
-    });
-    return Promise.all(rawFiles);
-  } // this one is without async await and above is the same code with async */
-
-  getImages(id) {
+  getImages1(id) {
     return firebase
       .storage()
       .ref(id)
@@ -101,10 +83,44 @@ export class ProjectData {
       });
   }
 
+  getImages(id) {
+    return firebase
+      .storage()
+      .ref(id)
+      .listAll()
+      .then(res => {
+        console.log("res", res);
+        return res;
+      });
+  }
+
+  getImageDownloadUrl(fullPath) {
+    return this.storageRef
+      .child(fullPath)
+      .getDownloadURL()
+      .then(res => {
+        return res;
+      });
+  }
+
   updateProjectData(imageUrl, id) {
     this.db
       .collection("projects")
       .doc(id)
       .update({ thumbnail: imageUrl });
+  }
+
+  deleteImage(fullPath) {
+    const imgToDelete = fullPath;
+    return this.storageRef
+      .child(imgToDelete)
+      .delete()
+      .then((result) => {
+		console.log("images are deleted");
+		return result
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 }

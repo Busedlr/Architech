@@ -39,6 +39,9 @@
 
       <ion-button *ngIf="!editImages" (click)="editImagesClick()">edit images</ion-button>
       <ion-button *ngIf="editImages" (click)="editImagesClick()">cancel</ion-button>
+      <ion-button *ngIf="editImages" (click)="deleteImage()">delete ımages</ion-button>
+
+
       <ion-row>
         <ion-col size="4">
           <ion-card class="card-content">
@@ -62,9 +65,9 @@
           class="image-col"
         >
           <ion-card (click)="imageClick(i)" class="card-content">
-            <input disabled="true" type="checkbox" [id]="i" />
-            <label [for]="i">
-              <img [src]="image.url.__zone_symbol__value" alt="project image" />
+            <input disabled="true" type="checkbox" [id]=i />
+            <label [for]=i>
+              <img [src]=image.url alt="project image" />
             </label>
           </ion-card>
         </ion-col>

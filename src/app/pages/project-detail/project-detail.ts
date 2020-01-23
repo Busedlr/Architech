@@ -15,6 +15,7 @@ export class ProjectDetail implements OnInit {
   images = [];
   loading: boolean;
   editImages: boolean = false;
+  checkedImages: any = [];
 
   constructor(
     public projectData: ProjectData,
@@ -65,15 +66,33 @@ export class ProjectDetail implements OnInit {
 
   async getImages() {
     this.images = [];
-    const storedImages = await this.projectData.getImages(this.project.id);
-    this.images = storedImages;
+    const imagesRef = await this.projectData.getImages(this.project.id);
+    for (const imageRef of imagesRef.items) {
+      const url = await this.projectData.getImageDownloadUrl(imageRef.fullPath);
+      const image = {
+        fullPath: imageRef.fullPath,
+        url: url
+      };
+      this.images.push(image);
+    }
+    console.log("images", this.images);
   }
 
   imageClick(i) {
     if (this.editImages) {
       const clickedImage = document.getElementById(i) as HTMLInputElement;
       clickedImage.checked = !clickedImage.checked;
+      if (clickedImage.checked) {
+		  this.checkedImages = [];
+        this.checkedImages.push(clickedImage.id);
+      } else {
+        this.checkedImages.splice[(clickedImage.id, 1)];
+      }
     } else this.openModal(i);
+  }
+
+  editImagesClick() {
+    this.editImages = !this.editImages;
   }
 
   async openModal(i) {
@@ -84,6 +103,7 @@ export class ProjectDetail implements OnInit {
         images: this.images
       }
     });
+    console.log(i);
     return await modal.present();
   }
 
@@ -93,8 +113,11 @@ export class ProjectDetail implements OnInit {
     });
   }
 
-  editImagesClick() {
-	  ///i need to get all the images that are clicked in an array and uncheck them all here when cancel is clicked. :)
-	this.editImages = !this.editImages;
+  async deleteImage() {
+    for (const i of this.checkedImages) {
+      let fullPath = this.images[i].fullPath;
+      await this.projectData.deleteImage(fullPath);
+    }
+    this.getImages();
   }
 }
