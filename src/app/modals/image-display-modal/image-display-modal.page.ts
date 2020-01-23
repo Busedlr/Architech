@@ -6,32 +6,32 @@ import { Component, OnInit, Input } from "@angular/core";
   styleUrls: ["./image-display-modal.page.scss"]
 })
 export class ImageDisplayModalPage implements OnInit {
-  @Input() urls: [];
+  @Input() images: [];
   @Input() index: number;
 
-  currentUrl: string;
+  currentImage: {};
 
   constructor() {}
 
   ngOnInit() {
-    this.currentUrl = this.urls[this.index];
+    this.currentImage = this.images[this.index];
   }
 
   nextImage() {
-    if (this.index !== this.urls.length - 1) {
+    if (this.index !== this.images.length - 1) {
       this.index = this.index + 1;
     } else {
       this.index = 0;
     }
-    this.currentUrl = this.urls[this.index];
+    this.currentImage = this.images[this.index];
   }
 
   prevImage() {
     if (this.index !== 0) {
       this.index = this.index - 1;
     } else {
-      this.index = this.urls.length - 1;
+      this.index = this.images.length - 1;
     }
-    this.currentUrl = this.urls[this.index];
+    this.currentImage = this.images[this.index];
   }
 }

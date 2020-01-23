@@ -91,9 +91,10 @@ export class ProjectData {
       .then(result => {
         const rawFiles = [];
         result.items.forEach(imageRef => {
-          const promise = this.storageRef
-            .child(imageRef.fullPath)
-            .getDownloadURL();
+          const promise = {
+            url: this.storageRef.child(imageRef.fullPath).getDownloadURL(),
+            name: imageRef.name
+          };
           rawFiles.push(promise);
         });
         return Promise.all(rawFiles);
@@ -101,6 +102,9 @@ export class ProjectData {
   }
 
   updateProjectData(imageUrl, id) {
-    this.db.collection("projects").doc(id).update({ thumbnail: imageUrl });
+    this.db
+      .collection("projects")
+      .doc(id)
+      .update({ thumbnail: imageUrl });
   }
 }
