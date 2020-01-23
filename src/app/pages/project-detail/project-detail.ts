@@ -71,7 +71,8 @@ export class ProjectDetail implements OnInit {
 
 			const image = {
 				fullPath: imageRef.fullPath,
-				url: url
+				url: url,
+				name: imageRef.name
 			};
 			this.images.push(image);
 		}
@@ -88,9 +89,10 @@ export class ProjectDetail implements OnInit {
 				const removeIndex = this.checkedImages.findIndex(
 					obj => obj.name === image.name
 				);
-
 				this.checkedImages.splice(removeIndex, 1);
 			}
+
+			console.log(this.checkedImages);
 		} else this.openModal(i);
 	}
 
@@ -109,6 +111,14 @@ export class ProjectDetail implements OnInit {
 		});
 	}
 
+	async deleteImages() {
+		for (const image of this.checkedImages) {
+			await this.projectData.deleteImage(image.fullPath);
+		}
+		this.toggleEditImages();
+		this.getImages();
+	}
+
 	async openModal(i) {
 		const modal = await this.modalController.create({
 			component: ImageDisplayModalPage,
@@ -124,13 +134,5 @@ export class ProjectDetail implements OnInit {
 		this.modalController.dismiss({
 			dismissed: true
 		});
-	}
-
-	async deleteImages() {
-		for (const image of this.checkedImages) {
-			await this.projectData.deleteImage(image.fullPath);
-		}
-		this.toggleEditImages();
-		this.getImages();
 	}
 }
