@@ -75,7 +75,6 @@ export class ProjectData {
 			});
 	}
 
-<<<<<<< HEAD
 	getImageDownloadUrl(fullPath) {
 		return this.storageRef
 			.child(fullPath)
@@ -84,17 +83,6 @@ export class ProjectData {
 				return res;
 			});
 	}
-=======
-  getImages(id) {
-    return firebase
-      .storage()
-      .ref(id)
-      .listAll()
-      .then(res => {
-        return res;
-      });
-  }
->>>>>>> b9d26ad538f7a92bb0c88af6a1b187ff5848ff55
 
 	updateProjectData(imageUrl, id) {
 		this.db
