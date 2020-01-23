@@ -85,4 +85,12 @@ export class ProjectDetail implements OnInit {
       dismissed: true
     });
   }
+
+
+  ///
+
+  checkCheckBoxvalue(event){
+    console.log(event.checked)
+  }
+
 }
