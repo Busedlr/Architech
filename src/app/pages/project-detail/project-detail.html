@@ -37,10 +37,8 @@
         </ion-col>
       </ion-row>
 
-      <ion-button *ngIf="!editImages" (click)="editImagesClick()">edit images</ion-button>
-      <ion-button *ngIf="editImages" (click)="editImagesClick()">cancel</ion-button>
-      <ion-button *ngIf="editImages" (click)="deleteImage()">delete ımages</ion-button>
-
+      <ion-button (click)="toggleEditImages()">{{ editImages ? 'Cancel' : 'Edit Images' }}</ion-button>
+      <ion-button *ngIf="editImages" (click)="deleteImages()">Delete Images</ion-button>
 
       <ion-row>
         <ion-col size="4">
@@ -50,21 +48,11 @@
                 <ion-icon class="center" name="add-circle"></ion-icon>
               </label>
             </ion-button>
-            <input
-              type="file"
-              id="projectImage"
-              (change)="selectFile($event)"
-              multiple
-              style="display:none"
-            />
+            <input type="file" id="projectImage" (change)="selectFile($event)" multiple style="display:none" />
           </ion-card>
         </ion-col>
-        <ion-col
-          *ngFor="let image of images; let i = index"
-          size="4"
-          class="image-col"
-        >
-          <ion-card (click)="imageClick(i)" class="card-content">
+        <ion-col *ngFor="let image of images; let i = index" size="4" class="image-col">
+          <ion-card (click)="imageClick(i, image)" class="card-content">
             <input disabled="true" type="checkbox" [id]=i />
             <label [for]=i>
               <img [src]=image.url alt="project image" />
