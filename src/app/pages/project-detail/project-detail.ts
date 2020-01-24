@@ -12,7 +12,6 @@ import { ModalController } from '@ionic/angular';
 export class ProjectDetail implements OnInit {
 	files = [];
 	project: any;
-	images = [];
 	loading: boolean;
 	editImages: boolean = false;
 	checkedImages: any = [];
@@ -33,9 +32,9 @@ export class ProjectDetail implements OnInit {
 		const project = await this.projectData.getProjectById(id);
 		this.project = project.data();
 		this.project.id = id;
-		this.getImages().then(() => {
+		/* this.getImages().then(() => {
 			this.loading = false;
-		});
+		}); */
 	}
 
 	resetInput(inputId) {
@@ -55,77 +54,20 @@ export class ProjectDetail implements OnInit {
 	async saveImages() {
 		try {
 			await this.projectData.saveImages(this.files, this.project.id);
-			this.getImages();
+			/* this.getImages(); */
 			console.log('success');
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
-	async getImages() {
-		this.images = [];
-		const imagesRef = await this.projectData.getImagesRef(this.project.id);
-
-		for (const imageRef of imagesRef.items) {
-			const url = await this.projectData.getImageDownloadUrl(imageRef.fullPath);
-
-			const image = {
-				fullPath: imageRef.fullPath,
-				url: url,
-				name: imageRef.name
-			};
-			this.images.push(image);
-		}
-	}
-
-	imageClick(i, image) {
-		if (this.editImages) {
-			const clickedImage = document.getElementById(i) as HTMLInputElement;
-			clickedImage.checked = !clickedImage.checked;
-
-			if (clickedImage.checked) {
-				this.checkedImages.push(image);
-			} else {
-				const removeIndex = this.checkedImages.findIndex(
-					obj => obj.name === image.name
-				);
-				this.checkedImages.splice(removeIndex, 1);
-			}
-
-			console.log(this.checkedImages);
-		} else this.openModal(i);
-	}
-
-	toggleEditImages() {
-		this.checkedImages = [];
-		this.editImages = !this.editImages;
-		if (!this.editImages) this.resetCheckedImages();
-	}
-
-	resetCheckedImages() {
-		this.images.forEach((image, i) => {
-			const clickedImage = document.getElementById(
-				i.toString()
-			) as HTMLInputElement;
-			clickedImage.checked = false;
-		});
-	}
-
-	async deleteImages() {
-		for (const image of this.checkedImages) {
-			await this.projectData.deleteImage(image.fullPath);
-		}
-		this.toggleEditImages();
-		this.getImages();
-	}
-
 	async openModal(i) {
 		const modal = await this.modalController.create({
-			component: ImageDisplayModalPage,
-			componentProps: {
-				index: i,
+			component: ImageDisplayModalPage
+			/* componentProps: {
+				index: i ,
 				images: this.images
-			}
+			} */
 		});
 		return await modal.present();
 	}

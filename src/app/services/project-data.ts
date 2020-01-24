@@ -65,42 +65,10 @@ export class ProjectData {
 		return Promise.all(rawFiles);
 	}
 
-	getImagesRef(id) {
-		return firebase
-			.storage()
-			.ref(id)
-			.listAll()
-			.then(res => {
-				return res;
-			});
-	}
-
-	getImageDownloadUrl(fullPath) {
-		return this.storageRef
-			.child(fullPath)
-			.getDownloadURL()
-			.then(res => {
-				return res;
-			});
-	}
-
 	updateProjectData(imageUrl, id) {
 		this.db
 			.collection('projects')
 			.doc(id)
 			.update({ thumbnail: imageUrl });
-	}
-
-	deleteImage(fullPath) {
-		const imgToDelete = fullPath;
-		return this.storageRef
-			.child(imgToDelete)
-			.delete()
-			.then(result => {
-				return result;
-			})
-			.catch(error => {
-				console.log(error);
-			});
 	}
 }
