@@ -3,6 +3,38 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/create-project"></ion-back-button>
     </ion-buttons>
+    <ion-title>Project Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment (ionChange)="segmentChanged($event)" value="info">
+    <ion-segment-button value="info">
+      <ion-label>information</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="images">
+      <ion-label>images</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="documents">
+      <ion-label>documents</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <project-info
+    [project]="project"
+    *ngIf="segment === 'info' && !loading"
+  ></project-info>
+  <project-images [projectId]="project.id" *ngIf="segment === 'images' && !loading"></project-images>
+  <project-documents *ngIf="segment === 'documents' && !loading"></project-documents>
+</ion-content>
+
+<!-- <ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/create-project"></ion-back-button>
+    </ion-buttons>
     <ion-title>project detail bla</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -72,4 +104,4 @@
       </ion-row>
     </ion-grid>
   </div>
-</ion-content>
+</ion-content> -->
