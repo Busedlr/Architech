@@ -6,7 +6,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { ImageDisplayModalPageRoutingModule } from './image-display-modal-routing.module';
 
-import { ImageDisplayModalPage } from './image-display-modal.page';
 
 @NgModule({
   imports: [
@@ -15,6 +14,6 @@ import { ImageDisplayModalPage } from './image-display-modal.page';
     IonicModule,
     ImageDisplayModalPageRoutingModule
   ],
-  declarations: [ImageDisplayModalPage]
+  declarations: []
 })
 export class ImageDisplayModalPageModule {}
