@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-segment (ionChange)="segmentChanged($event)" value="info">
+  <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
     <ion-segment-button value="info">
       <ion-label>information</ion-label>
     </ion-segment-button>
@@ -22,10 +22,7 @@
     </ion-segment-button>
   </ion-segment>
 
-  <project-info
-    [project]="project"
-    *ngIf="segment === 'info' && !loading"
-  ></project-info>
+  <project-info [project]="project" *ngIf="segment === 'info' && !loading"></project-info>
   <project-images [projectId]="project.id" *ngIf="segment === 'images' && !loading"></project-images>
   <project-documents *ngIf="segment === 'documents' && !loading"></project-documents>
 </ion-content>

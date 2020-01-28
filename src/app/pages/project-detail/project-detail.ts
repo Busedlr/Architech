@@ -1,41 +1,38 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import { ProjectData } from "src/app/services/project-data";
+import { ProjectData } from 'src/app/services/project-data';
 
 @Component({
-  selector: "project-detail",
-  templateUrl: "./project-detail.html",
-  styleUrls: ["./project-detail.scss"]
+	selector: 'project-detail',
+	templateUrl: './project-detail.html',
+	styleUrls: ['./project-detail.scss']
 })
 export class ProjectDetail implements OnInit {
-  project: any;
-  loading: boolean;
-  segment: any = "info";
+	project: any;
+	loading: boolean;
+	segment: any = 'images';
 
-  constructor(
-    public projectData: ProjectData,
-    public route: ActivatedRoute
-  ) {}
+	constructor(public projectData: ProjectData, public route: ActivatedRoute) {}
 
-  ngOnInit() {
-    this.getProject();
-  }
+	ngOnInit() {
+		this.getProject();
+	}
 
-  segmentChanged(event) {
-    this.segment = event.detail.value;
-  }
+	segmentChanged(event) {
+		this.segment = event.detail.value;
+	}
 
-  async getProject() {
-    this.loading = true;
-    const id = this.route.snapshot.paramMap.get("id");
-    const project = await this.projectData.getProjectById(id);
-    this.project = project.data();
-    this.project.id = id;
-    this.loading = false;
-  }
+	async getProject() {
+		this.loading = true;
+		const id = this.route.snapshot.paramMap.get('id');
+		const project = await this.projectData.getProjectById(id);
+		this.project = project.data();
+		this.project.id = id;
+		this.loading = false;
+	}
 
-  /* async selectFile(event) {
+	/* async selectFile(event) {
     for (const key of Object.keys(event.srcElement.files)) {
       const value = await event.srcElement.files[key];
       this.files.push(value);
@@ -43,13 +40,13 @@ export class ProjectDetail implements OnInit {
     this.saveImages();
   } */
 
-  /*  resetInput(inputId) {
+	/*  resetInput(inputId) {
     let fileInput = document.getElementById(inputId) as HTMLInputElement;
     fileInput.value = "";
     this.files = [];
   } */
 
-  /* async saveImages() {
+	/* async saveImages() {
     try {
       await this.projectData.saveImages(this.files, this.project.id);
       this.getImages();
@@ -59,22 +56,20 @@ export class ProjectDetail implements OnInit {
     }
   } */
 
-  /* toggleEditImages() {
+	/* toggleEditImages() {
     this.checkedImages = [];
     this.editImages = !this.editImages;
     if (!this.editImages) this.resetCheckedImages();
   } */
 
-  /* resetCheckedImages() {
+	/* resetCheckedImages() {
     this.images.forEach((img, i) => {
       const checkbox = document.getElementById(i) as HTMLInputElement;
       checkbox.checked = false;
     });
   } */
 
-  
-
-  /* async getImages() {
+	/* async getImages() {
     this.images = [];
     const items = await this.projectData.getImages(this.project.id);
 
@@ -90,7 +85,7 @@ export class ProjectDetail implements OnInit {
     }
   } */
 
-  /* imageClick(id, image) {
+	/* imageClick(id, image) {
     if (this.editImages) {
       const checkbox = document.getElementById(id) as HTMLInputElement;
       checkbox.checked = !checkbox.checked;
