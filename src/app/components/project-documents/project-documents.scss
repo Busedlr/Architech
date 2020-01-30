@@ -1,0 +1,39 @@
+/* .image-col{
+    input {
+		display: none;
+	} //for when we wanna choose documents to delete
+} */
+
+ion-icon {
+  padding: 5px;
+  font-size: 80px;
+  cursor: pointer;
+}
+
+ion-grid {
+  width: 80%;
+}
+
+ion-card {
+  position: relative;
+  width: calc(100% - 20px);
+}
+
+.center {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.bottom-center {
+    position: absolute;
+	left: 50%;
+	top: 80%;
+	transform: translate(-50%, -80%);
+}
+
+.card-content {
+	position: relative;
+	padding-top: 100%;
+}

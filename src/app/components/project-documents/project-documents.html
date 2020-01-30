@@ -1,3 +1,30 @@
-<p>
-  project-documents works!
-</p>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="2">
+        <ion-card class="card-content">
+          <ion-button class="center">
+            <label class="center" for="document" (click)="resetInput('document')">
+              <ion-icon class="center" name="add-circle"></ion-icon>
+            </label>
+          </ion-button>
+          <input
+            type="file"
+            id="document"
+            (change)="selectFile($event)"
+            multiple
+            style="display:none"
+          />
+        </ion-card>
+      </ion-col>
+      <ion-col *ngFor="let doc of documents" size="2">
+        <ion-card class="card-content">
+          <a class="center" [href]="doc.url" [target]="doc.name">
+            <ion-icon class="center" name="paper"></ion-icon>
+          </a>
+          <div class="bottom-center">{{doc.name}}</div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

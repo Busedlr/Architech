@@ -22,9 +22,9 @@
     </ion-segment-button>
   </ion-segment>
 
-  <project-info [project]="project" *ngIf="segment === 'info' && !loading"></project-info>
-  <project-images [projectId]="project.id" *ngIf="segment === 'images' && !loading"></project-images>
-  <project-documents *ngIf="segment === 'documents' && !loading"></project-documents>
+  <project-info *ngIf="segment === 'info' && !loading" [project]="project"></project-info>
+  <project-images *ngIf="segment === 'images' && !loading" [projectId]="project.id"></project-images>
+  <project-documents *ngIf="segment === 'documents' && !loading" [projectId]="project.id"></project-documents>
 </ion-content>
 
 <!-- <ion-header translucent>
