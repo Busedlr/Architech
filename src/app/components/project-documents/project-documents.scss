@@ -4,12 +4,25 @@
 	} //for when we wanna choose documents to delete
 } */
 
+
 ion-icon {
   padding: 5px;
   font-size: 80px;
   cursor: pointer;
 }
 
+.card-button {
+	position: absolute;
+	width: 70px;
+	height: 70px;
+	margin: 0;
+
+	ion-icon {
+		padding: 5px;
+		font-size: 50px;
+		cursor: pointer;
+	}
+}
 ion-grid {
   width: 80%;
 }
