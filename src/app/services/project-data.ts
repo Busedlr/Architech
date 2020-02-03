@@ -116,10 +116,23 @@ export class ProjectData {
       });
   }
 
+  deleteDocument(doc) {
+    return this.storageRef
+      .child(doc.fullPath)
+      .delete()
+      .then(res => {
+        return res;
+      });
+  }
+
   updateProjectData(imageUrl, id) {
     this.db
       .collection("projects")
       .doc(id)
       .update({ thumbnail: imageUrl });
+  }
+
+  changeDocName(fullPath, newName) {
+    this.storageRef.child(fullPath)
   }
 }

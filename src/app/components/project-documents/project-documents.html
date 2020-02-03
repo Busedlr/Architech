@@ -1,5 +1,13 @@
 <ion-content>
   <ion-grid>
+    <ion-button *ngIf="documents.length > 0" (click)="toggleEditDocuments()">
+      {{editDocuments ? 'cancel' : 'edit'}}
+    </ion-button>
+    <ion-button
+      *ngIf="editDocuments && checkedDocuments.length > 0"
+      (click)="deleteDocuments()"
+      >Delete</ion-button
+    >
     <ion-row>
       <ion-col size="2">
         <ion-card class="card-content">
@@ -17,12 +25,18 @@
           />
         </ion-card>
       </ion-col>
-      <ion-col *ngFor="let doc of documents" size="2">
-        <ion-card class="card-content">
+
+      <ion-col
+        class="image-col"
+        *ngFor="let doc of documents; let i = index"
+        size="2"
+      >
+        <ion-card (click)="documentClick(i, doc)" class="card-content">
+          <input disabled="true" [id]="i" type="checkbox" />
           <a class="center" [href]="doc.url" [target]="doc.name">
             <ion-icon class="center" name="paper"></ion-icon>
           </a>
-          <div class="bottom-center">{{doc.name}}</div>
+          <div (click)="changeName(doc.fullPath)" class="bottom-center">{{doc.name}}</div>
         </ion-card>
       </ion-col>
     </ion-row>

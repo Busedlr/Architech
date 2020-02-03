@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { ProjectData } from "src/app/services/project-data";
+import { ModalController } from '@ionic/angular';
+
+
 
 @Component({
   selector: "project-documents",
@@ -10,10 +13,19 @@ export class ProjectDocuments implements OnInit {
   @Input("projectId") projectId;
   files: any = [];
   documents: any = [];
-  constructor(public projectData: ProjectData) {}
+  checkedDocuments: any = [];
+  editDocuments: any = false;
+  canChangeName:any = false;
+  constructor(public projectData: ProjectData, public modalController: ModalController) {}
 
   ngOnInit() {
     this.getDocuments();
+  }
+
+  toggleEditDocuments() {
+    this.checkedDocuments = [];
+    this.editDocuments = !this.editDocuments;
+    if (!this.editDocuments) this.resetCheckedDocuments();
   }
 
   async selectFile(event) {
@@ -37,6 +49,7 @@ export class ProjectDocuments implements OnInit {
     } catch (error) {
       console.log(error);
     }
+    this.getDocuments();
   }
 
   async getDocuments() {
@@ -56,4 +69,48 @@ export class ProjectDocuments implements OnInit {
     }
     console.log("documents", this.documents);
   }
+
+  changeName(fullPath) {
+    if (this.editDocuments) {
+     this.canChangeName = true;
+     this.openModal(fullPath);
+    }
+  }
+
+  resetCheckedDocuments() {
+    this.documents.forEach((doc, i) => {
+      const checkbox = document.getElementById(i) as HTMLInputElement;
+      checkbox.checked = false;
+    });
+  }
+
+  documentClick(id, doc) {
+    if (this.editDocuments) {
+      const checkbox = document.getElementById(id) as HTMLInputElement;
+      checkbox.checked = !checkbox.checked;
+
+      const index = this.checkedDocuments.findIndex(
+        x => x.fullPath === doc.fullPath
+      );
+
+      if (checkbox.checked) {
+        this.checkedDocuments.push(doc);
+      } else {
+        this.checkedDocuments.splice(index, 1);
+      }
+    }
+  }
+
+  async deleteDocuments() {
+    this.checkedDocuments.forEach(img => {
+    });
+    for (let image of this.checkedDocuments) {
+      await this.projectData.deleteDocument(image);
+    }
+
+    this.toggleEditDocuments();
+    this.getDocuments();
+  }
+
+  
 }
