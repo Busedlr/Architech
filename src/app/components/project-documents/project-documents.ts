@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { ProjectData } from "src/app/services/project-data";
-import { ModalController } from '@ionic/angular';
-
-
+import { ModalController } from "@ionic/angular";
 
 @Component({
   selector: "project-documents",
@@ -11,12 +9,14 @@ import { ModalController } from '@ionic/angular';
 })
 export class ProjectDocuments implements OnInit {
   @Input("projectId") projectId;
-  files: any = [];
   documents: any = [];
   checkedDocuments: any = [];
   editDocuments: any = false;
-  canChangeName:any = false;
-  constructor(public projectData: ProjectData, public modalController: ModalController) {}
+
+  constructor(
+    public projectData: ProjectData,
+    public modalController: ModalController
+  ) {}
 
   ngOnInit() {
     this.getDocuments();
@@ -29,33 +29,40 @@ export class ProjectDocuments implements OnInit {
   }
 
   async selectFile(event) {
+    let files = [];
     for (const key of Object.keys(event.srcElement.files)) {
       const value = await event.srcElement.files[key];
-      this.files.push(value);
+      files.push(value);
     }
-    this.saveDocuments();
+    this.saveDocuments(files);
   }
 
   resetInput(inputId) {
     let fileInput = document.getElementById(inputId) as HTMLInputElement;
     fileInput.value = "";
-    this.files = [];
   }
 
-  async saveDocuments() {
-    try {
-      await this.projectData.saveDocuments(this.files, this.projectId);
-      console.log("success");
-    } catch (error) {
-      console.log(error);
+  async saveDocuments(files) {
+    let filesToUpload = [];
+    for (let file of files) {
+      const checkResult = await this.projectData.checkDocExists(
+        file,
+        this.projectId
+      );
+      if (checkResult.code === "storage/object-not-found") {
+        filesToUpload.push(file)
+      } else if(!checkResult.name) {
+        console.log("a document already exists with this name")
+      }
     }
+
+    await this.projectData.saveDocuments(filesToUpload, this.projectId);
     this.getDocuments();
   }
 
   async getDocuments() {
     this.documents = [];
     const items = await this.projectData.getDocuments(this.projectId);
-
     for (const item of items) {
       const url = await this.projectData.getDownloadUrl(item.fullPath);
 
@@ -63,17 +70,10 @@ export class ProjectDocuments implements OnInit {
         url: url,
         fullPath: item.fullPath,
         name: item.name
+        /*  type: this.getDocType(item.name) */
       };
 
       this.documents.push(document);
-    }
-    console.log("documents", this.documents);
-  }
-
-  changeName(fullPath) {
-    if (this.editDocuments) {
-     this.canChangeName = true;
-     this.openModal(fullPath);
     }
   }
 
@@ -102,8 +102,7 @@ export class ProjectDocuments implements OnInit {
   }
 
   async deleteDocuments() {
-    this.checkedDocuments.forEach(img => {
-    });
+    this.checkedDocuments.forEach(img => {});
     for (let image of this.checkedDocuments) {
       await this.projectData.deleteDocument(image);
     }
@@ -112,5 +111,9 @@ export class ProjectDocuments implements OnInit {
     this.getDocuments();
   }
 
-  
+  /* getDocType(file) {
+    let extention = "." +  file.name.substr(file.name.lastIndexOf(".") + 1);
+    console.log("getdoctype", extention);
+    return extention
+  } */
 }

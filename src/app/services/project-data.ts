@@ -51,11 +51,25 @@ export class ProjectData {
       });
   }
 
+  checkDocExists(file, id) {
+    let fullPath = id + "/documents/" + file.name;
+
+    return this.storageRef
+      .child(fullPath)
+      .getDownloadURL()
+      .then(res => {
+        return res;
+      })
+      .catch(error => {
+        return error;
+      });
+  }
+
   saveDocuments(files, id) {
     const rawFiles = [];
     files.forEach(file => {
       const promise = this.storageRef
-        .child(id + "/documents/" + file.lastModified)
+        .child(id + "/documents/" + file.name)
         .put(file)
         .catch(error => {
           console.log(error);
@@ -70,7 +84,7 @@ export class ProjectData {
 
     files.forEach(file => {
       const promise = this.storageRef
-        .child(id + '/images/' + file.lastModified)
+        .child(id + "/images/" + file.lastModified)
         .put(file)
         .catch(error => {
           console.log(error);
@@ -82,7 +96,7 @@ export class ProjectData {
 
   getDocuments(projectId) {
     return this.storageRef
-      .child(projectId + '/documents')
+      .child(projectId + "/documents")
       .listAll()
       .then(res => {
         return res.items;
@@ -91,7 +105,7 @@ export class ProjectData {
 
   getImages(projectId) {
     return this.storageRef
-      .child(projectId + '/images')
+      .child(projectId + "/images")
       .listAll()
       .then(res => {
         return res.items;
@@ -133,6 +147,6 @@ export class ProjectData {
   }
 
   changeDocName(fullPath, newName) {
-    this.storageRef.child(fullPath)
+    this.storageRef.child(fullPath);
   }
 }
