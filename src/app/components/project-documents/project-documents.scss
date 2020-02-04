@@ -75,6 +75,12 @@ ion-card {
 	width: 100%;
 }
 
+.document-card:hover {
+	.main-fab {
+		display: inline-block;
+	}
+}
+
 .square {
 	margin-top: 100%;
 }
@@ -89,4 +95,14 @@ ion-fab-button {
 	ion-icon {
 		font-size: 20px;
 	}
+}
+
+.main-fab {
+	display: none;
+}
+
+.absolute-fab {
+	position: absolute;
+	top: 10px;
+	left: calc(100% - 115px);
 }

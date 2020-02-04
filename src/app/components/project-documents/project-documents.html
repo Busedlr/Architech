@@ -17,16 +17,16 @@
       </ion-col>
 
       <ion-col *ngFor="let doc of documents; let i = index" size="3">
-        <ion-card class="document-card">
+        <ion-card (mouseleave)="switchHideFab(true)" (mouseenter)="switchHideFab(false)" class="document-card">
           <div class="square"></div>
 
-          <ion-fab vertical="top" horizontal="end">
+          <ion-fab *ngIf="!hideFab" class="main-fab" vertical="top" horizontal="end">
             <ion-fab-button size="small">
               <ion-icon name="ios-arrow-dropleft"></ion-icon>
             </ion-fab-button>
 
             <ion-fab-list side="start">
-              <ion-fab-button (click)="deleteSingleDoc(doc)">
+              <ion-fab-button (click)="confirmAction(i)">
                 <ion-icon name="trash"></ion-icon>
               </ion-fab-button>
               <ion-fab-button>
@@ -38,10 +38,24 @@
             </ion-fab-list>
           </ion-fab>
 
+          <div *ngIf="hideFab && index === i">
+            <ion-fab vertical="top" horizontal="end">
+              <ion-fab-button size="small" color="danger">
+                <ion-icon name="close"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>
+
+            <ion-fab-button (click)="deleteSingleDoc(doc)" size="small" class="absolute-fab" color="success">
+              <ion-icon name="checkmark"></ion-icon>
+            </ion-fab-button>
+          </div>
+
+
+
           <a [href]="doc.url" [target]="doc.name" class="center">
             <ion-icon slot="icon-only" name="paper" class="center document-icon"></ion-icon>
           </a>
-          <div> {{doc.name}} </div>
+          <div>{{doc.name}}</div>
         </ion-card>
       </ion-col>
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProjectData } from 'src/app/services/project-data';
-import { ModalController } from '@ionic/angular';
+import { ModalController, FabContainer } from '@ionic/angular';
 
 @Component({
 	selector: 'project-documents',
@@ -11,9 +11,11 @@ export class ProjectDocuments implements OnInit {
 	@Input('projectId') projectId;
 	documents: any = [];
 	checkedDocuments: any = [];
-	editDocuments: any = false;
+	editDocuments: boolean = false;
 	changeNameIndex: any;
 	changeButtons: boolean = false;
+	hideFab: boolean = false;
+	index: number = null;
 
 	constructor(
 		public projectData: ProjectData,
@@ -99,6 +101,7 @@ export class ProjectDocuments implements OnInit {
 
 	async deleteSingleDoc(doc) {
 		await this.projectData.deleteDocument(doc);
+		this.index = null;
 		this.getDocuments();
 	}
 
@@ -115,6 +118,15 @@ export class ProjectDocuments implements OnInit {
 			doc.fullPath
 		);
 		this.documents[i].name = metadata.customMetadata.docName;
+	}
+
+	switchHideFab(val) {
+		this.hideFab = val;
+	}
+
+	confirmAction(i) {
+		this.index = i;
+		this.hideFab = true;
 	}
 
 	/* getDocType(file) {
