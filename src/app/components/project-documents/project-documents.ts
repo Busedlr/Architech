@@ -89,12 +89,16 @@ export class ProjectDocuments implements OnInit {
 	}
 
 	async deleteDocuments() {
-		this.checkedDocuments.forEach(img => {});
-		for (let image of this.checkedDocuments) {
-			await this.projectData.deleteDocument(image);
+		for (let doc of this.checkedDocuments) {
+			await this.projectData.deleteDocument(doc);
 		}
 
 		this.toggleEditDocuments();
+		this.getDocuments();
+	}
+
+	async deleteSingleDoc(doc) {
+		await this.projectData.deleteDocument(doc);
 		this.getDocuments();
 	}
 

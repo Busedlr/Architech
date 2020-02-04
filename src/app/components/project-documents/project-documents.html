@@ -26,7 +26,7 @@
             </ion-fab-button>
 
             <ion-fab-list side="start">
-              <ion-fab-button>
+              <ion-fab-button (click)="deleteSingleDoc(doc)">
                 <ion-icon name="trash"></ion-icon>
               </ion-fab-button>
               <ion-fab-button>
@@ -41,6 +41,7 @@
           <a [href]="doc.url" [target]="doc.name" class="center">
             <ion-icon slot="icon-only" name="paper" class="center document-icon"></ion-icon>
           </a>
+          <div> {{doc.name}} </div>
         </ion-card>
       </ion-col>
 
