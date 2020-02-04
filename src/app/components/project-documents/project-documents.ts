@@ -1,119 +1,119 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { ProjectData } from "src/app/services/project-data";
-import { ModalController } from "@ionic/angular";
+import { Component, OnInit, Input } from '@angular/core';
+import { ProjectData } from 'src/app/services/project-data';
+import { ModalController } from '@ionic/angular';
 
 @Component({
-  selector: "project-documents",
-  templateUrl: "./project-documents.html",
-  styleUrls: ["./project-documents.scss"]
+	selector: 'project-documents',
+	templateUrl: './project-documents.html',
+	styleUrls: ['./project-documents.scss']
 })
 export class ProjectDocuments implements OnInit {
-  @Input("projectId") projectId;
-  documents: any = [];
-  checkedDocuments: any = [];
-  editDocuments: any = false;
-  changeNameIndex: any;
-  changeButtons: boolean = false;
+	@Input('projectId') projectId;
+	documents: any = [];
+	checkedDocuments: any = [];
+	editDocuments: any = false;
+	changeNameIndex: any;
+	changeButtons: boolean = false;
 
-  constructor(
-    public projectData: ProjectData,
-    public modalController: ModalController
-  ) {}
+	constructor(
+		public projectData: ProjectData,
+		public modalController: ModalController
+	) {}
 
-  ngOnInit() {
-    this.getDocuments();
-  }
+	ngOnInit() {
+		this.getDocuments();
+	}
 
-  toggleEditDocuments() {
-    this.checkedDocuments = [];
-    this.editDocuments = !this.editDocuments;
-    if (!this.editDocuments) this.resetCheckedDocuments();
-  }
+	toggleEditDocuments() {
+		this.checkedDocuments = [];
+		this.editDocuments = !this.editDocuments;
+		if (!this.editDocuments) this.resetCheckedDocuments();
+	}
 
-  async selectFile(event) {
-    let files = [];
-    for (const key of Object.keys(event.srcElement.files)) {
-      const value = await event.srcElement.files[key];
-      files.push(value);
-    }
-    this.saveDocuments(files);
-  }
+	async selectFile(event) {
+		let files = [];
+		for (const key of Object.keys(event.srcElement.files)) {
+			const value = await event.srcElement.files[key];
+			files.push(value);
+		}
+		this.saveDocuments(files);
+	}
 
-  resetInput(inputId) {
-    let fileInput = document.getElementById(inputId) as HTMLInputElement;
-    fileInput.value = "";
-  }
+	resetInput(inputId) {
+		let fileInput = document.getElementById(inputId) as HTMLInputElement;
+		fileInput.value = '';
+	}
 
-  async saveDocuments(files) {
-    await this.projectData.saveDocuments(files, this.projectId);
-    this.getDocuments();
-  }
+	async saveDocuments(files) {
+		await this.projectData.saveDocuments(files, this.projectId);
+		this.getDocuments();
+	}
 
-  async getDocuments() {
-    this.documents = [];
-    const items = await this.projectData.getDocuments(this.projectId);
-    for (const item of items) {
-      const url = await this.projectData.getDownloadUrl(item.fullPath);
-      const metaData = await this.projectData.getMetadata(item.fullPath);
-      const document = {
-        url: url,
-        fullPath: item.fullPath,
-        name: metaData.customMetadata.docName
-      };
-      this.documents.push(document);
-    }
-  }
+	async getDocuments() {
+		this.documents = [];
+		const items = await this.projectData.getDocuments(this.projectId);
+		for (const item of items) {
+			const url = await this.projectData.getDownloadUrl(item.fullPath);
+			const metaData = await this.projectData.getMetadata(item.fullPath);
+			const document = {
+				url: url,
+				fullPath: item.fullPath,
+				name: metaData.customMetadata.docName
+			};
+			this.documents.push(document);
+		}
+	}
 
-  resetCheckedDocuments() {
-    this.documents.forEach((doc, i) => {
-      const checkbox = document.getElementById(i) as HTMLInputElement;
-      checkbox.checked = false;
-    });
-  }
+	resetCheckedDocuments() {
+		this.documents.forEach((doc, i) => {
+			const checkbox = document.getElementById(i) as HTMLInputElement;
+			checkbox.checked = false;
+		});
+	}
 
-  documentClick(id, doc) {
-    if (this.editDocuments) {
-      const checkbox = document.getElementById(id) as HTMLInputElement;
-      checkbox.checked = !checkbox.checked;
+	documentClick(id, doc) {
+		if (this.editDocuments) {
+			const checkbox = document.getElementById(id) as HTMLInputElement;
+			checkbox.checked = !checkbox.checked;
 
-      const index = this.checkedDocuments.findIndex(
-        x => x.fullPath === doc.fullPath
-      );
+			const index = this.checkedDocuments.findIndex(
+				x => x.fullPath === doc.fullPath
+			);
 
-      if (checkbox.checked) {
-        this.checkedDocuments.push(doc);
-      } else {
-        this.checkedDocuments.splice(index, 1);
-      }
-    }
-  }
+			if (checkbox.checked) {
+				this.checkedDocuments.push(doc);
+			} else {
+				this.checkedDocuments.splice(index, 1);
+			}
+		}
+	}
 
-  async deleteDocuments() {
-    this.checkedDocuments.forEach(img => {});
-    for (let image of this.checkedDocuments) {
-      await this.projectData.deleteDocument(image);
-    }
+	async deleteDocuments() {
+		this.checkedDocuments.forEach(img => {});
+		for (let image of this.checkedDocuments) {
+			await this.projectData.deleteDocument(image);
+		}
 
-    this.toggleEditDocuments();
-    this.getDocuments();
-  }
+		this.toggleEditDocuments();
+		this.getDocuments();
+	}
 
-  editName(i) {
-    this.changeButtons = true;
-    this.changeNameIndex = i;
-  }
+	editName(i) {
+		this.changeButtons = true;
+		this.changeNameIndex = i;
+	}
 
-  async changeName(i, doc) {
-    this.changeButtons = false;
-    const newName = document.getElementById(i) as HTMLInputElement;
-    const metadata = await this.projectData.updateMetadata(
-      newName.value,
-      doc.fullPath
-    );
-    this.documents[i].name = metadata.customMetadata.docName;
-  }
+	async changeName(i, doc) {
+		this.changeButtons = false;
+		const newName = document.getElementById(i) as HTMLInputElement;
+		const metadata = await this.projectData.updateMetadata(
+			newName.value,
+			doc.fullPath
+		);
+		this.documents[i].name = metadata.customMetadata.docName;
+	}
 
-  /* getDocType(file) {
+	/* getDocType(file) {
     let extention = "." +  file.name.substr(file.name.lastIndexOf(".") + 1);
     console.log("getdoctype", extention);
     return extention

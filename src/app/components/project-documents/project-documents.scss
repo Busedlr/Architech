@@ -5,44 +5,38 @@
 } */
 
 .display-none {
-  display: none;
+	display: none;
 }
 
 .change-name {
-  /* display: none; */
-  position: absolute;
-  left: 8%;
-  bottom: 77%;
-  transform: translate(-8%, -77%);
+	/* display: none; */
+	position: absolute;
+	left: 8%;
+	bottom: 77%;
+	transform: translate(-8%, -77%);
 }
 
 .doc-name {
-  position: absolute;
-  left: 15%;
-  top: 80%;
-  transform: translate(15%, 80%);
-}
-
-ion-icon {
-  padding: 5px;
-  font-size: 80px;
-  cursor: pointer;
+	position: absolute;
+	left: 15%;
+	top: 80%;
+	transform: translate(15%, 80%);
 }
 
 .card-button {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  margin: 0;
+	position: absolute;
+	width: 70px;
+	height: 70px;
+	margin: 0;
 
-  ion-icon {
-    padding: 5px;
-    font-size: 50px;
-    cursor: pointer;
-  }
+	ion-icon {
+		padding: 5px;
+		font-size: 50px;
+		cursor: pointer;
+	}
 }
 ion-grid {
-  width: 80%;
+	width: 80%;
 }
 
 /* ion-card:hover .change-name {
@@ -50,25 +44,49 @@ ion-grid {
 } */
 
 ion-card {
-  position: relative;
-  width: calc(100% - 20px);
-}
-
-.center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+	position: relative;
+	width: calc(100% - 20px);
 }
 
 .bottom-center {
-  position: absolute;
-  left: 50%;
-  top: 80%;
-  transform: translate(-50%, -80%);
+	position: absolute;
+	left: 50%;
+	top: 80%;
+	transform: translate(-50%, -80%);
 }
 
 .card-content {
-  position: relative;
-  padding-top: 100%;
+	position: relative;
+	padding-top: 100%;
+}
+
+////////////////////////////////////:
+
+.center {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.document-card {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+}
+
+.square {
+	margin-top: 100%;
+}
+
+.document-icon {
+	padding: 5px;
+	font-size: 120px;
+	cursor: pointer;
+}
+
+ion-fab-button {
+	ion-icon {
+		font-size: 20px;
+	}
 }

@@ -3,11 +3,7 @@
     <ion-button *ngIf="documents.length > 0" (click)="toggleEditDocuments()">
       {{editDocuments ? 'cancel' : 'edit'}}
     </ion-button>
-    <ion-button
-      *ngIf="editDocuments && checkedDocuments.length > 0"
-      (click)="deleteDocuments()"
-      >Delete</ion-button
-    >
+    <ion-button *ngIf="editDocuments && checkedDocuments.length > 0" (click)="deleteDocuments()">Delete</ion-button>
     <ion-row>
       <ion-col size="3">
         <ion-card class="card-content">
@@ -16,53 +12,56 @@
               <ion-icon class="center" name="add-circle"></ion-icon>
             </label>
           </ion-button>
-          <input
-            type="file"
-            id="document"
-            (change)="selectFile($event)"
-            multiple
-            style="display:none"
-          />
+          <input type="file" id="document" (change)="selectFile($event)" multiple style="display:none" />
         </ion-card>
       </ion-col>
 
-      <ion-col
-        class="image-col"
-        *ngFor="let doc of documents; let i = index"
-        size="3"
-      >
+      <ion-col *ngFor="let doc of documents; let i = index" size="3">
+        <ion-card class="document-card">
+          <div class="square"></div>
+
+          <ion-fab vertical="top" horizontal="end">
+            <ion-fab-button size="small">
+              <ion-icon name="ios-arrow-dropleft"></ion-icon>
+            </ion-fab-button>
+
+            <ion-fab-list side="start">
+              <ion-fab-button>
+                <ion-icon name="trash"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button>
+                <ion-icon name="md-create"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button>
+                <ion-icon name="ios-checkmark-circle-outline"></ion-icon>
+              </ion-fab-button>
+            </ion-fab-list>
+          </ion-fab>
+
+          <a [href]="doc.url" [target]="doc.name" class="center">
+            <ion-icon slot="icon-only" name="paper" class="center document-icon"></ion-icon>
+          </a>
+        </ion-card>
+      </ion-col>
+
+
+
+
+      <!-- <ion-col class="image-col" *ngFor="let doc of documents; let i = index" size="3">
         <ion-card (click)="documentClick(i, doc)" class="card-content">
           <span>
-            <ion-button *ngIf="!changeButtons"
-              class="change-name"
-              (click)="editName(i, doc)"
-              >Edit name</ion-button
-            >
+            <ion-button *ngIf="!changeButtons" class="change-name" (click)="editName(i, doc)">Edit name</ion-button>
 
-            <ion-button
-              *ngIf="changeButtons"
-              class="change-name"
-              (click)="changeName(i, doc)"
-              >change name</ion-button
-            >
-            <input
-              *ngIf="changeButtons && changeNameIndex === i"
-              type="text"
-              [id]="i"
-            />
+            <ion-button *ngIf="changeButtons" class="change-name" (click)="changeName(i, doc)">change name</ion-button>
+            <input *ngIf="changeButtons && changeNameIndex === i" type="text" [id]="i" />
           </span>
-          <input
-            class="display-none"
-            disabled="true"
-            [id]="i"
-            type="checkbox"
-          />
+          <input class="display-none" disabled="true" [id]="i" type="checkbox" />
           <div class="doc-name">{{doc.name}}</div>
           <a class="center" [href]="doc.url" [target]="doc.name">
             <ion-icon class="center" name="paper"></ion-icon>
           </a>
         </ion-card>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
   </ion-grid>
 </ion-content>
