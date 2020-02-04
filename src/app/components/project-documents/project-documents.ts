@@ -12,6 +12,8 @@ export class ProjectDocuments implements OnInit {
   documents: any = [];
   checkedDocuments: any = [];
   editDocuments: any = false;
+  changeNameIndex: any;
+  changeButtons: boolean = false;
 
   constructor(
     public projectData: ProjectData,
@@ -43,20 +45,7 @@ export class ProjectDocuments implements OnInit {
   }
 
   async saveDocuments(files) {
-    let filesToUpload = [];
-    for (let file of files) {
-      const checkResult = await this.projectData.checkDocExists(
-        file,
-        this.projectId
-      );
-      if (checkResult.code === "storage/object-not-found") {
-        filesToUpload.push(file)
-      } else if(!checkResult.name) {
-        console.log("a document already exists with this name")
-      }
-    }
-
-    await this.projectData.saveDocuments(filesToUpload, this.projectId);
+    await this.projectData.saveDocuments(files, this.projectId);
     this.getDocuments();
   }
 
@@ -65,14 +54,12 @@ export class ProjectDocuments implements OnInit {
     const items = await this.projectData.getDocuments(this.projectId);
     for (const item of items) {
       const url = await this.projectData.getDownloadUrl(item.fullPath);
-
+      const metaData = await this.projectData.getMetadata(item.fullPath);
       const document = {
         url: url,
         fullPath: item.fullPath,
-        name: item.name
-        /*  type: this.getDocType(item.name) */
+        name: metaData.customMetadata.docName
       };
-
       this.documents.push(document);
     }
   }
@@ -109,6 +96,21 @@ export class ProjectDocuments implements OnInit {
 
     this.toggleEditDocuments();
     this.getDocuments();
+  }
+
+  editName(i) {
+    this.changeButtons = true;
+    this.changeNameIndex = i;
+  }
+
+  async changeName(i, doc) {
+    this.changeButtons = false;
+    const newName = document.getElementById(i) as HTMLInputElement;
+    const metadata = await this.projectData.updateMetadata(
+      newName.value,
+      doc.fullPath
+    );
+    this.documents[i].name = metadata.customMetadata.docName;
   }
 
   /* getDocType(file) {

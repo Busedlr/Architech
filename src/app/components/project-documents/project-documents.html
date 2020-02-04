@@ -9,7 +9,7 @@
       >Delete</ion-button
     >
     <ion-row>
-      <ion-col size="2">
+      <ion-col size="3">
         <ion-card class="card-content">
           <ion-button class="card-button center">
             <label for="document" (click)="resetInput('document')">
@@ -29,14 +29,38 @@
       <ion-col
         class="image-col"
         *ngFor="let doc of documents; let i = index"
-        size="2"
+        size="3"
       >
         <ion-card (click)="documentClick(i, doc)" class="card-content">
-          <input disabled="true" [id]="i" type="checkbox" />
+          <span>
+            <ion-button *ngIf="!changeButtons"
+              class="change-name"
+              (click)="editName(i, doc)"
+              >Edit name</ion-button
+            >
+
+            <ion-button
+              *ngIf="changeButtons"
+              class="change-name"
+              (click)="changeName(i, doc)"
+              >change name</ion-button
+            >
+            <input
+              *ngIf="changeButtons && changeNameIndex === i"
+              type="text"
+              [id]="i"
+            />
+          </span>
+          <input
+            class="display-none"
+            disabled="true"
+            [id]="i"
+            type="checkbox"
+          />
+          <div class="doc-name">{{doc.name}}</div>
           <a class="center" [href]="doc.url" [target]="doc.name">
             <ion-icon class="center" name="paper"></ion-icon>
           </a>
-          <div class="bottom-center">{{doc.name}}</div>
         </ion-card>
       </ion-col>
     </ion-row>

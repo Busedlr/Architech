@@ -51,32 +51,46 @@ export class ProjectData {
       });
   }
 
-  checkDocExists(file, id) {
-    let fullPath = id + "/documents/" + file.name;
-
-    return this.storageRef
-      .child(fullPath)
-      .getDownloadURL()
-      .then(res => {
-        return res;
-      })
-      .catch(error => {
-        return error;
-      });
-  }
-
   saveDocuments(files, id) {
     const rawFiles = [];
     files.forEach(file => {
+      let extension = "." + file.name.substr(file.name.lastIndexOf(".") + 1);
+      const fullPath = id + "/documents/" + file.lastModified + extension;
       const promise = this.storageRef
-        .child(id + "/documents/" + file.name)
+        .child(fullPath)
         .put(file)
+        .then(() => {
+          this.updateMetadata(file.name, fullPath);
+        })
         .catch(error => {
           console.log(error);
         });
       rawFiles.push(promise);
     });
     return Promise.all(rawFiles);
+  }
+
+  updateMetadata(name, fullPath) {
+    let newMetadata = {
+      customMetadata: {
+        docName: name
+      }
+    };
+    return this.storageRef
+      .child(fullPath)
+      .updateMetadata(newMetadata)
+      .then(res => {
+        return res;
+      });
+  }
+
+  getMetadata(fullPath) {
+    return this.storageRef
+      .child(fullPath)
+      .getMetadata()
+      .then(res => {
+        return res;
+      });
   }
 
   saveImages(files, id) {
