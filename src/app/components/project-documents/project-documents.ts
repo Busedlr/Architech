@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProjectData } from 'src/app/services/project-data';
-import { ModalController, FabContainer } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 
 @Component({
 	selector: 'project-documents',
