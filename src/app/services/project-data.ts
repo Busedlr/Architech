@@ -28,6 +28,18 @@ export class ProjectData {
       });
   }
 
+  updateProject(projectData, projectId) {
+    return this.projectsRef
+      .doc(projectId)
+      .update(projectData)
+      .then(() => {
+        return true;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   getProjects() {
     return this.projectsRef
       .get()
