@@ -4,23 +4,23 @@
         <ion-col size="6">
           <ion-card>
             <div>Project Information</div>
-            <div>{{ project.project_name }}</div>
-            <div>{{ project.project_type }}</div>
-            <div>{{ project.work_type }}</div>
-            <div>{{ project.project_address }}</div>
-            <div>{{ project.surface }}</div>
-            <div>{{ project.budget }}</div>
-            <div>{{ project.project_notes }}</div>
+            <div>{{ project.info.project_name }}</div>
+            <div>{{ project.info.project_type }}</div>
+            <div>{{ project.info.work_type }}</div>
+            <div>{{ project.info.project_address }}</div>
+            <div>{{ project.info.surface }}</div>
+            <div>{{ project.info.budget }}</div>
+            <div>{{ project.info.project_notes }}</div>
           </ion-card>
         </ion-col>
         <ion-col size="6">
           <ion-card>
             <div>client Information</div>
-            <div>{{ project.first_name }} {{ project.last_name }}</div>
-            <div>{{ project.job }}</div>
-            <div>{{ project.client_address }}</div>
-            <div>{{ project.phone }}</div>
-            <div>{{ project.client_notes }}</div>
+            <div>{{ project.info.first_name }} {{ project.info.last_name }}</div>
+            <div>{{ project.info.job }}</div>
+            <div>{{ project.info.client_address }}</div>
+            <div>{{ project.info.phone }}</div>
+            <div>{{ project.info.client_notes }}</div>
           </ion-card>
           <ion-button (click)="updateForm(project)">update</ion-button>
         </ion-col>

@@ -25,6 +25,7 @@ export class HomePage {
     this.projectData.getProjects().then(result => {
       result.docs.forEach(doc => {
         let project = doc.data();
+        console.log(project)
         project.id = doc.id;
         this.projects.push(project);
       });

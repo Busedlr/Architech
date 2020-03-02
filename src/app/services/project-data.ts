@@ -15,6 +15,18 @@ export class ProjectData {
     this.db = firebase.firestore();
     this.projectsRef = this.db.collection("projects");
     this.storageRef = firebase.storage().ref();
+    
+  }
+
+  saveList() {
+    return this.projectsRef.doc("list")
+      .add()
+      .then(doc => {
+        return doc;
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   saveProject(projectData) {

@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>todo-list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="!showDetail">
+    <ion-item *ngFor="let item of items" (click)="openItem(item)">
+      {{item}}
+      <span
+        >
+        <ion-icon name="close"></ion-icon></span>
+    </ion-item>
+    <ion-icon name="close-outline"></ion-icon>
+
+    <input type="text" [(ngModel)]="newItem" />
+    <ion-button (click)="addItem()">add</ion-button>
+  </ion-list>
+
+  <div *ngIf="showDetail">
+    <div>{{selectedItem}}</div>
+    <ion-button (click)="deleteItem()">delete</ion-button>
+  </div>
+</ion-content>

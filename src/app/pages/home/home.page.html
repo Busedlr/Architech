@@ -7,14 +7,15 @@
 </ion-header>
 
 <ion-content>
-  <!-- <ion-card [routerLink]="['../project-detail/', project.id]" *ngFor="let project of projects"> -->
   <ion-card (click)="goToDetail(project.id)" *ngFor="let project of projects">
     <img src="{{ project.thumbnail }}" alt="project image"/>
-    <div>{{ project.project_name }}</div>
-    <div>{{ project.first_name }} {{ project.last_name }}</div>
-    <div>{{ project.project_address }}</div>
+    <div>{{ project.info.project_name }}</div>
+    <div>{{ project.info.first_name }} {{ project.info.last_name }}</div>
+    <div>{{ project.info.project_address }}</div>
   </ion-card>
   <ion-button [routerLink]="'/create-project'" routerDirection="forward"
     >create a new project</ion-button
   >
+
+  <to-do-list></to-do-list>
 </ion-content>

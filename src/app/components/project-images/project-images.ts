@@ -128,4 +128,5 @@ export class ProjectImages implements OnInit {
       dismissed: true
     });
   }
+  
 }

@@ -13,8 +13,7 @@ export class CreateProjectPage implements OnInit {
   db: any;
   projectsRef: any;
   formInfo: any = null;
-  previousInfo : boolean = false;
-  
+  previousInfo: boolean = false;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -148,7 +147,7 @@ export class CreateProjectPage implements OnInit {
         project_notes: controls.projectNotes.value
       };
 
-      const doc = await this.ProjectData.updateProject(projectData, this.formInfo.id);
+      await this.ProjectData.updateProject(projectData, this.formInfo.id);
       this.router.navigate(["/project-detail/" + this.formInfo.id]);
     } else {
       console.log("please complete the form");
@@ -160,20 +159,22 @@ export class CreateProjectPage implements OnInit {
 
     if (this.projectForm.valid) {
       const projectData = {
-        first_name: controls.firstName.value,
-        last_name: controls.lastName.value,
-        job: controls.job.value,
-        email: controls.email.value,
-        phone: controls.phone.value,
-        client_address: controls.clientAddress.value,
-        client_notes: controls.clientNotes.value,
-        project_name: controls.projectName.value,
-        project_type: controls.projectType.value,
-        work_type: controls.workType.value,
-        project_address: controls.projectAddress.value,
-        budget: controls.budget.value,
-        surface: controls.surface.value,
-        project_notes: controls.projectNotes.value
+        info : {
+          first_name: controls.firstName.value,
+          last_name: controls.lastName.value,
+          job: controls.job.value,
+          email: controls.email.value,
+          phone: controls.phone.value,
+          client_address: controls.clientAddress.value,
+          client_notes: controls.clientNotes.value,
+          project_name: controls.projectName.value,
+          project_type: controls.projectType.value,
+          work_type: controls.workType.value,
+          project_address: controls.projectAddress.value,
+          budget: controls.budget.value,
+          surface: controls.surface.value,
+          project_notes: controls.projectNotes.value
+        }
       };
 
       const doc = await this.ProjectData.saveProject(projectData);

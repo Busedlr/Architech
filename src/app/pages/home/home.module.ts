@@ -6,11 +6,15 @@ import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 
+import { TodoListPage } from 'src/app/modals/todo-list/todo-list.page';
+import { ComponentsModule } from 'src/app/components/components.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     RouterModule.forChild([
       {
         path: '',
@@ -18,6 +22,9 @@ import { HomePage } from './home.page';
       }
     ])
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, TodoListPage],
+  entryComponents: [
+    TodoListPage
+  ]
 })
-export class HomePageModule {zz}
+export class HomePageModule {}
