@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { ImageDisplayModalPage } from "./image-display-modal.page";
+import { ImageDisplayModalPage } from "./image-display.page";
 
 const routes: Routes = [
   {

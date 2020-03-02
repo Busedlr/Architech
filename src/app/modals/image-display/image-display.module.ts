@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ImageDisplayModalPageRoutingModule } from './image-display-modal-routing.module';
+import { ImageDisplayModalPageRoutingModule } from './image-display-routing.module';
 
 
 @NgModule({

@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 
 import { ProjectData } from "src/app/services/project-data";
-import { ImageDisplayModalPage } from "src/app/modals/image-display-modal/image-display-modal.page";
+import { ImageDisplayModalPage } from "src/app/modals/image-display/image-display.page";
 
 @Component({
   selector: "project-images",

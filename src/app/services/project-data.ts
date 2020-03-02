@@ -18,9 +18,9 @@ export class ProjectData {
     
   }
 
-  saveList() {
-    return this.projectsRef.doc("list")
-      .add()
+  saveList(list, id) {
+    return this.projectsRef.doc(id)
+      .add(list)
       .then(doc => {
         return doc;
       })

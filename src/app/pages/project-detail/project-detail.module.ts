@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ProjectDetailRoutingModule } from './project-detail-routing.module';
 import { ProjectDetail } from './project-detail';
-import { ImageDisplayModalPage } from 'src/app/modals/image-display-modal/image-display-modal.page';
+import { ImageDisplayModalPage } from 'src/app/modals/image-display/image-display.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 

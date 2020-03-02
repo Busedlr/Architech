@@ -28,17 +28,14 @@ const routes: Routes = [
       )
   },
   {
-    path: 'image-display-modal',
-    loadChildren: () => import('./modals/image-display-modal/image-display-modal.module').then( m => m.ImageDisplayModalPageModule)
+    path: 'image-display',
+    loadChildren: () => import('./modals/image-display/image-display.module').then( m => m.ImageDisplayModalPageModule)
   },
   {
     path: 'todo-list',
     loadChildren: () => import('./modals/todo-list/todo-list.module').then( m => m.TodoListPageModule)
   },
-  {
-    path: 'item-detail',
-    loadChildren: () => import('./modals/item-detail/item-detail.module').then( m => m.ItemDetailPageModule)
-  }
+
 ];
 
 @NgModule({

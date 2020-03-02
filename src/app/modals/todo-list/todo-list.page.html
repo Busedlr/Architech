@@ -5,8 +5,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="!showDetail">
-    <ion-item *ngFor="let item of items" (click)="openItem(item)">
+  <ion-list>
+    <ion-item *ngFor="let item of items">
       {{item}}
       <span
         >
@@ -18,8 +18,6 @@
     <ion-button (click)="addItem()">add</ion-button>
   </ion-list>
 
-  <div *ngIf="showDetail">
-    <div>{{selectedItem}}</div>
-    <ion-button (click)="deleteItem()">delete</ion-button>
-  </div>
+  <ion-button (click)="dismiss()">save</ion-button>
+
 </ion-content>

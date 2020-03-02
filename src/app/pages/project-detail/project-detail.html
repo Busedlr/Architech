@@ -25,6 +25,12 @@
   <project-info *ngIf="segment === 'info' && !loading" [project]="project"></project-info>
   <project-images *ngIf="segment === 'images' && !loading" [projectId]="project.id"></project-images>
   <project-documents *ngIf="segment === 'documents' && !loading" [projectId]="project.id"></project-documents>
+
+  <project-to-do-list></project-to-do-list>
+
+  <!-- <ion-button [routerLink]="'/create-project'" routerDirection="forward"
+  >create a new project</ion-button
+> -->
 </ion-content>
 
 <!-- <ion-header translucent>

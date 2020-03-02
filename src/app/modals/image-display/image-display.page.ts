@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
-  selector: "app-image-display-modal",
-  templateUrl: "./image-display-modal.page.html",
-  styleUrls: ["./image-display-modal.page.scss"]
+  selector: "app-image-display",
+  templateUrl: "./image-display.page.html",
+  styleUrls: ["./image-display.page.scss"]
 })
 export class ImageDisplayModalPage implements OnInit {
   @Input() images: [];
