@@ -1,3 +1,21 @@
-<div (click)="openModal()">
-go to to do list
-</div>
+<ion-card>
+  <ion-row>
+    <ion-col>
+      <ion-item *ngFor="let item of items">
+        {{item.title}}
+        <br />
+        {{item.detail}}
+        <ion-checkbox
+          slot="start"
+          color="primary"
+          [(ngModel)]="item.checked"
+        ></ion-checkbox>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <div class="icon-container" (click)="openModal()">
+      <ion-icon name="resize"></ion-icon>
+    </div>
+  </ion-row>
+</ion-card>

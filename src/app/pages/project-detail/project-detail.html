@@ -1,110 +1,54 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/create-project"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Project Detail</ion-title>
+    <ion-title>Project Detail</ion-title><!-- 
+    <ion-button (click)="goHome()">home</ion-button> -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
-    <ion-segment-button value="info">
-      <ion-label>information</ion-label>
-    </ion-segment-button>
+  <ion-grid class="page-container">
+    <ion-row>
+      <ion-col size="4">
+        <project-info [project]="project"></project-info>
+      </ion-col>
+      <ion-col size="4">
+        <project-to-do-list [project]="project"></project-to-do-list>
+      </ion-col>
+      <ion-col size="4">
+        <project-calendar></project-calendar>
+      </ion-col>
+    </ion-row>
 
-    <ion-segment-button value="images">
-      <ion-label>images</ion-label>
-    </ion-segment-button>
+    <ion-row>
+      <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
+        <ion-col>
+          <ion-segment-button value="images">
+            <ion-label>images</ion-label>
+          </ion-segment-button>
+        </ion-col>
+        <ion-col>
+          <ion-segment-button value="documents">
+            <ion-label>documents</ion-label>
+          </ion-segment-button>
+        </ion-col>
 
-    <ion-segment-button value="documents">
-      <ion-label>documents</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+        <ion-col>
+          <ion-segment-button value="companies">
+            <ion-label>companies</ion-label>
+          </ion-segment-button>
+        </ion-col>
+      </ion-segment>
 
-  <project-info *ngIf="segment === 'info' && !loading" [project]="project"></project-info>
-  <project-images *ngIf="segment === 'images' && !loading" [projectId]="project.id"></project-images>
-  <project-documents *ngIf="segment === 'documents' && !loading" [projectId]="project.id"></project-documents>
-
-  <project-to-do-list></project-to-do-list>
-
-  <!-- <ion-button [routerLink]="'/create-project'" routerDirection="forward"
-  >create a new project</ion-button
-> -->
+      <project-images
+        class="segments"
+        *ngIf="segment === 'images'"
+        [projectId]="project.id"
+      ></project-images>
+      <project-documents
+        class="segments"
+        *ngIf="segment === 'documents'"
+        [projectId]="project.id"
+      ></project-documents>
+    </ion-row>
+  </ion-grid>
 </ion-content>
-
-<!-- <ion-header translucent>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/create-project"></ion-back-button>
-    </ion-buttons>
-    <ion-title>project detail bla</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <div *ngIf="loading">LOADING</div>
-
-  <div *ngIf="!loading">
-    <ion-grid>
-      <ion-row>
-        <ion-col size="6">
-          <ion-card>
-            <div>Project Information</div>
-            <div>{{ project?.project_name }}</div>
-            <div>{{ project?.project_type }}</div>
-            <div>{{ project?.work_type }}</div>
-            <div>{{ project?.project_address }}</div>
-            <div>{{ project?.surface }}</div>
-            <div>{{ project?.budget }}</div>
-            <div>{{ project?.project_notes }}</div>
-          </ion-card>
-        </ion-col>
-        <ion-col size="6">
-          <ion-card>
-            <div>client Information</div>
-            <div>{{ project?.first_name }} {{ project?.last_name }}</div>
-            <div>{{ project?.job }}</div>
-            <div>{{ project?.client_address }}</div>
-            <div>{{ project?.phone }}</div>
-            <div>{{ project?.client_notes }}</div>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-
-      <ion-button *ngIf="images.length > 0" (click)="toggleEditImages()"> {{editImages ? 'cancel' : 'edit'}} </ion-button>
-      <ion-button *ngIf="editImages && checkedImages.length > 0" (click)="deleteImages()">Delete</ion-button>
-
-      <ion-row>
-        <ion-col size="4">
-          <ion-card class="card-content">
-            <ion-button class="card-button center">
-              <label for="projectImage" (click)="resetInput('projectImage')">
-                <ion-icon class="center" name="add-circle"></ion-icon>
-              </label>
-            </ion-button>
-            <input
-              type="file"
-              id="projectImage"
-              (change)="selectFile($event)"
-              multiple
-              style="display:none"
-            />
-          </ion-card>
-        </ion-col>
-        <ion-col
-          size="4"
-          class="image-col"
-          *ngFor="let image of images; let i = index"
-        >
-          <ion-card (click)="imageClick(i, image)" class="card-content">
-            <input disabled="true" [id]="i" type="checkbox" />
-            <label [for]="i"
-              ><img [src]="image.url" alt="project image"
-            /></label>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-</ion-content> -->

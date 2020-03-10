@@ -1,9 +1,6 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
-    </ion-buttons>
-    <ion-title>create a project</ion-title>
+        <ion-title>create a project</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -109,7 +106,7 @@
 
       <ion-item>
         <ion-label>address</ion-label>
-        <br/>
+        <br />
         <ion-input formControlName="projectAddress"></ion-input>
       </ion-item>
 
@@ -124,11 +121,13 @@
       </ion-item>
 
       <ion-item>
-          <ion-label>notes</ion-label>
-          <ion-textarea formControlName="projectNotes"></ion-textarea>
-        </ion-item>
+        <ion-label>notes</ion-label>
+        <ion-textarea formControlName="projectNotes"></ion-textarea>
+      </ion-item>
     </ion-card>
   </form>
 
-  <ion-button (click)="saveForm()"> {{previousInfo ? 'update' : 'submit'}} </ion-button>
+  <ion-button (click)="saveForm()">
+    {{previousInfo ? 'update' : 'submit'}}
+  </ion-button>
 </ion-content>

@@ -10,7 +10,9 @@ import { ProjectInfo } from './project-info/project-info';
 import { ProjectImages } from './project-images/project-images';
 import { ProjectDocuments } from './project-documents/project-documents';
 import { ProjectCompanies } from './project-companies/project-companies';
+import { ProjectCalendarComponent } from './project-calendar/project-calendar.component';
 import { ToDoList } from './project-to-do-list/project-to-do-list';
+
 
 
 
@@ -18,8 +20,8 @@ import { ToDoList } from './project-to-do-list/project-to-do-list';
 
 @NgModule({
     imports: [CommonModule, FormsModule, IonicModule, RouterModule],
-    declarations: [ProjectInfo, ProjectImages, ProjectDocuments, ProjectCompanies, ToDoList],
-    exports: [ProjectInfo, ProjectImages, ProjectDocuments, ProjectCompanies, ToDoList]
+    declarations: [ProjectInfo, ProjectImages, ProjectDocuments, ProjectCompanies, ToDoList, ProjectCalendarComponent],
+    exports: [ProjectInfo, ProjectImages, ProjectDocuments, ProjectCompanies, ToDoList, ProjectCalendarComponent]
 })
 
 export class ComponentsModule {}

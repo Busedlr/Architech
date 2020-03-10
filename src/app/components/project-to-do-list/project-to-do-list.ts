@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { ModalController } from "@ionic/angular";
+import { ModalController, Events } from "@ionic/angular";
 import { TodoListPage } from "src/app/modals/todo-list/todo-list.page";
-import { ProjectData } from 'src/app/services/project-data';
+import { ProjectData } from "src/app/services/project-data";
 
 @Component({
   selector: "project-to-do-list",
@@ -9,38 +9,32 @@ import { ProjectData } from 'src/app/services/project-data';
   styleUrls: ["./project-to-do-list.scss"]
 })
 export class ToDoList implements OnInit {
-  @Input("projectId") projectId;
-  
-  constructor(public modalController: ModalController, public projectData: ProjectData) {}
+  @Input("project") project;
+  items: any = [];
+  constructor(
+    public modalController: ModalController,
+    public projectData: ProjectData,
+    public events: Events
+  ) {}
 
   ngOnInit() {
-    console.log(this.projectId)
+    if (this.project.list) {
+      this.items = this.project.list;
+    }
   }
 
   async openModal() {
     const modal = await this.modalController.create({
       component: TodoListPage,
       componentProps: {
-        /* index: i, */
-      }
+        items: this.items
+      },
+      cssClass: 'modal-container'
     });
-    modal.onDidDismiss()
-      .then((data) => {
-        const list = data['data']
-        
-        this.projectData.saveList(list, this.projectId)
+    modal.onDidDismiss().then(list => {
+      console.log("list.data", list.data)
+      this.projectData.updateProjectProp(this.project.id, "list", list.data);
     });
-    
-   return await modal.present()
-  }
-
-  dismiss() {
-    this.modalController.dismiss({
-      dismissed: true
-    })
-  }
-
-  onDidDismiss() {
-    console.log("dismissed?");
+    return await modal.present();
   }
 }

@@ -21,6 +21,7 @@ export class AppComponent {
 	) {
 		firebase.initializeApp(firebaseConfig)
 		this.initializeApp();
+		
 	}
 
 	initializeApp() {

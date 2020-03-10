@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 
 import * as firebase from "firebase/app";
 import "firebase/firestore";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { ProjectData } from "src/app/services/project-data";
 
 @Component({
@@ -25,15 +25,15 @@ export class HomePage {
     this.projectData.getProjects().then(result => {
       result.docs.forEach(doc => {
         let project = doc.data();
-        console.log(project)
         project.id = doc.id;
         this.projects.push(project);
       });
     });
   }
 
-  goToDetail(id) {
-    this.router.navigate(["/project-detail/" + id]);
+  goToDetail(project) {
+    this.projectData.currentProject = project;
+    this.router.navigate(["/project-detail/" + project.id]);
   }
 
 }

@@ -1,8 +1,4 @@
-/* .image-col {
-  input {
-    display: none;
-  }
-} */
+
 
 .display-none {
   display: none;
@@ -72,3 +68,29 @@ ion-card {
   position: relative;
   padding-top: 100%;
 }
+
+
+.slide-content {
+	margin-left: 5px;
+	margin-right: 5px;
+	img {
+	  width: 100%;
+	  height: 300px;
+	  object-fit: cover;
+	}
+  }
+  
+  ion-slide:hover {
+	cursor: pointer;
+  }
+  
+  ion-slide {
+	width: 100%;
+	height: 255px;
+	background-color: #fff;
+	float: left;
+  }
+  
+  ion-slides {
+	position: relative;
+  }

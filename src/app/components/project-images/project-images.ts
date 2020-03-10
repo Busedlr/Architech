@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { ModalController } from "@ionic/angular";
+import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { ModalController, IonSlides } from "@ionic/angular";
 
 import { ProjectData } from "src/app/services/project-data";
 import { ImageDisplayModalPage } from "src/app/modals/image-display/image-display.page";
@@ -10,12 +10,14 @@ import { ImageDisplayModalPage } from "src/app/modals/image-display/image-displa
   styleUrls: ["./project-images.scss"]
 })
 export class ProjectImages implements OnInit {
+  @ViewChild("slides", { static: false }) slides: IonSlides;
   @Input("projectId") projectId;
   files: any = [];
   images: any = [];
   checkedImages: any = [];
   editImages: boolean = false;
   loading: boolean = true;
+  canSlide: boolean = false;
 
   constructor(
     public projectData: ProjectData,
@@ -128,5 +130,24 @@ export class ProjectImages implements OnInit {
       dismissed: true
     });
   }
-  
+
+  slideOpts = {
+    slidesPerView: 4,
+    freeMode: false,
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true
+    }
+  };
+
+  slide() {
+    this.slides.length().then(res => {
+      if (res > 4) {
+        this.canSlide = true;
+      }
+    });
+  }
 }

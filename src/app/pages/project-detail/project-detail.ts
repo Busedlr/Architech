@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { ProjectData } from "src/app/services/project-data";
 
@@ -11,28 +11,28 @@ import { ProjectData } from "src/app/services/project-data";
 export class ProjectDetail implements OnInit {
   project: any;
   loading: boolean;
-  segment: any = "documents";
+  segment: any = "images";
 
-  constructor(public projectData: ProjectData, public route: ActivatedRoute) {}
-
-  ngOnInit() {
-    this.getProject();
+  constructor(public projectData: ProjectData, public route: ActivatedRoute, public router: Router) {
+    
   }
 
-  ionViewWillEnter() {
-    this.getProject();
+  ngOnInit() {
+    if(!this.projectData.currentProject) {
+      this.router.navigate(["/home/"]);
+    }
+
+    
+    this.project = this.projectData.currentProject;
+    /* console.log("project", this.project) */
   }
 
   segmentChanged(event) {
     this.segment = event.detail.value;
+    console.log("segment", this.segment)
   }
 
-  async getProject() {
-    this.loading = true;
-    const id = this.route.snapshot.paramMap.get("id");
-    const project = await this.projectData.getProjectById(id);
-    this.project = project.data();
-    this.project.id = id;
-    this.loading = false;
+  goHome() {
+    this.router.navigate(["/home/"]);
   }
 }

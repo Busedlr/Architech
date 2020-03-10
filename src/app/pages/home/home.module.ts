@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 
-import { TodoListPage } from 'src/app/modals/todo-list/todo-list.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
@@ -22,9 +21,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
       }
     ])
   ],
-  declarations: [HomePage, TodoListPage],
+  declarations: [HomePage],
   entryComponents: [
-    TodoListPage
   ]
 })
 export class HomePageModule {}

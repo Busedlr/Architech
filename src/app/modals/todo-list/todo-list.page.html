@@ -1,23 +1,33 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>todo-list</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      {{item}}
-      <span
-        >
-        <ion-icon name="close"></ion-icon></span>
-    </ion-item>
-    <ion-icon name="close-outline"></ion-icon>
-
-    <input type="text" [(ngModel)]="newItem" />
-    <ion-button (click)="addItem()">add</ion-button>
-  </ion-list>
-
-  <ion-button (click)="dismiss()">save</ion-button>
-
+  <ion-row>
+    <ion-col size="12">
+      <ion-item *ngFor="let item of items">
+        {{item.title}}
+        <br/>
+        {{item.detail}}
+        <span>
+          <ion-icon name="close" (click)="deleteItem(item)"></ion-icon
+        ></span>
+        <ion-checkbox
+          slot="start"
+          color="primary"
+          [(ngModel)]="item.checked"
+        ></ion-checkbox>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="8">
+      <input type="text" [(ngModel)]="newItem" />
+      <input type="text" [(ngModel)]="newItemDetail" />
+    </ion-col>
+    <ion-col size="4">
+      <ion-button (click)="addItem()">add</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button (click)="save()">save</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-content>

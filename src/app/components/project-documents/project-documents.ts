@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { ProjectData } from "src/app/services/project-data";
-import { ModalController } from "@ionic/angular";
+import { ModalController, IonSlides } from "@ionic/angular";
 
 @Component({
   selector: "project-documents",
@@ -8,12 +8,14 @@ import { ModalController } from "@ionic/angular";
   styleUrls: ["./project-documents.scss"]
 })
 export class ProjectDocuments implements OnInit {
+  @ViewChild("slides", { static: false }) slides: IonSlides;
   @Input("projectId") projectId;
   documents: any = [];
   checkedDocuments: any = [];
   editDocuments: any = false;
   changeNameIndex: any;
   changeButtons: boolean = false;
+  canSlide: boolean = false;
 
   constructor(
     public projectData: ProjectData,
@@ -118,4 +120,24 @@ export class ProjectDocuments implements OnInit {
     console.log("getdoctype", extention);
     return extention
   } */
+
+  slideOpts = {
+    slidesPerView: 4,
+    freeMode: false,
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true
+    }
+  };
+
+  slide() {
+    this.slides.length().then(res => {
+      if (res > 4) {
+        this.canSlide = true;
+      }
+    });
+  }
 }

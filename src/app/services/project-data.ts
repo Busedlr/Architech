@@ -10,6 +10,7 @@ export class ProjectData {
   db: any;
   projectsRef: any;
   storageRef: any;
+  currentProject: any;
 
   constructor() {
     this.db = firebase.firestore();
@@ -18,12 +19,9 @@ export class ProjectData {
     
   }
 
-  saveList(list, id) {
-    return this.projectsRef.doc(id)
-      .add(list)
-      .then(doc => {
-        return doc;
-      })
+  updateProjectProp(projectId, prop, val) {
+    console.log("projectid", projectId)
+    return this.projectsRef.doc(projectId).update(prop, val)
       .catch(error => {
         console.log(error);
       });

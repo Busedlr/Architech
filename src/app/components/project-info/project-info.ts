@@ -11,9 +11,28 @@ export class ProjectInfo implements OnInit {
 
   constructor(public router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log("info project", this.project)
+  }
 
   updateForm(projectInfo) {
     this.router.navigate(["/create-project/"], { queryParams: projectInfo });
   }
+
+ /*  async openModal() {
+    const modal = await this.modalController.create({
+      component: TodoListPage,
+      componentProps: {
+        items: this.items
+      }
+    });
+    modal.onDidDismiss().then(list => {
+      this.projectData.updateProjectProp(
+        this.project.id,
+        "list",
+        list.data
+      );
+    });
+    return await modal.present();
+  } */
 }
