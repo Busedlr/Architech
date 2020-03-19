@@ -9,19 +9,20 @@ import { firebaseConfig } from './credentials';
 import 'firebase/firestore';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+	selector: 'app-root',
+	templateUrl: 'app.component.html',
+	styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  constructor(
+	projects: any;
+
+	constructor(
 		private platform: Platform,
 		private splashScreen: SplashScreen,
 		private statusBar: StatusBar
 	) {
-		firebase.initializeApp(firebaseConfig)
+		firebase.initializeApp(firebaseConfig);
 		this.initializeApp();
-		
 	}
 
 	initializeApp() {

@@ -1,18 +1,22 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-title>Project Detail</ion-title><!-- 
+    <ion-title>Project Detail</ion-title>
+    <!-- 
     <ion-button (click)="goHome()">home</ion-button> -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid class="page-container">
+  <div *ngIf="loading">
+    LOADING...
+  </div>
+  <ion-grid *ngIf="!loading" class="page-container">
     <ion-row>
       <ion-col size="4">
-        <project-info [project]="project"></project-info>
+        <project-info [project]="projectData.currentProject"></project-info>
       </ion-col>
       <ion-col size="4">
-        <project-to-do-list [project]="project"></project-to-do-list>
+        <project-to-do-list [project]="projectData.currentProject"></project-to-do-list>
       </ion-col>
       <ion-col size="4">
         <project-calendar></project-calendar>
@@ -39,16 +43,10 @@
         </ion-col>
       </ion-segment>
 
-      <project-images
-        class="segments"
-        *ngIf="segment === 'images'"
-        [projectId]="project.id"
-      ></project-images>
-      <project-documents
-        class="segments"
-        *ngIf="segment === 'documents'"
-        [projectId]="project.id"
-      ></project-documents>
+      <project-images class="segments" *ngIf="segment === 'images'" [projectId]="projectData.currentProject.id">
+      </project-images>
+      <project-documents class="segments" *ngIf="segment === 'documents'" [projectId]="projectData.currentProject.id">
+      </project-documents>
     </ion-row>
   </ion-grid>
 </ion-content>
