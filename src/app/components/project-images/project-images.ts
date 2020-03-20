@@ -18,6 +18,9 @@ export class ProjectImages implements OnInit {
   editImages: boolean = false;
   loading: boolean = true;
   canSlide: boolean = false;
+  canDetectReachEnd: number = 0;
+  slideTouched: boolean = false;
+  hideArrowNext: boolean = false;
 
   constructor(
     public projectData: ProjectData,
@@ -44,7 +47,11 @@ export class ProjectImages implements OnInit {
 
   async saveImages() {
     try {
-      await this.projectData.saveImages(this.files, this.projectId);
+      await this.projectData.saveToStorage(
+        this.files,
+        this.projectId,
+        "images"
+      );
       this.getImages();
       console.log("success");
     } catch (error) {
@@ -58,11 +65,11 @@ export class ProjectImages implements OnInit {
 
     for (const item of items) {
       const url = await this.projectData.getDownloadUrl(item.fullPath);
-
+      const metaData = await this.projectData.getMetadata(item.fullPath);
       const image = {
         url: url,
         fullPath: item.fullPath,
-        name: item.name
+        name: metaData.customMetadata.docName
       };
 
       this.images.push(image);
@@ -149,5 +156,40 @@ export class ProjectImages implements OnInit {
         this.canSlide = true;
       }
     });
+  }
+
+  simulateClick(id) {
+    document.getElementById(id).click();
+  }
+
+  next() {
+    this.slideTouched = true;
+    this.slides.slideNext();
+  }
+
+  slideEndReached() {
+    if (this.slideTouched) {
+      this.slides.lockSwipeToNext(true);
+      this.hideArrowNext = true;
+    }
+  }
+
+  prev() {
+    this.hideArrowNext = false;
+    this.slides.slidePrev();
+  }
+
+  hideArrowPrev() {
+    console.log("at the beggining");
+  }
+
+  async test() {
+    /* const currentIndex = await this.slides.getActiveIndex();
+    const previousIndex = await this.slides.getPreviousIndex();
+
+    if (previousIndex > currentIndex) {
+      this.hideArrowNext = false;
+      this.slides.lockSwipeToNext(false);
+    } */
   }
 }

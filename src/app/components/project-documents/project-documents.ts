@@ -47,7 +47,7 @@ export class ProjectDocuments implements OnInit {
   }
 
   async saveDocuments(files) {
-    await this.projectData.saveDocuments(files, this.projectId);
+    await this.projectData.saveToStorage(files, this.projectId, 'documents');
     this.getDocuments();
   }
 

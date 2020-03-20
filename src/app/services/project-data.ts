@@ -1,207 +1,226 @@
-import { Injectable } from '@angular/core';
-import * as firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/storage';
+import { Injectable } from "@angular/core";
+import * as firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/storage";
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: "root"
 })
 export class ProjectData {
-	db: any;
-	projectsRef: any;
-	storageRef: any;
-	projects: any[] = [];
-	currentProject: any;
+  db: any;
+  projectsRef: any;
+  storageRef: any;
+  projects: any[] = [];
+  currentProject: any;
 
-	constructor() {
-		this.db = firebase.firestore();
-		this.projectsRef = this.db.collection('projects');
-		this.storageRef = firebase.storage().ref();
-	}
+  constructor() {
+    this.db = firebase.firestore();
+    this.projectsRef = this.db.collection("projects");
+    this.storageRef = firebase.storage().ref();
+  }
 
-	updateProjectProp(projectId, prop, val) {
-		console.log('projectid', projectId);
-		return this.projectsRef
-			.doc(projectId)
-			.update(prop, val)
+  updateProjectProp(projectId, prop, val) {
+    console.log("projectid", projectId);
+    return this.projectsRef
+      .doc(projectId)
+      .update(prop, val)
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  saveProject(projectData) {
+    return this.projectsRef
+      .add(projectData)
+      .then(doc => {
+        return doc;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  updateProject(projectData, projectId) {
+    return this.projectsRef
+      .doc(projectId)
+      .update(projectData)
+      .then(() => {
+        return true;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  getProjects() {
+    return this.projectsRef
+      .get()
+      .then(result => {
+        return result;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  setProjects() {
+    this.projects = [];
+    return this.projectsRef
+      .get()
+      .then(result => {
+        result.docs.forEach(doc => {
+          let project = doc.data();
+          project.id = doc.id;
+          this.projects.push(project);
+        });
+        return true;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  getProjectById(id) {
+    return this.projectsRef
+      .doc(id)
+      .get()
+      .then(result => {
+        return result;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  saveToStorage(files, id, type) {
+    const rawFiles = [];
+    files.forEach(file => {
+      let extension = "." + file.name.substr(file.name.lastIndexOf(".") + 1);
+      const fullPath = id + "/" + type + "/" + file.lastModified + extension;
+      const promise = this.storageRef
+        .child(fullPath)
+        .put(file)
+        .then(() => {
+          this.updateMetadata(file.name, fullPath);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      rawFiles.push(promise);
+    });
+    return Promise.all(rawFiles);
+  }
+
+  /* saveDocuments(files, id) {
+    const rawFiles = [];
+    files.forEach(file => {
+      let extension = "." + file.name.substr(file.name.lastIndexOf(".") + 1);
+      const fullPath = id + "/documents/" + file.lastModified + extension;
+      const promise = this.storageRef
+        .child(fullPath)
+        .put(file)
+        .then(() => {
+          this.updateMetadata(file.name, fullPath);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      rawFiles.push(promise);
+    });
+    return Promise.all(rawFiles);
+  }
+
+  saveImages(files, id) {
+	const rawFiles = [];
+
+	files.forEach(file => {
+		const promise = this.storageRef
+			.child(id + '/images/' + file.lastModified)
+			.put(file)
 			.catch(error => {
 				console.log(error);
 			});
-	}
+		rawFiles.push(promise);
+	});
+	return Promise.all(rawFiles);
+} */
 
-	saveProject(projectData) {
-		return this.projectsRef
-			.add(projectData)
-			.then(doc => {
-				return doc;
-			})
-			.catch(error => {
-				console.log(error);
-			});
-	}
+  updateMetadata(name, fullPath) {
+    let newMetadata = {
+      customMetadata: {
+        docName: name
+      }
+    };
+    return this.storageRef
+      .child(fullPath)
+      .updateMetadata(newMetadata)
+      .then(res => {
+        return res;
+      });
+  }
 
-	updateProject(projectData, projectId) {
-		return this.projectsRef
-			.doc(projectId)
-			.update(projectData)
-			.then(() => {
-				return true;
-			})
-			.catch(error => {
-				console.log(error);
-			});
-	}
+  getMetadata(fullPath) {
+    return this.storageRef
+      .child(fullPath)
+      .getMetadata()
+      .then(res => {
+        return res;
+      });
+  }
 
-	getProjects() {
-		return this.projectsRef
-			.get()
-			.then(result => {
-				return result;
-			})
-			.catch(error => {
-				console.log(error);
-			});
-	}
+  getDocuments(projectId) {
+    return this.storageRef
+      .child(projectId + "/documents")
+      .listAll()
+      .then(res => {
+        return res.items;
+      });
+  }
 
-	setProjects() {
-		this.projects = [];
-		return this.projectsRef
-			.get()
-			.then(result => {
-				result.docs.forEach(doc => {
-					let project = doc.data();
-					project.id = doc.id;
-					this.projects.push(project);
-				});
-				return true;
-			})
-			.catch(error => {
-				console.log(error);
-			});
-	}
+  getImages(projectId) {
+    return this.storageRef
+      .child(projectId + "/images")
+      .listAll()
+      .then(res => {
+        return res.items;
+      });
+  }
 
-	getProjectById(id) {
-		return this.projectsRef
-			.doc(id)
-			.get()
-			.then(result => {
-				return result;
-			})
-			.catch(error => {
-				console.log(error);
-			});
-	}
+  getDownloadUrl(fullPath) {
+    return this.storageRef
+      .child(fullPath)
+      .getDownloadURL()
+      .then(downloadUrl => {
+        return downloadUrl;
+      });
+  }
 
-	saveDocuments(files, id) {
-		const rawFiles = [];
-		files.forEach(file => {
-			let extension = '.' + file.name.substr(file.name.lastIndexOf('.') + 1);
-			const fullPath = id + '/documents/' + file.lastModified + extension;
-			const promise = this.storageRef
-				.child(fullPath)
-				.put(file)
-				.then(() => {
-					this.updateMetadata(file.name, fullPath);
-				})
-				.catch(error => {
-					console.log(error);
-				});
-			rawFiles.push(promise);
-		});
-		return Promise.all(rawFiles);
-	}
+  deleteImage(image) {
+    return this.storageRef
+      .child(image.fullPath)
+      .delete()
+      .then(res => {
+        return res;
+      });
+  }
 
-	updateMetadata(name, fullPath) {
-		let newMetadata = {
-			customMetadata: {
-				docName: name
-			}
-		};
-		return this.storageRef
-			.child(fullPath)
-			.updateMetadata(newMetadata)
-			.then(res => {
-				return res;
-			});
-	}
+  deleteDocument(doc) {
+    return this.storageRef
+      .child(doc.fullPath)
+      .delete()
+      .then(res => {
+        return res;
+      });
+  }
 
-	getMetadata(fullPath) {
-		return this.storageRef
-			.child(fullPath)
-			.getMetadata()
-			.then(res => {
-				return res;
-			});
-	}
+  updateProjectData(imageUrl, id) {
+    this.db
+      .collection("projects")
+      .doc(id)
+      .update({ thumbnail: imageUrl });
+  }
 
-	saveImages(files, id) {
-		const rawFiles = [];
-
-		files.forEach(file => {
-			const promise = this.storageRef
-				.child(id + '/images/' + file.lastModified)
-				.put(file)
-				.catch(error => {
-					console.log(error);
-				});
-			rawFiles.push(promise);
-		});
-		return Promise.all(rawFiles);
-	}
-
-	getDocuments(projectId) {
-		return this.storageRef
-			.child(projectId + '/documents')
-			.listAll()
-			.then(res => {
-				return res.items;
-			});
-	}
-
-	getImages(projectId) {
-		return this.storageRef
-			.child(projectId + '/images')
-			.listAll()
-			.then(res => {
-				return res.items;
-			});
-	}
-
-	getDownloadUrl(fullPath) {
-		return this.storageRef
-			.child(fullPath)
-			.getDownloadURL()
-			.then(downloadUrl => {
-				return downloadUrl;
-			});
-	}
-
-	deleteImage(image) {
-		return this.storageRef
-			.child(image.fullPath)
-			.delete()
-			.then(res => {
-				return res;
-			});
-	}
-
-	deleteDocument(doc) {
-		return this.storageRef
-			.child(doc.fullPath)
-			.delete()
-			.then(res => {
-				return res;
-			});
-	}
-
-	updateProjectData(imageUrl, id) {
-		this.db
-			.collection('projects')
-			.doc(id)
-			.update({ thumbnail: imageUrl });
-	}
-
-	changeDocName(fullPath, newName) {
-		this.storageRef.child(fullPath);
-	}
+  changeDocName(fullPath, newName) {
+    this.storageRef.child(fullPath);
+  }
 }

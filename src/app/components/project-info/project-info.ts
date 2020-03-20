@@ -12,7 +12,7 @@ export class ProjectInfo implements OnInit {
   constructor(public router: Router) {}
 
   ngOnInit() {
-    console.log("info project", this.project)
+   
   }
 
   updateForm(projectInfo) {

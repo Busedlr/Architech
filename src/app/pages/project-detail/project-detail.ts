@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProjectData } from 'src/app/services/project-data';
+import { ProjectImages } from 'src/app/components/project-images/project-images';
 
 @Component({
 	selector: 'project-detail',
@@ -9,6 +10,7 @@ import { ProjectData } from 'src/app/services/project-data';
 	styleUrls: ['./project-detail.scss']
 })
 export class ProjectDetail implements OnInit {
+	@ViewChild(ProjectImages, {static: false} ) child: ProjectImages ;
 	loading: boolean;
 	segment: any = 'images';
 
@@ -24,11 +26,8 @@ export class ProjectDetail implements OnInit {
 			const projectRes = await this.projectData.getProjectById(
 				this.route.snapshot.params.id
 			);
-			console.log('projectRes', projectRes);
 			this.projectData.currentProject = projectRes.data();
 			this.projectData.currentProject.id = projectRes.id;
-
-			console.log('currentProject', this.projectData.currentProject);
 		}
 		this.loading = false;
 	}
@@ -40,4 +39,13 @@ export class ProjectDetail implements OnInit {
 	goHome() {
 		this.router.navigate(['/home/']);
 	}
+
+	callAddImage()  {
+		this.child.simulateClick('projectImage')
+	}
+
+	/* simulateClick() {
+		document.getElementById('projectImage').click()
+	  } */
+
 }

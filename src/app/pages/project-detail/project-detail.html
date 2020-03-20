@@ -16,7 +16,9 @@
         <project-info [project]="projectData.currentProject"></project-info>
       </ion-col>
       <ion-col size="4">
-        <project-to-do-list [project]="projectData.currentProject"></project-to-do-list>
+        <project-to-do-list
+          [project]="projectData.currentProject"
+        ></project-to-do-list>
       </ion-col>
       <ion-col size="4">
         <project-calendar></project-calendar>
@@ -27,7 +29,10 @@
       <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
         <ion-col>
           <ion-segment-button value="images">
-            <ion-label>images</ion-label>
+            <ion-label
+              >images <span class="add-image"> <ion-icon name="add-circle" (click)="callAddImage()"></ion-icon> </span>
+              <span class="enlarge"> <ion-icon name="resize"></ion-icon> </span
+            ></ion-label>
           </ion-segment-button>
         </ion-col>
         <ion-col>
@@ -43,9 +48,17 @@
         </ion-col>
       </ion-segment>
 
-      <project-images class="segments" *ngIf="segment === 'images'" [projectId]="projectData.currentProject.id">
+      <project-images
+        class="segments"
+        *ngIf="segment === 'images'"
+        [projectId]="projectData.currentProject.id"
+      >
       </project-images>
-      <project-documents class="segments" *ngIf="segment === 'documents'" [projectId]="projectData.currentProject.id">
+      <project-documents
+        class="segments"
+        *ngIf="segment === 'documents'"
+        [projectId]="projectData.currentProject.id"
+      >
       </project-documents>
     </ion-row>
   </ion-grid>

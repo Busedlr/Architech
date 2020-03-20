@@ -1,50 +1,53 @@
-
-<!--   <ion-button *ngIf="images.length > 0" (click)="toggleEditImages()">
+<!--  <ion-button *ngIf="images.length > 0" (click)="toggleEditImages()">
     {{editImages ? 'cancel' : 'edit'}}
-  </ion-button>
-  <ion-button
+  </ion-button> -->
+<!-- <ion-button
     *ngIf="editImages && checkedImages.length > 0"
     (click)="deleteImages()"
     >Delete</ion-button
   > -->
-  <!-- <ion-row>
-    <ion-col size="4">
-      <ion-card class="card-content">
-        <ion-button class="card-button center">
-          <label for="projectImage" (click)="resetInput('projectImage')">
-            <ion-icon class="center" name="add-circle"></ion-icon>
-          </label>
-        </ion-button>
-        <input
-          type="file"
-          id="projectImage"
-          (change)="selectFile($event)"
-          multiple
-          style="display:none"
-        />
-      </ion-card>
-    </ion-col>
-    <ion-col
-      size="4"
-      class="image-col"
-      *ngFor="let image of images; let i = index"
+<ion-row>
+  <input
+    type="file"
+    id="projectImage"
+    (change)="selectFile($event)"
+    multiple
+    style="display:none"
+  />
+  <ion-col size="1">
+    <ion-icon
+      class="arrow-back"
+      (click)="prev()"
+      size="large"
+      name="arrow-back"
+    ></ion-icon>
+  </ion-col>
+  <ion-col size="10">
+    <ion-slides
+      #slides
+      [options]="slideOpts"
+      (ionSlideReachStart)="hideArrowPrev()"
+      (ionSlideReachEnd)="slideEndReached()"
+      (ionSlideDrag)="test()"
     >
-      <ion-card (click)="imageClick(i, image)" class="card-content">
-        <input disabled="true" [id]="i" type="checkbox" />
-        <label [for]="i"><img [src]="image.url" alt="project image"/></label>
-      </ion-card>
-    </ion-col>
-  </ion-row> -->
-
-
-  <ion-slides #slides [options]="slideOpts">
-    <ion-slide *ngFor="let image of images; let i = index">
-      <div class="slide-content">
-        <img
-          src="{{ image.url }}"
-          alt="project image"
-          (click)="imageClick(i, image)"
-        />
-      </div>
-    </ion-slide>
-  </ion-slides>
+      <ion-slide *ngFor="let image of images; let i = index">
+        <div class="slide-content">
+          <img
+            src="{{ image.url }}"
+            alt="project image"
+            (click)="imageClick(i, image)"
+          />
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </ion-col>
+  <ion-col size="1">
+    <ion-icon
+    [ngClass]="{'hide': hideArrowNext, 'display': !hideArrowNext }"
+      class="arrow-next"
+      (click)="next()"
+      size="large"
+      name="arrow-forward"
+    ></ion-icon>
+  </ion-col>
+</ion-row>

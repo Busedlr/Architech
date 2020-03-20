@@ -15,6 +15,7 @@ export class ImageDisplayModalPage implements OnInit {
 
   ngOnInit() {
     this.currentImage = this.images[this.index];
+    console.log("current image", this.currentImage)
   }
 
   nextImage() {
