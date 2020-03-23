@@ -30,8 +30,13 @@
         <ion-col>
           <ion-segment-button value="images">
             <ion-label
-              >images <span class="add-image"> <ion-icon name="add-circle" (click)="callAddImage()"></ion-icon> </span>
-              <span class="enlarge"> <ion-icon name="resize"></ion-icon> </span
+              >images
+              <span id="add-image">
+                <ion-icon name="add-circle" (click)="callAddImage()"></ion-icon>
+              </span>
+              <span id="enlarge"> <ion-icon name="resize"></ion-icon></span>
+              <span (click)="changeSlidesPerView(1)">
+                <ion-icon name="heart"></ion-icon></span
             ></ion-label>
           </ion-segment-button>
         </ion-col>

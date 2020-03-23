@@ -44,8 +44,8 @@ export class ProjectDetail implements OnInit {
 		this.child.simulateClick('projectImage')
 	}
 
-	/* simulateClick() {
-		document.getElementById('projectImage').click()
-	  } */
+	changeSlidesPerView(number) {
+		this.child.changeSlidesPerView(number)
+	}
 
 }
