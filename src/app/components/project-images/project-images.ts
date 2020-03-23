@@ -37,11 +37,15 @@ export class ProjectImages implements OnInit {
     this.getImages();
   }
 
-  changeSlidesPerView(number) {
-	  
+  /* changeSlidesPerView(number) {
 	this.slides.getSwiper().then(res => {
 		res.params.slidesPerView = number
 	})
+  } */
+
+  async changeSlidesPerView(number) {
+	const swiper = await this.slides.getSwiper()
+	swiper.params.slidesPerView = number
   }
 
 
