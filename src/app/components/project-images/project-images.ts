@@ -18,9 +18,6 @@ export class ProjectImages implements OnInit {
   editImages: boolean = false;
   loading: boolean = true;
   canSlide: boolean = false;
-  canDetectReachEnd: number = 0;
-  slideTouched: boolean = false;
-  hideArrowNext: boolean = false;
 
   constructor(
     public projectData: ProjectData,
@@ -162,34 +159,9 @@ export class ProjectImages implements OnInit {
     document.getElementById(id).click();
   }
 
-  next() {
-    this.slideTouched = true;
-    this.slides.slideNext();
+  slideChanged() {
   }
 
-  slideEndReached() {
-    if (this.slideTouched) {
-      this.slides.lockSwipeToNext(true);
-      this.hideArrowNext = true;
-    }
-  }
 
-  prev() {
-    this.hideArrowNext = false;
-    this.slides.slidePrev();
-  }
 
-  hideArrowPrev() {
-    console.log("at the beggining");
-  }
-
-  async test() {
-    /* const currentIndex = await this.slides.getActiveIndex();
-    const previousIndex = await this.slides.getPreviousIndex();
-
-    if (previousIndex > currentIndex) {
-      this.hideArrowNext = false;
-      this.slides.lockSwipeToNext(false);
-    } */
-  }
 }

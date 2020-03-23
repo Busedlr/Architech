@@ -17,7 +17,7 @@
   <ion-col size="1">
     <ion-icon
       class="arrow-back"
-      (click)="prev()"
+      (click)="slides.slidePrev()"
       size="large"
       name="arrow-back"
     ></ion-icon>
@@ -26,9 +26,7 @@
     <ion-slides
       #slides
       [options]="slideOpts"
-      (ionSlideReachStart)="hideArrowPrev()"
-      (ionSlideReachEnd)="slideEndReached()"
-      (ionSlideDrag)="test()"
+      (ionSlideTransitionEnd)="slideChanged()"
     >
       <ion-slide *ngFor="let image of images; let i = index">
         <div class="slide-content">
@@ -45,7 +43,7 @@
     <ion-icon
     [ngClass]="{'hide': hideArrowNext, 'display': !hideArrowNext }"
       class="arrow-next"
-      (click)="next()"
+      (click)="slides.slideNext()"
       size="large"
       name="arrow-forward"
     ></ion-icon>
