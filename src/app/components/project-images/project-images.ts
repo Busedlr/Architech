@@ -22,6 +22,7 @@ export class ProjectImages implements OnInit {
   endReached: boolean;
   slideOpts: any = {};
 
+
   constructor(
     public projectData: ProjectData,
     public modalController: ModalController
@@ -37,8 +38,12 @@ export class ProjectImages implements OnInit {
   }
 
   changeSlidesPerView(number) {
-    this.slideOpts.slidesPerView = number;
+	  
+	this.slides.getSwiper().then(res => {
+		res.params.slidesPerView = number
+	})
   }
+
 
   async selectFile(event) {
     for (const key of Object.keys(event.srcElement.files)) {
