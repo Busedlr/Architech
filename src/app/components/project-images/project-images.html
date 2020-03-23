@@ -7,45 +7,23 @@
     >Delete</ion-button
   > -->
 <ion-row>
-  <input
-    type="file"
-    id="projectImage"
-    (change)="selectFile($event)"
-    multiple
-    style="display:none"
-  />
+  <input type="file" id="projectImage" (change)="selectFile($event)" multiple style="display:none" />
   <ion-col size="1">
-    <ion-icon
-      class="arrow-back"
-      (click)="slides.slidePrev()"
-      size="large"
-      name="arrow-back"
-    ></ion-icon>
+    <ion-icon [ngClass]="{'hide': this.activeSlide === 0, 'display': activeSlide !== 0 }" class="arrow-back"
+      (click)="slides.slidePrev()" size="large" name="arrow-back"></ion-icon>
   </ion-col>
   <ion-col size="10">
-    <ion-slides
-      #slides
-      [options]="slideOpts"
-      (ionSlideTransitionEnd)="slideChanged()"
-    >
+    <ion-slides #slides [options]="slideOpts" (ionSlideTransitionEnd)="slideChanged()"
+      (ionSlidePrevStart)="prevStarted()" (ionSlideReachEnd)="slideEndReached()">
       <ion-slide *ngFor="let image of images; let i = index">
         <div class="slide-content">
-          <img
-            src="{{ image.url }}"
-            alt="project image"
-            (click)="imageClick(i, image)"
-          />
+          <img src="{{ image.url }}" alt="project image" (click)="imageClick(i, image)" />
         </div>
       </ion-slide>
     </ion-slides>
   </ion-col>
   <ion-col size="1">
-    <ion-icon
-    [ngClass]="{'hide': hideArrowNext, 'display': !hideArrowNext }"
-      class="arrow-next"
-      (click)="slides.slideNext()"
-      size="large"
-      name="arrow-forward"
-    ></ion-icon>
+    <ion-icon [ngClass]="{'hide': endReached, 'display': !endReached }" class="arrow-next" (click)="slides.slideNext()"
+      size="large" name="arrow-forward"></ion-icon>
   </ion-col>
 </ion-row>
