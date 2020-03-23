@@ -101,24 +101,33 @@ ion-slides {
   position: relative;
 }
 
-.arrow-next {
+.pointer {
   cursor: pointer;
-  position: relative;
-  top: 50%;
-  left: 60%;
 }
 
-.arrow-back {
-  cursor: pointer;
-  position: relative;
-  top: 50%;
-  left: 40%;
-}
-
-.hide{
-visibility: hidden;
+.hide {
+  visibility: hidden;
 }
 
 .display {
-	visibility: visible;
+  visibility: visible;
+}
+
+.arrow-col {
+  max-width: 50px;
+  min-width: 50px;
+}
+
+.slider-col {
+  max-width: calc(100% - 100px);
+  min-width: calc(100% - 100px);
+}
+
+ion-col {
+  text-align: center;
+}
+
+
+.filter {
+  filter: invert(47%) sepia(64%) saturate(3659%) hue-rotate(164deg) brightness(99%) contrast(101%);
 }
