@@ -35,6 +35,10 @@ const routes: Routes = [
     path: 'todo-list',
     loadChildren: () => import('./modals/todo-list/todo-list.module').then( m => m.TodoListPageModule)
   },
+  {
+    path: 'project-segments',
+    loadChildren: () => import('./services/project-segments/project-segments.module').then( m => m.ProjectSegmentsPageModule)
+  },
 
 ];
 

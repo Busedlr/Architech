@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProjectData } from 'src/app/services/project-data';
 import { ProjectImages } from 'src/app/components/project-images/project-images';
+import { PopoverController } from '@ionic/angular';
+import { PopoverComponent } from 'src/app/components/popover/popover.component';
+
 
 @Component({
 	selector: 'project-detail',
@@ -17,7 +20,8 @@ export class ProjectDetail implements OnInit {
 	constructor(
 		public projectData: ProjectData,
 		public route: ActivatedRoute,
-		public router: Router
+		public router: Router,
+		public popoverController : PopoverController
 	) {}
 
 	async ngOnInit() {
@@ -48,4 +52,13 @@ export class ProjectDetail implements OnInit {
 		this.child.changeSlidesPerView(number)
 	}
 
-}
+	async presentPopover(ev: any) {
+		const popover = await this.popoverController.create({
+		  component: PopoverComponent,
+		  event: ev,
+		  translucent: true
+		});
+		return await popover.present();
+	  }
+	}
+

@@ -1,0 +1,41 @@
+<!-- <ion-list>
+  <li>
+    <ion-button expand="full" fill="clear">
+      add
+      <ion-icon name="add"></ion-icon>  
+    </ion-button>
+  </li>
+  <li>
+    <ion-button expand="full" fill="clear">
+     change perwiev
+     <ion-icon name="hammer"></ion-icon>
+    </ion-button>
+  </li>
+</ion-list>
+ -->
+
+<ion-row>
+  <ion-button expand="full" fill="clear">
+    <span>add a new image</span>
+    <ion-icon name="add"></ion-icon>
+  </ion-button>
+</ion-row>
+
+<ion-row *ngIf="!changeClicked">
+  <ion-button expand="full" fill="clear" (click)="confirmChangeClicked()">
+    <span>change per view</span>
+    <ion-icon name="hammer"></ion-icon>
+  </ion-button>
+</ion-row>
+
+<ion-row *ngIf="changeClicked">
+  <ion-button expand="full" fill="clear" (click)="changePerView(2)">
+    2
+  </ion-button>
+  <ion-button expand="full" fill="clear" (click)="changePerView(4)">
+    4
+  </ion-button>
+  <ion-button expand="full" fill="clear" (click)="changePerView(8)">
+    8
+  </ion-button>
+</ion-row>

@@ -8,7 +8,8 @@ import { ProjectDetail } from './project-detail';
 import { ImageDisplayModalPage } from 'src/app/modals/image-display/image-display.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { TodoListPage } from 'src/app/modals/todo-list/todo-list.page';
-import { ProjectCalendarComponent } from 'src/app/components/project-calendar/project-calendar.component';
+import { PopoverComponent } from 'src/app/components/popover/popover.component';
+
 
 
 @NgModule({
@@ -19,9 +20,9 @@ import { ProjectCalendarComponent } from 'src/app/components/project-calendar/pr
     ProjectDetailRoutingModule,
     ComponentsModule
   ],
-  declarations: [ProjectDetail, ImageDisplayModalPage, TodoListPage],
+  declarations: [ProjectDetail, ImageDisplayModalPage, TodoListPage, PopoverComponent],
   entryComponents: [
-    ImageDisplayModalPage, TodoListPage
+    ImageDisplayModalPage, TodoListPage, PopoverComponent
   ]
 })
 export class ProjectDetailModule {}

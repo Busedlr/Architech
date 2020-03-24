@@ -40,6 +40,7 @@
             ></ion-label>
           </ion-segment-button>
         </ion-col>
+
         <ion-col>
           <ion-segment-button value="documents">
             <ion-label>documents</ion-label>
@@ -50,6 +51,10 @@
           <ion-segment-button value="companies">
             <ion-label>companies</ion-label>
           </ion-segment-button>
+        </ion-col>
+
+        <ion-col>
+          <ion-icon name="menu" (click)="presentPopover($event)"></ion-icon>
         </ion-col>
       </ion-segment>
 
