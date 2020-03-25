@@ -77,8 +77,8 @@ export class ProjectImages implements OnInit {
 		}
 	} */
 
-	async getImages() {
-		this.images = await this.segmentsService.getImages();
+	getImages() {
+		this.segmentsService.getImages();
 	}
 
 	toggleEditImages() {

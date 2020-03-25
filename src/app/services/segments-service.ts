@@ -26,6 +26,5 @@ export class SegmentsService {
 
 			this.images.push(image);
 		}
-		return this.images;
 	}
 }

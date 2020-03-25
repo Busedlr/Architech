@@ -7,7 +7,7 @@
     <ion-col class="slider-col">
       <ion-slides #slides [options]="slideOpts" (ionSlideTransitionEnd)="slideChanged()"
         (ionSlidePrevStart)="prevStarted()" (ionSlideReachEnd)="slideEndReached()">
-        <ion-slide *ngFor="let image of images; let i = index">
+        <ion-slide *ngFor="let image of segmentsService.images; let i = index">
           <div class="slide-content">
             <img src="{{ image.url }}" alt="project image" (click)="imageClick(i, image)" />
           </div>
