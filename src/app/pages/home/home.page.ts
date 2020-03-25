@@ -27,6 +27,7 @@ export class HomePage {
 
 	goToDetail(project) {
 		this.projectData.currentProject = project;
+		console.log('current', this.projectData.currentProject);
 		this.router.navigate([
 			'/project-detail/' + this.projectData.currentProject.id
 		]);

@@ -1,24 +1,11 @@
-<!-- <ion-list>
-  <li>
-    <ion-button expand="full" fill="clear">
-      add
-      <ion-icon name="add"></ion-icon>  
-    </ion-button>
-  </li>
-  <li>
-    <ion-button expand="full" fill="clear">
-     change perwiev
-     <ion-icon name="hammer"></ion-icon>
-    </ion-button>
-  </li>
-</ion-list>
- -->
-
 <ion-row>
   <ion-button expand="full" fill="clear">
-    <span>add a new image</span>
-    <ion-icon name="add"></ion-icon>
+    <label for="project-images" (click)="resetInput('project-images')">
+      <span>add a new image</span>
+      <ion-icon name="add"></ion-icon>
+    </label>
   </ion-button>
+  <input style="display:none" type="file" id="project-images" (change)="selectFile($event)">
 </ion-row>
 
 <ion-row *ngIf="!changeClicked">

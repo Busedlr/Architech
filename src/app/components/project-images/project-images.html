@@ -1,58 +1,23 @@
-<!--  <ion-button *ngIf="images.length > 0" (click)="toggleEditImages()">
-    {{editImages ? 'cancel' : 'edit'}}
-  </ion-button> -->
-<!-- <ion-button
-    *ngIf="editImages && checkedImages.length > 0"
-    (click)="deleteImages()"
-    >Delete</ion-button
-  > -->
-
 <ion-grid>
   <ion-row class="ion-align-items-center">
-    <input
-      type="file"
-      id="projectImage"
-      (change)="selectFile($event)"
-      multiple
-      style="display:none"
-    />
-    <ion-col class="arrow-col">   
-      <img
-        class="filter pointer"
-        src="../../assets/icon/back.svg"
-        alt="previous slide icon"
-        [ngClass]="{'hide': this.activeSlide === 0, 'display': activeSlide !== 0 }"
-        (click)="slides.slidePrev()"
-      />
+    <ion-col class="arrow-col">
+      <img class="filter pointer" src="../../assets/icon/back.svg" alt="previous slide icon"
+        [ngClass]="{'hide': this.activeSlide === 0, 'display': activeSlide !== 0 }" (click)="slides.slidePrev()" />
     </ion-col>
     <ion-col class="slider-col">
-      <ion-slides
-        #slides
-        [options]="slideOpts"
-        (ionSlideTransitionEnd)="slideChanged()"
-        (ionSlidePrevStart)="prevStarted()"
-        (ionSlideReachEnd)="slideEndReached()"
-      >
+      <ion-slides #slides [options]="slideOpts" (ionSlideTransitionEnd)="slideChanged()"
+        (ionSlidePrevStart)="prevStarted()" (ionSlideReachEnd)="slideEndReached()">
         <ion-slide *ngFor="let image of images; let i = index">
           <div class="slide-content">
-            <img
-              src="{{ image.url }}"
-              alt="project image"
-              (click)="imageClick(i, image)"
-            />
+            <img src="{{ image.url }}" alt="project image" (click)="imageClick(i, image)" />
           </div>
         </ion-slide>
       </ion-slides>
     </ion-col>
     <ion-col class="arrow-col">
-      
-      <img
-        src="../../assets/icon/next.svg"
-        alt="next slide icon"
-        [ngClass]="{'hide': endReached, 'display': !endReached }"
-        class="filter pointer"
-        (click)="slides.slideNext()"
-      />
+
+      <img src="../../assets/icon/next.svg" alt="next slide icon"
+        [ngClass]="{'hide': endReached, 'display': !endReached }" class="filter pointer" (click)="slides.slideNext()" />
     </ion-col>
   </ion-row>
 </ion-grid>
