@@ -9,7 +9,6 @@ export class SegmentsService {
 	constructor(public projectData: ProjectData) {}
 
 	async getImages() {
-		console.log('getting');
 		this.images = [];
 		const items = await this.projectData.getImages(
 			this.projectData.currentProject.id

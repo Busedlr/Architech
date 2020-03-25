@@ -38,44 +38,10 @@ export class ProjectImages implements OnInit {
 		this.getImages();
 	}
 
-	/* changeSlidesPerView(number) {
-	this.slides.getSwiper().then(res => {
-		res.params.slidesPerView = number
-	})
-  } */
-
 	async changeSlidesPerView(number) {
 		const swiper = await this.slides.getSwiper();
 		swiper.params.slidesPerView = number;
 	}
-
-	/* async selectFile(event) {
-    for (const key of Object.keys(event.srcElement.files)) {
-      const value = await event.srcElement.files[key];
-      this.files.push(value);
-    }
-    this.saveImages();
-  }
-
-  resetInput(inputId) {
-    let fileInput = document.getElementById(inputId) as HTMLInputElement;
-    fileInput.value = "";
-    this.files = [];
-  } */
-
-	/* async saveImages() {
-		try {
-			await this.projectData.saveToStorage(
-				this.files,
-				this.projectId,
-				'images'
-			);
-			this.getImages();
-			console.log('success');
-		} catch (error) {
-			console.log(error);
-		}
-	} */
 
 	getImages() {
 		this.segmentsService.getImages();

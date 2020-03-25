@@ -44,25 +44,6 @@ export class PopoverComponent implements OnInit {
 		this.segmentsService.getImages();
 	}
 
-	/* async getImages() {
-		this.segmentsService.images = [];
-		const items = await this.projectData.getImages(
-			this.projectData.currentProject.id
-		);
-
-		for (const item of items) {
-			const url = await this.projectData.getDownloadUrl(item.fullPath);
-			const metaData = await this.projectData.getMetadata(item.fullPath);
-			const image = {
-				url: url,
-				fullPath: item.fullPath,
-				name: metaData.customMetadata.docName
-			};
-
-			this.segmentsService.images.push(image);
-		}
-	} */
-
 	confirmChangeClicked() {
 		this.changeClicked = true;
 	}
