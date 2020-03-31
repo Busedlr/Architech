@@ -1,11 +1,11 @@
 <ion-row>
   <ion-button expand="full" fill="clear">
     <label for="project-images" (click)="resetInput('project-images')">
-      <span>add a new image</span>
+      <span>add a new {{ this.segmentsService.segmentName }}</span>
       <ion-icon name="add"></ion-icon>
     </label>
   </ion-button>
-  <input style="display:none" type="file" id="project-images" (change)="selectFile($event)">
+  <input style="display:none" type="file" multiple id="project-images" (change)="selectFile($event)">
 </ion-row>
 
 <ion-row *ngIf="!changeClicked">

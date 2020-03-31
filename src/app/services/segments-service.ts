@@ -6,6 +6,9 @@ import { ProjectData } from './project-data';
 })
 export class SegmentsService {
 	images: any[] = [];
+	documents: any[] = [];
+	segmentName: any;
+
 	constructor(public projectData: ProjectData) {}
 
 	async getImages() {
@@ -26,4 +29,20 @@ export class SegmentsService {
 			this.images.push(image);
 		}
 	}
+
+	async getDocuments() {
+		this.documents = [];
+		const items = await this.projectData.getDocuments(this.projectData.currentProject.id);
+		for (const item of items) {
+		  const url = await this.projectData.getDownloadUrl(item.fullPath);
+		  const metaData = await this.projectData.getMetadata(item.fullPath);
+		  const document = {
+			url: url,
+			fullPath: item.fullPath,
+			name: metaData.customMetadata.docName
+		  };
+		  this.documents.push(document);
+		}
+		console.log(this.documents)
+	  }
 }

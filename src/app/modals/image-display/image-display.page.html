@@ -1,15 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title> {{currentImage.name}} </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
+<div id="image-container">
   <ion-img src=" {{ currentImage.url }} " alt="img"></ion-img>
-  <ion-button (click)="nextImage()">
-    next
-  </ion-button>
-  <ion-button (click)="prevImage()">
-    prev
-  </ion-button>
-</ion-content>
+</div>
+
+
+
+<div id="arrows-container">
+  <div class="name-container">
+    <div class="name">{{currentImage.name}}</div>
+  </div>
+  
+  <img
+    class="arrow-back arrow-background"
+    src="../../assets/icon/back.svg"
+    alt="prev image icon"
+    (click)="prevImage()"
+  />
+
+  <img
+    class="arrow-front arrow-background"
+    src="../../assets/icon/next.svg"
+    alt="prev image icon"
+    (click)="prevImage()"
+  />
+</div>

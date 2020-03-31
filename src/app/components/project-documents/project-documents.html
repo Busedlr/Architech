@@ -64,7 +64,7 @@
 
 
 <ion-slides #slides [options]="slideOpts">
-  <ion-slide *ngFor="let doc of documents; let i = index" (click)="documentClick(i, doc)">
+  <ion-slide *ngFor="let doc of segmentsService.documents; let i = index" (click)="documentClick(i, doc)">
     <div class="slide-content">
       <div class="doc-name">{{doc.name}}</div>
       <a class="center" [href]="doc.url" [target]="doc.name">
@@ -73,3 +73,5 @@
     </div>
   </ion-slide>
 </ion-slides>
+
+

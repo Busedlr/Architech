@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { ProjectData } from "src/app/services/project-data";
-import { ModalController, IonSlides } from "@ionic/angular";
+import { ModalController, IonSlides, Events } from "@ionic/angular";
+import { SegmentsService } from 'src/app/services/segments-service';
 
 @Component({
   selector: "project-documents",
@@ -16,14 +17,67 @@ export class ProjectDocuments implements OnInit {
   changeNameIndex: any;
   changeButtons: boolean = false;
   canSlide: boolean = false;
+  slideOpts: any = {};
+  activeSlide: number = 0;
+  endReached: boolean;
+
 
   constructor(
     public projectData: ProjectData,
-    public modalController: ModalController
-  ) {}
+    public modalController: ModalController,
+    public segmentsService : SegmentsService,
+    public events: Events
+  ) {
+    this.slideOpts = {
+      slidesPerView: this.projectData.settings.slides_per_view,
+      freeMode: this.projectData.settings.free_mode
+    };
+    events.subscribe("change slide per view", number => {
+      this.changeSlidesPerView(number);
+      //necessary to get the images again ?
+        this.getDocuments();
+        this.projectData.changeSettings("slides_per_view", number);
+      });
+  }
 
   ngOnInit() {
     this.getDocuments();
+  }
+
+  async getDocuments() {
+    this.segmentsService.getDocuments()
+  }
+
+  async changeSlidesPerView(number) {
+    const swiper = await this.slides.getSwiper();
+    swiper.params.slidesPerView = number;
+    this.slide(number);
+  }
+
+  slide(number) {
+    this.slides.length().then(res => {
+      if (res > number) {
+        this.endReached = false;
+      } else {
+        this.endReached = true;
+      }
+    });
+  }
+
+  async slideChanged() {
+    this.activeSlide = await this.slides.getActiveIndex();
+  }
+
+  slideEndReached() {
+    if (this.activeSlide > 0) {
+      this.endReached = true;
+    }
+  }
+
+  prevStarted() {
+    if (this.endReached) {
+      this.endReached = false;
+    }
   }
 
   toggleEditDocuments() {
@@ -32,7 +86,8 @@ export class ProjectDocuments implements OnInit {
     if (!this.editDocuments) this.resetCheckedDocuments();
   }
 
-  async selectFile(event) {
+  /* async selectFile(event) {
+    //done
     let files = [];
     for (const key of Object.keys(event.srcElement.files)) {
       const value = await event.srcElement.files[key];
@@ -42,29 +97,18 @@ export class ProjectDocuments implements OnInit {
   }
 
   resetInput(inputId) {
+    //done
     let fileInput = document.getElementById(inputId) as HTMLInputElement;
     fileInput.value = "";
   }
 
   async saveDocuments(files) {
+    //done
     await this.projectData.saveToStorage(files, this.projectId, 'documents');
     this.getDocuments();
-  }
+  } */
 
-  async getDocuments() {
-    this.documents = [];
-    const items = await this.projectData.getDocuments(this.projectId);
-    for (const item of items) {
-      const url = await this.projectData.getDownloadUrl(item.fullPath);
-      const metaData = await this.projectData.getMetadata(item.fullPath);
-      const document = {
-        url: url,
-        fullPath: item.fullPath,
-        name: metaData.customMetadata.docName
-      };
-      this.documents.push(document);
-    }
-  }
+  
 
   resetCheckedDocuments() {
     this.documents.forEach((doc, i) => {
@@ -121,23 +165,5 @@ export class ProjectDocuments implements OnInit {
     return extention
   } */
 
-  slideOpts = {
-    slidesPerView: 4,
-    freeMode: false,
-    coverflowEffect: {
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: true
-    }
-  };
 
-  slide() {
-    this.slides.length().then(res => {
-      if (res > 4) {
-        this.canSlide = true;
-      }
-    });
-  }
 }

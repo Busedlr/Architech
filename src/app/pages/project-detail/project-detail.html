@@ -28,27 +28,22 @@
     <ion-row>
       <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
         <ion-col>
-          <ion-segment-button value="images">
+          <ion-segment-button value="image">
             <ion-label
               >images
-              <span id="add-image">
-                <ion-icon name="add-circle" (click)="callAddImage()"></ion-icon>
-              </span>
               <span id="enlarge"> <ion-icon name="resize"></ion-icon></span>
-              <span (click)="changeSlidesPerView(8)">
-                <ion-icon name="heart"></ion-icon></span
-            ></ion-label>
+            </ion-label>
           </ion-segment-button>
         </ion-col>
 
         <ion-col>
-          <ion-segment-button value="documents">
+          <ion-segment-button value="document">
             <ion-label>documents</ion-label>
           </ion-segment-button>
         </ion-col>
 
         <ion-col>
-          <ion-segment-button value="companies">
+          <ion-segment-button value="company">
             <ion-label>companies</ion-label>
           </ion-segment-button>
         </ion-col>
@@ -60,13 +55,13 @@
 
       <project-images
         class="segments"
-        *ngIf="segment === 'images'"
+        *ngIf="segment === 'image'"
         [projectId]="projectData.currentProject.id"
       >
       </project-images>
       <project-documents
         class="segments"
-        *ngIf="segment === 'documents'"
+        *ngIf="segment === 'document'"
         [projectId]="projectData.currentProject.id"
       >
       </project-documents>

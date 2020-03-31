@@ -9,7 +9,9 @@ import "firebase/storage";
 export class ProjectData {
   db: any;
   projectsRef: any;
+  settingsRef: any;
   storageRef: any;
+  settings: any = {};
   projects: any[] = [];
   currentProject: any;
 
@@ -17,6 +19,8 @@ export class ProjectData {
     this.db = firebase.firestore();
     this.projectsRef = this.db.collection("projects");
     this.storageRef = firebase.storage().ref();
+    this.settingsRef = this.db.collection("settings");
+    this.getSettings();
   }
 
   updateProjectProp(projectId, prop, val) {
@@ -111,40 +115,6 @@ export class ProjectData {
     return Promise.all(rawFiles);
   }
 
-  /* saveDocuments(files, id) {
-    const rawFiles = [];
-    files.forEach(file => {
-      let extension = "." + file.name.substr(file.name.lastIndexOf(".") + 1);
-      const fullPath = id + "/documents/" + file.lastModified + extension;
-      const promise = this.storageRef
-        .child(fullPath)
-        .put(file)
-        .then(() => {
-          this.updateMetadata(file.name, fullPath);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      rawFiles.push(promise);
-    });
-    return Promise.all(rawFiles);
-  }
-
-  saveImages(files, id) {
-	const rawFiles = [];
-
-	files.forEach(file => {
-		const promise = this.storageRef
-			.child(id + '/images/' + file.lastModified)
-			.put(file)
-			.catch(error => {
-				console.log(error);
-			});
-		rawFiles.push(promise);
-	});
-	return Promise.all(rawFiles);
-} */
-
   updateMetadata(name, fullPath) {
     let newMetadata = {
       customMetadata: {
@@ -222,5 +192,27 @@ export class ProjectData {
 
   changeDocName(fullPath, newName) {
     this.storageRef.child(fullPath);
+  }
+
+  changeSettings(prop, val) {
+    const updateProp = 'settings.' + prop
+    return this.settingsRef
+      .doc(this.settings.id)
+      .update(updateProp, val)
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  getSettings() {
+    return this.settingsRef
+      .get()
+      .then(res => {
+        this.settings = res.docs[0].data().settings;
+        this.settings.id = res.docs[0].id;
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 }

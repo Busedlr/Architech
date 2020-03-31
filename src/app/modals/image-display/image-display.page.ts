@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
+import { SegmentsService } from "src/app/services/segments-service";
 
 @Component({
   selector: "app-image-display",
@@ -6,16 +7,17 @@ import { Component, OnInit, Input } from "@angular/core";
   styleUrls: ["./image-display.page.scss"]
 })
 export class ImageDisplayModalPage implements OnInit {
-  @Input() images: [];
+  images = [];
   @Input() index: number;
 
   currentImage: {};
 
-  constructor() {}
+  constructor(public segmentsService: SegmentsService) {
+    this.images = this.segmentsService.images;
+  }
 
   ngOnInit() {
     this.currentImage = this.images[this.index];
-    console.log("current image", this.currentImage)
   }
 
   nextImage() {

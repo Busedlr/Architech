@@ -5,45 +5,6 @@
   transform: translate(-50%, -50%);
 }
 
-.card-content {
-  position: relative;
-  padding-top: 100%;
-}
-
-.card-button {
-  position: absolute;
-  width: 90px;
-  height: 90px;
-  margin: 0;
-
-  ion-icon {
-    padding: 5px;
-    font-size: 80px;
-    cursor: pointer;
-  }
-}
-
-ion-card {
-  width: calc(100% - 10px);
-  img {
-    width: 100%;
-    height: 90%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: calc(100% - 20px);
-    margin: 10px;
-  }
-}
-
-.image-col {
-  input {
-    display: none;
-  }
-
   label {
     cursor: pointer;
     display: block;
@@ -73,15 +34,16 @@ ion-card {
     background-color: grey;
     transform: scale(1);
   }
-}
+
 
 .slide-content {
+  width: 225px;
   cursor: grab;
   margin-left: 5px;
   margin-right: 5px;
   img {
     width: 100%;
-    height: 300px;
+    height: 225px;
     object-fit: cover;
   }
 }
@@ -91,8 +53,8 @@ ion-slide:hover {
 }
 
 ion-slide {
-  width: 100%;
-  height: 255px;
+  width: 225px;
+  height: 225px;
   background-color: #fff;
   float: left;
 }
