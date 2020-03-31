@@ -1,35 +1,49 @@
 <div id="image-container">
-  <ion-img src=" {{ currentImage.url }} " alt="img"></ion-img>
+  <img id="image" [src]="currentImage.url" alt="img" />
 </div>
 
 <div *ngIf="!editImage" id="arrows-container">
-  <div class="name-container">
+  <div>
+    <div class="name-background"></div>
     <div class="name">{{currentImage.name}}</div>
   </div>
 
-  <ion-icon class="edit-cancel" (click)="toggleEditImage()" name="create"></ion-icon>
-  
+  <ion-icon
+    class="edit-cancel"
+    (click)="toggleEditImage()"
+    name="create"
+  ></ion-icon>
 
+  <ion-button (click)="prevImage()" id="prev-button" color="light">
+    <img src="../../assets/icon/back.svg" alt="prev image icon" />
+  </ion-button>
 
-  <img
-    class="arrow-back arrow-background"
-    src="../../assets/icon/back.svg"
-    alt="prev image icon"
-    (click)="prevImage()"
-  />
-
-  <img
-    class="arrow-front arrow-background"
-    src="../../assets/icon/next.svg"
-    alt="prev image icon"
-    (click)="prevImage()"
-  />
+  <ion-button (click)="prevImage()" id="next-button" color="light">
+    <img  src="../../assets/icon/next.svg" alt="prev image icon" />
+  </ion-button>
 </div>
 
+//Edit Mode
 <div *ngIf="editImage">
+  <div class="edit-header"></div>
   <ion-icon class="edit" (click)="toggleEditImage()" name="create"></ion-icon>
-  <ion-icon *ngIf="editImage" class="edit-cancel" (click)="quitImageDisplay()" name="close"></ion-icon>
+  <ion-icon
+    *ngIf="editImage"
+    class="edit-cancel"
+    (click)="quitImageDisplay()"
+    name="close"
+  ></ion-icon>
   <ion-label class="label" position="floating">New Name</ion-label>
-  <ion-input id="newName" class="input" placeholder={{currentImage.name}}></ion-input>
-  <ion-button class="button" (click)="saveChanges('newName', currentImage)">save</ion-button>
+  <ion-input
+    id="newName"
+    class="input"
+    placeholder="{{currentImage.name}}"
+  ></ion-input>
+
+  <ion-icon (click)="cropImage()" class="cropper-icon" name="crop"></ion-icon>
+
+  <ion-button class="button" (click)="saveChanges('newName', currentImage)"
+    >save</ion-button
+  >
+  <div class="save-background"></div>
 </div>

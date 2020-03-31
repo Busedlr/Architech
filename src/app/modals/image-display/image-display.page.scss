@@ -1,5 +1,6 @@
-ion-img {
+img {
   position: relative;
+  max-width: 100%;
   width: 100%;
   height: 100%;
 }
@@ -8,38 +9,40 @@ image-container {
   height: 400px;
 }
 
-.arrow-back {
+#arrows-container {
+  visibility: hidden;
+}
+
+#arrows-container:hover {
+  visibility: visible;
+}
+
+#image-container:hover + #arrows-container {
+  visibility: visible;
+}
+
+#prev-button {
   position: absolute;
+  width: 40px;
+  height: 40px;
   top: 50%;
-  left: 5%;
-
-  &:hover {
-    cursor: pointer;
-  }
+  left: 2%;
+  z-index: 5;
 }
 
-.arrow-background {
-  background-color: grayscale($color: #e7e7e7);
-  width: 30px;
-  height: 30px;
-  border-radius: 20px;
-}
-
-.arrow-front {
+#next-button {
   position: absolute;
+  width: 40px;
+  height: 40px;
   top: 50%;
-  left: 90%;
-
-  &:hover {
-    cursor: pointer;
-  }
+  left: calc(98% - 40px);
+  z-index: 5;
 }
+
 
 .name {
-  background-color: white;
-  border-radius: 5px;
-  top: 5%;
   position: absolute;
+  top: 5%;
   left: 5%;
   z-index: 5;
 }
@@ -57,8 +60,10 @@ image-container {
 }
 
 .input {
+  width: 90%;
   position: absolute;
-  background-color: white;
+  border: solid black 1px;
+  border-radius: 2px;
   z-index: 5;
   top: 10%;
   left: 4%;
@@ -74,18 +79,54 @@ image-container {
 .button {
   position: absolute;
   z-index: 5;
-  top: 90%;
+  top: 91%;
   left: 80%;
 }
 
-#arrows-container {
-  visibility: hidden;
+.cropper-icon {
+  background-color: white;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 5;
+  top: 92%;
+  left: 5%;
+  width: 25px;
+  height: 25px;
 }
 
-#arrows-container:hover {
-  visibility: visible;
+.cropper-icon:hover {
+  cursor: pointer;
 }
 
-#image-container:hover + #arrows-container {
-  visibility: visible;
+.edit-header {
+  width: 100%;
+  height: 120px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 5;
+  background-color: white;
+  opacity: 80%;
+}
+
+.name-background {
+  width: 100%;
+  height: 50px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 5;
+  background-color: white;
+  opacity: 50%;
+}
+
+.save-background {
+  width: 100%;
+  height: 60px;
+  top: 90%;
+  left: 0;
+  position: absolute;
+  z-index: 4;
+  background-color: white;
+  opacity: 80%;
 }

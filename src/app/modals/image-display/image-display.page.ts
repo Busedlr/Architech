@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { SegmentsService } from "src/app/services/segments-service";
 import { ProjectData } from "src/app/services/project-data";
-import { ModalController } from '@ionic/angular';
+import Cropper from "cropperjs";
 
 @Component({
   selector: "app-image-display",
@@ -11,6 +11,7 @@ import { ModalController } from '@ionic/angular';
 export class ImageDisplayModalPage implements OnInit {
   images = [];
   editImage: boolean = false;
+  myCropper:any;
 
   @Input() index: number;
 
@@ -49,18 +50,15 @@ export class ImageDisplayModalPage implements OnInit {
     this.editImage = !this.editImage;
   }
 
-  saveChanges(id,img) {
+  saveChanges(id, img) {
     this.changeName(id, img);
     this.editImage = false;
   }
 
   async changeName(id, img) {
     const newName = document.getElementById(id) as HTMLInputElement;
-    const name = newName.value + this.getDocType(img)
-    const metadata = await this.projectData.updateMetadata(
-      name,
-      img.fullPath
-    );
+    const name = newName.value + this.getDocType(img);
+    const metadata = await this.projectData.updateMetadata(name, img.fullPath);
     this.segmentsService.images[this.index].name = metadata.customMetadata.name;
   }
 
@@ -72,4 +70,28 @@ export class ImageDisplayModalPage implements OnInit {
   quitImageDisplay() {
     this.editImage = false;
   }
+
+  cropImage() {
+    const image = document.getElementById('image') as HTMLImageElement;
+const cropper = new Cropper(image, {
+  aspectRatio: 16 / 9,
+  crop(event) {
+    console.log(event.detail.x);
+    console.log(event.detail.y);
+    console.log(event.detail.width);
+    console.log(event.detail.height);
+    console.log(event.detail.rotate);
+    console.log(event.detail.scaleX);
+    console.log(event.detail.scaleY);
+  },
+});
+  }
+
+  /* cropImage() {
+    const image = document.getElementById('image') as HTMLImageElement;
+    this.myCropper = new Cropper(image, {
+      autoCrop : true,
+      background: true
+    });
+  } */
 }
