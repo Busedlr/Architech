@@ -1,15 +1,16 @@
-
 <div id="image-container">
   <ion-img src=" {{ currentImage.url }} " alt="img"></ion-img>
 </div>
 
-
-
-<div id="arrows-container">
+<div *ngIf="!editImage" id="arrows-container">
   <div class="name-container">
     <div class="name">{{currentImage.name}}</div>
   </div>
+
+  <ion-icon class="edit-cancel" (click)="toggleEditImage()" name="create"></ion-icon>
   
+
+
   <img
     class="arrow-back arrow-background"
     src="../../assets/icon/back.svg"
@@ -23,4 +24,12 @@
     alt="prev image icon"
     (click)="prevImage()"
   />
+</div>
+
+<div *ngIf="editImage">
+  <ion-icon class="edit" (click)="toggleEditImage()" name="create"></ion-icon>
+  <ion-icon *ngIf="editImage" class="edit-cancel" (click)="quitImageDisplay()" name="close"></ion-icon>
+  <ion-label class="label" position="floating">New Name</ion-label>
+  <ion-input id="newName" class="input" placeholder={{currentImage.name}}></ion-input>
+  <ion-button class="button" (click)="saveChanges('newName', currentImage)">save</ion-button>
 </div>

@@ -23,7 +23,7 @@ export class SegmentsService {
 			const image = {
 				url: url,
 				fullPath: item.fullPath,
-				name: metaData.customMetadata.docName
+				name: metaData.customMetadata.name
 			};
 
 			this.images.push(image);
@@ -39,7 +39,7 @@ export class SegmentsService {
 		  const document = {
 			url: url,
 			fullPath: item.fullPath,
-			name: metaData.customMetadata.docName
+			name: metaData.customMetadata.name
 		  };
 		  this.documents.push(document);
 		}

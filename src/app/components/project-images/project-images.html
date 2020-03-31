@@ -5,7 +5,6 @@
         class="filter pointer"
         src="../../assets/icon/back.svg"
         alt="previous slide icon"
-        [ngClass]="{'hide': this.activeSlide === 0, 'display': activeSlide !== 0 }"
         (click)="slides.slidePrev()"
       />
     </ion-col>
@@ -22,7 +21,7 @@
             <img
               src="{{ image.url }}"
               alt="project image"
-              (click)="imageClick(i, image)"
+              (click)="openModal(i)"
             />
           </div>
         </ion-slide>
@@ -32,7 +31,6 @@
       <img
         src="../../assets/icon/next.svg"
         alt="next slide icon"
-        [ngClass]="{'hide': endReached, 'display': !endReached }"
         class="filter pointer"
         (click)="slides.slideNext()"
       />

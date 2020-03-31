@@ -1,30 +1,3 @@
-/* .arrow-back {
-  visibility: hidden;
-  position: absolute;
-  top: 50%;
-  left: 5%;
-  width: 20px;
-  z-index: 9;
-}
-
-#arrow-front {
-  visibility: hidden;
-  position: absolute;
-  top: 50%;
-  left: 95%;
-  width: 20px;
-  z-index: 9;
-}
-
-#image-container:hover + #arrow-front{
-    visibility: visible;
-    position: absolute;
-    top: 50%;
-    left: 95%;
-    width: 20px;
-    z-index: 9;
-} */
-
 ion-img {
   position: relative;
   width: 100%;
@@ -74,6 +47,35 @@ image-container {
 .name-container {
   background-color: white;
   border-radius: 5px;
+}
+
+.edit-cancel {
+  position: absolute;
+  z-index: 5;
+  top: 5%;
+  left: 90%;
+}
+
+.input {
+  position: absolute;
+  background-color: white;
+  z-index: 5;
+  top: 10%;
+  left: 4%;
+}
+
+.label {
+  position: absolute;
+  z-index: 5;
+  top: 3%;
+  left: 4%;
+}
+
+.button {
+  position: absolute;
+  z-index: 5;
+  top: 90%;
+  left: 80%;
 }
 
 #arrows-container {

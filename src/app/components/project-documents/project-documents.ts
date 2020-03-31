@@ -30,19 +30,21 @@ export class ProjectDocuments implements OnInit {
   ) {
     this.slideOpts = {
       slidesPerView: this.projectData.settings.slides_per_view,
-      freeMode: this.projectData.settings.free_mode
+      freeMode: this.projectData.settings.free_mode,
+      allowTouchMove: false,
     };
     events.subscribe("change slide per view", number => {
       this.changeSlidesPerView(number);
-      //necessary to get the images again ?
+      //necessary to get the documents again ?
         this.getDocuments();
         this.projectData.changeSettings("slides_per_view", number);
       });
   }
 
-  ngOnInit() {
+ async ngOnInit() {
     this.getDocuments();
   }
+
 
   async getDocuments() {
     this.segmentsService.getDocuments()
@@ -156,14 +158,14 @@ export class ProjectDocuments implements OnInit {
       newName.value,
       doc.fullPath
     );
-    this.documents[i].name = metadata.customMetadata.docName;
+    this.documents[i].name = metadata.customMetadata.name;
   }
 
-  /* getDocType(file) {
+  getDocType(file) {
     let extention = "." +  file.name.substr(file.name.lastIndexOf(".") + 1);
     console.log("getdoctype", extention);
     return extention
-  } */
+  }
 
 
 }

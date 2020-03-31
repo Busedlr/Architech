@@ -118,7 +118,7 @@ export class ProjectData {
   updateMetadata(name, fullPath) {
     let newMetadata = {
       customMetadata: {
-        docName: name
+        name: name
       }
     };
     return this.storageRef

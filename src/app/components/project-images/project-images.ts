@@ -15,14 +15,10 @@ export class ProjectImages implements OnInit {
   @Input("projectId") projectId;
   files: any = [];
   images: any = [];
-  checkedImages: any = [];
-  editImages: boolean = false;
-  loading: boolean = true;
-  canSlide: boolean = false;
-  activeSlide: number = 0;
-  endReached: boolean;
   slideOpts: any = {};
-
+  activeSlide: number = 0;
+  loading: boolean = true;
+  endReached: boolean;
 
   constructor(
     public projectData: ProjectData,
@@ -32,12 +28,13 @@ export class ProjectImages implements OnInit {
   ) {
     this.slideOpts = {
       slidesPerView: this.projectData.settings.slides_per_view,
-      freeMode: this.projectData.settings.free_mode
+      freeMode: this.projectData.settings.free_mode,
+      allowTouchMove: false
     };
 
     events.subscribe("change slide per view", number => {
-	  this.changeSlidesPerView(number);
-	  //necessary to get the images again ?
+      this.changeSlidesPerView(number);
+      //necessary to get the images again ?
       this.getImages();
       this.projectData.changeSettings("slides_per_view", number);
     });
@@ -83,50 +80,6 @@ export class ProjectImages implements OnInit {
     this.segmentsService.getImages();
   }
 
-  toggleEditImages() {
-    this.checkedImages = [];
-    this.editImages = !this.editImages;
-    if (!this.editImages) this.resetCheckedImages();
-  }
-
-  resetCheckedImages() {
-    this.images.forEach((img, i) => {
-      const checkbox = document.getElementById(i) as HTMLInputElement;
-      checkbox.checked = false;
-    });
-  }
-
-  imageClick(id, image) {
-    if (this.editImages) {
-      const checkbox = document.getElementById(id) as HTMLInputElement;
-      checkbox.checked = !checkbox.checked;
-
-      const index = this.checkedImages.findIndex(
-        x => x.fullPath === image.fullPath
-      );
-
-      if (checkbox.checked) {
-        this.checkedImages.push(image);
-      } else {
-        this.checkedImages.splice(index, 1);
-      }
-    } else {
-      this.openModal(id);
-    }
-  }
-
-  async deleteImages() {
-    this.checkedImages.forEach(img => {
-      console.log(img.name);
-    });
-    for (let image of this.checkedImages) {
-      await this.projectData.deleteImage(image);
-    }
-
-    this.toggleEditImages();
-    this.getImages();
-  }
-
   async openModal(i) {
     const modal = await this.modalController.create({
       component: ImageDisplayModalPage,
@@ -143,10 +96,69 @@ export class ProjectImages implements OnInit {
     });
   }
 
-
   simulateClick(id) {
     document.getElementById(id).click();
   }
 
   
+
+  ///
+
+  ///
+
+  ///
+
+  ///
+
+  /*
+  on arrows in html 
+  [ngClass]="{'hide': this.activeSlide === 0, 'display': activeSlide !== 0 }"
+  [ngClass]="{'hide': endReached, 'display': !endReached }" */
+
+  /* toggleEditImages() {
+    this.checkedImages = [];
+    this.editImages = !this.editImages;
+    if (!this.editImages) this.resetCheckedImages();
+  } */
+
+  /* resetCheckedImages() {
+    for full screen page
+    this.images.forEach((img, i) => {
+      const checkbox = document.getElementById(i) as HTMLInputElement;
+      checkbox.checked = false;
+    });
+  } */
+
+  /* async deleteImages() {
+    for full screen page
+    this.checkedImages.forEach(img => {
+      console.log(img.name);
+    });
+    for (let image of this.checkedImages) {
+      await this.projectData.deleteImage(image);
+    }
+
+    this.toggleEditImages();
+    this.getImages();
+  } */
+
+  /* imageClick(id, image) {
+    for full screen page
+    if (this.editImages) {
+      const checkbox = document.getElementById(id) as HTMLInputElement;
+      checkbox.checked = !checkbox.checked;
+
+      const index = this.checkedImages.findIndex(
+        x => x.fullPath === image.fullPath
+      );
+
+      if (checkbox.checked) {
+        this.checkedImages.push(image);
+      } else {
+        this.checkedImages.splice(index, 1);
+      }
+    } else {
+      this.openModal(id);
+    }
+  } */
 }
