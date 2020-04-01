@@ -115,19 +115,33 @@ export class ProjectData {
     return Promise.all(rawFiles);
   }
 
-  updateMetadata(name,extension, fullPath) {
-    let newMetadata = {
-      customMetadata: {
-        name: name,
-        extension: extension
-      }
-    };
-    return this.storageRef
-      .child(fullPath)
-      .updateMetadata(newMetadata)
-      .then(res => {
-        return res;
-      });
+  updateMetadata(name, extension, fullPath) {
+    if (extension === "extension") {
+      let newMetadata = {
+        customMetadata: {
+          name: name
+        }
+      };
+      return this.storageRef
+        .child(fullPath)
+        .updateMetadata(newMetadata)
+        .then(res => {
+          return res;
+        });
+    } else {
+      let newMetadata = {
+        customMetadata: {
+          name: name,
+          extension: extension
+        }
+      };
+      return this.storageRef
+        .child(fullPath)
+        .updateMetadata(newMetadata)
+        .then(res => {
+          return res;
+        });
+    }
   }
 
   getMetadata(fullPath) {
@@ -196,7 +210,7 @@ export class ProjectData {
   }
 
   changeSettings(prop, val) {
-    const updateProp = 'settings.' + prop
+    const updateProp = "settings." + prop;
     return this.settingsRef
       .doc(this.settings.id)
       .update(updateProp, val)

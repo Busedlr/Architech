@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { ProjectData } from "src/app/services/project-data";
 import { ModalController, IonSlides, Events } from "@ionic/angular";
-import { SegmentsService } from 'src/app/services/segments-service';
+import { SegmentsService } from "src/app/services/segments-service";
 
 @Component({
   selector: "project-documents",
@@ -20,33 +20,31 @@ export class ProjectDocuments implements OnInit {
   activeSlide: number = 0;
   endReached: boolean;
 
-
   constructor(
     public projectData: ProjectData,
     public modalController: ModalController,
-    public segmentsService : SegmentsService,
+    public segmentsService: SegmentsService,
     public events: Events
   ) {
     this.slideOpts = {
       slidesPerView: this.projectData.settings.slides_per_view,
       freeMode: this.projectData.settings.free_mode,
-      allowTouchMove: false,
+      allowTouchMove: false
     };
     events.subscribe("change slide per view", number => {
       this.changeSlidesPerView(number);
       //necessary to get the documents again ?
-        this.getDocuments();
-        this.projectData.changeSettings("slides_per_view", number);
-      });
+      this.getDocuments();
+      this.projectData.changeSettings("slides_per_view", number);
+    });
   }
 
- async ngOnInit() {
+  async ngOnInit() {
     this.getDocuments();
   }
 
-
   async getDocuments() {
-    this.segmentsService.getDocuments()
+    this.segmentsService.getDocuments();
   }
 
   async changeSlidesPerView(number) {
@@ -81,13 +79,13 @@ export class ProjectDocuments implements OnInit {
     }
   }
 
- /*  toggleEditDocuments() {
+  /*  toggleEditDocuments() {
     this.checkedDocuments = [];
     this.editDocuments = !this.editDocuments;
     if (!this.editDocuments) this.resetCheckedDocuments();
   }
    */
-/* 
+  /* 
   resetCheckedDocuments() {
     this.documents.forEach((doc, i) => {
       const checkbox = document.getElementById(i) as HTMLInputElement;
@@ -112,36 +110,9 @@ export class ProjectDocuments implements OnInit {
     }
   }
 
-  async deleteDocuments() {
-    this.checkedDocuments.forEach(img => {});
-    for (let image of this.checkedDocuments) {
-      await this.projectData.deleteDocument(image);
-    }
-
-    this.toggleEditDocuments();
-    this.getDocuments();
-  }
-
-  editName(i) {
-    this.changeButtons = true;
-    this.changeNameIndex = i;
-  }
-
-  async changeName(i, doc) {
-    this.changeButtons = false;
-    const newName = document.getElementById(i) as HTMLInputElement;
-    const metadata = await this.projectData.updateMetadata(
-      newName.value,
-      doc.fullPath
-    );
-    this.documents[i].name = metadata.customMetadata.name;
-  }
-
   getDocType(file) {
-    let extention = "." +  file.name.substr(file.name.lastIndexOf(".") + 1);
+    let extention = "." + file.name.substr(file.name.lastIndexOf(".") + 1);
     console.log("getdoctype", extention);
-    return extention
+    return extention;
   }
-
-
 }

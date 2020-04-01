@@ -2,6 +2,7 @@
   <ion-row class="ion-align-items-center">
     <ion-col class="arrow-col">
       <img
+      *ngIf="display"
         class="filter pointer"
         src="../../assets/icon/back.svg"
         alt="previous slide icon"
@@ -9,13 +10,7 @@
       />
     </ion-col>
     <ion-col class="slider-col">
-      <ion-slides
-        #slides
-        [options]="slideOpts"
-        (ionSlideTransitionEnd)="slideChanged()"
-        (ionSlidePrevStart)="prevStarted()"
-        (ionSlideReachEnd)="slideEndReached()"
-      >
+      <ion-slides #slides [options]="slideOpts">
         <ion-slide *ngFor="let image of segmentsService.images; let i = index">
           <div class="slide-content">
             <img
@@ -30,6 +25,7 @@
     </ion-col>
     <ion-col class="arrow-col">
       <img
+      *ngIf="display"
         src="../../assets/icon/next.svg"
         alt="next slide icon"
         class="filter pointer"

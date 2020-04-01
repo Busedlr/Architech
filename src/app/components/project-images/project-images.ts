@@ -16,9 +16,9 @@ export class ProjectImages implements OnInit {
   files: any = [];
   images: any = [];
   slideOpts: any = {};
-  activeSlide: number = 0;
   loading: boolean = true;
-  endReached: boolean;
+  display: boolean = false;
+  slidesPerView = this.projectData.settings.slides_per_view;
 
   constructor(
     public projectData: ProjectData,
@@ -33,6 +33,7 @@ export class ProjectImages implements OnInit {
     };
 
     events.subscribe("change slide per view", number => {
+      this.slidesPerView = number;
       this.changeSlidesPerView(number);
       //necessary to get the images again ?
       this.getImages();
@@ -47,37 +48,22 @@ export class ProjectImages implements OnInit {
   async changeSlidesPerView(number) {
     const swiper = await this.slides.getSwiper();
     swiper.params.slidesPerView = number;
-    this.slide(number);
+    this.canSlide();
   }
 
-  slide(number) {
+  canSlide() {
     this.slides.length().then(res => {
-      if (res > number) {
-        this.endReached = false;
+      if (res + 1 <= this.slidesPerView) {
+        this.display = false;
       } else {
-        this.endReached = true;
+        this.display = true;
       }
     });
   }
 
-  async slideChanged() {
-    this.activeSlide = await this.slides.getActiveIndex();
-  }
-
-  slideEndReached() {
-    if (this.activeSlide > 0) {
-      this.endReached = true;
-    }
-  }
-
-  prevStarted() {
-    if (this.endReached) {
-      this.endReached = false;
-    }
-  }
-
-  getImages() {
-    this.segmentsService.getImages();
+  async getImages() {
+    await this.segmentsService.getImages();
+    this.canSlide();
   }
 
   async openModal(i) {
@@ -99,8 +85,6 @@ export class ProjectImages implements OnInit {
   simulateClick(id) {
     document.getElementById(id).click();
   }
-
-  
 
   ///
 
@@ -159,6 +143,32 @@ export class ProjectImages implements OnInit {
       }
     } else {
       this.openModal(id);
+    }
+  } */
+
+  /* slide(number) {
+    this.slides.length().then(res => {
+      if (res > number) {
+        this.endReached = false;
+      } else {
+        this.endReached = true;
+      }
+    });
+  }
+
+  async slideChanged() {
+    this.activeSlide = await this.slides.getActiveIndex();
+  }
+
+  slideEndReached() {
+    if (this.activeSlide > 0) {
+      this.endReached = true;
+    }
+  }
+
+  prevStarted() {
+    if (this.endReached) {
+      this.endReached = false;
     }
   } */
 }

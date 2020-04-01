@@ -58,7 +58,7 @@ export class ImageDisplayModalPage implements OnInit {
   async changeName(id, img) {
     const newName = document.getElementById(id) as HTMLInputElement;
     const name = newName.value + this.getDocType(img);
-    const metadata = await this.projectData.updateMetadata(name, img.fullPath);
+    const metadata = await this.projectData.updateMetadata(name,'extension', img.fullPath);
     this.segmentsService.images[this.index].name = metadata.customMetadata.name;
   }
 

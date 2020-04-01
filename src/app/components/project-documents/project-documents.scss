@@ -8,6 +8,7 @@
     brightness(99%) contrast(101%);
 }
 
+
 ion-col {
   text-align: center;
 }
@@ -29,7 +30,7 @@ ion-slide:hover {
 .slide-content {
   height: 340px;
   width: 310px;
-  cursor: grab;
+  cursor: pointer;
   margin-left: 5px;
   margin-right: 5px;
 }
