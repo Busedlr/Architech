@@ -1,96 +1,62 @@
-
-
-.display-none {
-  display: none;
-}
-
-.change-name {
-  /* display: none; */
-  position: absolute;
-  left: 8%;
-  bottom: 77%;
-  transform: translate(-8%, -77%);
-}
-
-.doc-name {
-  position: absolute;
-  left: 15%;
-  top: 80%;
-  transform: translate(15%, 80%);
-}
-
-ion-icon {
-  padding: 5px;
-  font-size: 80px;
+.pointer {
   cursor: pointer;
 }
 
-.card-button {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  margin: 0;
-
-  ion-icon {
-    padding: 5px;
-    font-size: 50px;
-    cursor: pointer;
-  }
-}
-ion-grid {
-  width: 80%;
+.filter {
+  //to change color of the icon img
+  filter: invert(47%) sepia(64%) saturate(3659%) hue-rotate(164deg)
+    brightness(99%) contrast(101%);
 }
 
-/* ion-card:hover .change-name {
-  display: inline-block;
-} */
+ion-col {
+  text-align: center;
+}
 
-ion-card {
-  position: relative;
-  width: calc(100% - 20px);
+.arrow-col {
+  max-width: 50px;
+  min-width: 50px;
+}
+
+.slider-col {
+  max-width: calc(100% - 100px);
+  min-width: calc(100% - 100px);
+}
+
+ion-slide:hover {
+  cursor: pointer;
+}
+
+.slide-content {
+  height: 340px;
+  width: 310px;
+  cursor: grab;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .center {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: calc(50% - (150px / 2));
+  left: calc(50% - (150px / 2));
 }
 
-.bottom-center {
+.slide-background {
+  opacity: 10%;
+  width: 100%;
+  height: 100%;
+  background-color: grey;
+}
+
+.doc-name {
+  width: 50%;
+  left: 25%;
   position: absolute;
-  left: 50%;
   top: 80%;
-  transform: translate(-50%, -80%);
 }
 
-.card-content {
-  position: relative;
-  padding-top: 100%;
+.doc-icon {
+  padding: 5px;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
 }
-
-
-.slide-content {
-	margin-left: 5px;
-	margin-right: 5px;
-	img {
-	  width: 100%;
-	  height: 300px;
-	  object-fit: cover;
-	}
-  }
-  
-  ion-slide:hover {
-	cursor: pointer;
-  }
-  
-  ion-slide {
-	width: 100%;
-	height: 255px;
-	background-color: #fff;
-	float: left;
-  }
-  
-  ion-slides {
-	position: relative;
-  }

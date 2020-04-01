@@ -105,7 +105,7 @@ export class ProjectData {
         .child(fullPath)
         .put(file)
         .then(() => {
-          this.updateMetadata(file.name, fullPath);
+          this.updateMetadata(file.name, extension, fullPath);
         })
         .catch(error => {
           console.log(error);
@@ -115,10 +115,11 @@ export class ProjectData {
     return Promise.all(rawFiles);
   }
 
-  updateMetadata(name, fullPath) {
+  updateMetadata(name,extension, fullPath) {
     let newMetadata = {
       customMetadata: {
-        name: name
+        name: name,
+        extension: extension
       }
     };
     return this.storageRef

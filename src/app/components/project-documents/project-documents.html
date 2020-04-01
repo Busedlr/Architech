@@ -60,18 +60,51 @@
 </ion-row>
  -->
 
+<ion-grid>
+  <ion-row class="ion-align-items-center">
+    <ion-col class="arrow-col">
+      <img
+        class="filter pointer"
+        src="../../assets/icon/back.svg"
+        alt="previous slide icon"
+        (click)="slides.slidePrev()"
+      />
+    </ion-col>
 
-
-
-<ion-slides #slides [options]="slideOpts">
-  <ion-slide *ngFor="let doc of segmentsService.documents; let i = index" (click)="documentClick(i, doc)">
-    <div class="slide-content">
-      <div class="doc-name">{{doc.name}}</div>
-      <a class="center" [href]="doc.url" [target]="doc.name">
-        <ion-icon class="center" name="paper"></ion-icon>
-      </a>
-    </div>
-  </ion-slide>
-</ion-slides>
-
-
+    <ion-col class="slider-col">
+      <ion-slides
+        #slides
+        [options]="slideOpts"
+        (ionSlideTransitionEnd)="slideChanged()"
+        (ionSlidePrevStart)="prevStarted()"
+        (ionSlideReachEnd)="slideEndReached()"
+      >
+        <ion-slide
+          *ngFor="let doc of segmentsService.documents; let i = index"
+          (click)="documentClick(i, doc)"
+        >
+          <div class="slide-content">
+            <div class="slide-background"></div>
+            <a class="center" [href]="doc.url" [target]="doc.name">
+              <img
+                class="doc-icon filter"
+                [src]=doc.iconSrc
+                alt="previous slide icon"
+                (click)="slides.slidePrev()"
+              />
+            </a>
+            <div class="doc-name">{{doc.name}}</div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </ion-col>
+    <ion-col class="arrow-col">
+      <img
+        src="../../assets/icon/next.svg"
+        alt="next slide icon"
+        class="filter pointer"
+        (click)="slides.slideNext()"
+      />
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -11,7 +11,6 @@ import { SegmentsService } from 'src/app/services/segments-service';
 export class ProjectDocuments implements OnInit {
   @ViewChild("slides", { static: false }) slides: IonSlides;
   @Input("projectId") projectId;
-  documents: any = [];
   checkedDocuments: any = [];
   editDocuments: any = false;
   changeNameIndex: any;
@@ -82,42 +81,19 @@ export class ProjectDocuments implements OnInit {
     }
   }
 
-  toggleEditDocuments() {
+ /*  toggleEditDocuments() {
     this.checkedDocuments = [];
     this.editDocuments = !this.editDocuments;
     if (!this.editDocuments) this.resetCheckedDocuments();
   }
-
-  /* async selectFile(event) {
-    //done
-    let files = [];
-    for (const key of Object.keys(event.srcElement.files)) {
-      const value = await event.srcElement.files[key];
-      files.push(value);
-    }
-    this.saveDocuments(files);
-  }
-
-  resetInput(inputId) {
-    //done
-    let fileInput = document.getElementById(inputId) as HTMLInputElement;
-    fileInput.value = "";
-  }
-
-  async saveDocuments(files) {
-    //done
-    await this.projectData.saveToStorage(files, this.projectId, 'documents');
-    this.getDocuments();
-  } */
-
-  
-
+   */
+/* 
   resetCheckedDocuments() {
     this.documents.forEach((doc, i) => {
       const checkbox = document.getElementById(i) as HTMLInputElement;
       checkbox.checked = false;
     });
-  }
+  } */
 
   documentClick(id, doc) {
     if (this.editDocuments) {
