@@ -11,7 +11,7 @@ import Cropper from "cropperjs";
 export class ImageDisplayModalPage implements OnInit {
   images = [];
   editImage: boolean = false;
-  myCropper:any;
+  myCropper: any;
 
   @Input() index: number;
 
@@ -35,6 +35,7 @@ export class ImageDisplayModalPage implements OnInit {
       this.index = 0;
     }
     this.currentImage = this.images[this.index];
+    this.setModalSize(100);
   }
 
   prevImage() {
@@ -44,6 +45,18 @@ export class ImageDisplayModalPage implements OnInit {
       this.index = this.images.length - 1;
     }
     this.currentImage = this.images[this.index];
+    this.setModalSize(200);
+  }
+
+  setModalSize(height) {
+    /* let modalList = document.querySelectorAll(".images-modal .modal-wrapper");
+    let modal = modalList[0] as HTMLElement;
+    console.log("modallist", modalList)
+    console.log("modal", modal)
+    modal.style.height = height; */
+
+    const sylesheets = document.styleSheets
+    console.log(sylesheets[0])
   }
 
   toggleEditImage() {
@@ -58,7 +71,11 @@ export class ImageDisplayModalPage implements OnInit {
   async changeName(id, img) {
     const newName = document.getElementById(id) as HTMLInputElement;
     const name = newName.value + this.getDocType(img);
-    const metadata = await this.projectData.updateMetadata(name,'extension', img.fullPath);
+    const metadata = await this.projectData.updateMetadata(
+      name,
+      "extension",
+      img.fullPath
+    );
     this.segmentsService.images[this.index].name = metadata.customMetadata.name;
   }
 
@@ -72,19 +89,19 @@ export class ImageDisplayModalPage implements OnInit {
   }
 
   cropImage() {
-    const image = document.getElementById('image') as HTMLImageElement;
-const cropper = new Cropper(image, {
-  aspectRatio: 16 / 9,
-  crop(event) {
-    console.log(event.detail.x);
-    console.log(event.detail.y);
-    console.log(event.detail.width);
-    console.log(event.detail.height);
-    console.log(event.detail.rotate);
-    console.log(event.detail.scaleX);
-    console.log(event.detail.scaleY);
-  },
-});
+    const image = document.getElementById("image") as HTMLImageElement;
+    const cropper = new Cropper(image, {
+      aspectRatio: 16 / 9,
+      crop(event) {
+        console.log(event.detail.x);
+        console.log(event.detail.y);
+        console.log(event.detail.width);
+        console.log(event.detail.height);
+        console.log(event.detail.rotate);
+        console.log(event.detail.scaleX);
+        console.log(event.detail.scaleY);
+      }
+    });
   }
 
   /* cropImage() {

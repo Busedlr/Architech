@@ -71,7 +71,8 @@ export class ProjectImages implements OnInit {
       component: ImageDisplayModalPage,
       componentProps: {
         index: i
-      }
+      },
+      cssClass:"images-modal"
     });
     return await modal.present();
   }
