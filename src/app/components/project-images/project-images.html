@@ -1,38 +1,22 @@
-<link href="../../assets/scss/modal-style.css" rel="stylesheet" type="text/css" title="modal-style" />
-
 <ion-grid>
   <ion-row class="ion-align-items-center">
     <ion-col class="arrow-col">
-      <img
-      *ngIf="display"
-        class="filter pointer"
-        src="../../assets/icon/back.svg"
-        alt="previous slide icon"
-        (click)="slides.slidePrev()"
-      />
+      <img *ngIf="display" class="filter pointer" src="../../assets/icon/back.svg" alt="previous slide icon"
+        (click)="slides.slidePrev()" />
     </ion-col>
     <ion-col class="slider-col">
       <ion-slides #slides [options]="slideOpts">
         <ion-slide *ngFor="let image of segmentsService.images; let i = index">
           <div class="slide-content">
-            <img
-              src="{{ image.url }}"
-              alt="project image"
-              (click)="openModal(i)"
-            />
+            <img src="{{ image.url }}" alt="project image" (click)="openModal(i)" />
             <div>{{image.name}}</div>
           </div>
         </ion-slide>
       </ion-slides>
     </ion-col>
     <ion-col class="arrow-col">
-      <img
-      *ngIf="display"
-        src="../../assets/icon/next.svg"
-        alt="next slide icon"
-        class="filter pointer"
-        (click)="slides.slideNext()"
-      />
+      <img *ngIf="display" src="../../assets/icon/next.svg" alt="next slide icon" class="filter pointer"
+        (click)="slides.slideNext()" />
     </ion-col>
   </ion-row>
 </ion-grid>
