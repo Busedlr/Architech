@@ -1,4 +1,5 @@
 .images-modal .modal-wrapper {
-	height: 600px;
-	width: 600px;
+  padding: 0;
+  transition-property: width;
+  transition-duration: 10s;
 }

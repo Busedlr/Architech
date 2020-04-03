@@ -8,8 +8,11 @@ export class SegmentsService {
   images: any[] = [];
   documents: any[] = [];
   segmentName: any;
+  imageModalStyleSheet;
 
-  constructor(public projectData: ProjectData) {}
+  constructor(public projectData: ProjectData) {
+    this.getModalStyleSheet();
+  }
 
   async getImages() {
     this.images = [];
@@ -30,23 +33,6 @@ export class SegmentsService {
     }
   }
 
-  /* async getDocuments() {
-		this.documents = [];
-		const items = await this.projectData.getDocuments(this.projectData.currentProject.id);
-		for (const item of items) {
-		  const url = await this.projectData.getDownloadUrl(item.fullPath);
-		  const metaData = await this.projectData.getMetadata(item.fullPath);
-		  const document = {
-			url: url,
-			fullPath: item.fullPath,
-			name: metaData.customMetadata.name,
-			extension: metaData.customMetadata.extension
-		  };
-
-		  this.documents.push(document);
-		}
-	  } */
-
   async getDocuments() {
     this.documents = [];
     const items = await this.projectData.getDocuments(
@@ -54,16 +40,27 @@ export class SegmentsService {
     );
     for (const item of items) {
       const url = await this.projectData.getDownloadUrl(item.fullPath);
-	  const metaData = await this.projectData.getMetadata(item.fullPath);
-	  
+      const metaData = await this.projectData.getMetadata(item.fullPath);
+
       const document = {
         url: url,
         fullPath: item.fullPath,
         name: metaData.customMetadata.name,
         extension: metaData.customMetadata.extension,
-        iconSrc: "../../assets/icon/" + metaData.customMetadata.extension.substring(1) + ".svg"
+        iconSrc:
+          "../../assets/icon/" +
+          metaData.customMetadata.extension.substring(1) +
+          ".svg"
       };
-	  this.documents.push(document);
+      this.documents.push(document);
+    }
+  }
+
+  getModalStyleSheet() {
+    const styleSheets = document.styleSheets;
+    for (let index = 0; index < styleSheets.length; ++index) {
+      const sheet = styleSheets[index];
+      if (sheet.title === "modal-style") this.imageModalStyleSheet = sheet;
     }
   }
 }

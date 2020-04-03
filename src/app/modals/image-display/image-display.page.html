@@ -1,12 +1,12 @@
 
   <div id="image-container">
-    <img id="image" [src]="currentImage.url" alt="img" />
+    <img [id]="index" [src]="currentImage.url" alt="img" />
   </div>
   
-  <div *ngIf="!editImage" id="arrows-container">
+  <div *ngIf="!editImage" id="edit-tools">
     <div>
-      <div class="name-background"></div>
-      <div class="name">{{currentImage.name}}</div>
+      <div class="top-toolbar"></div>
+      <div class="img-name">{{currentImage.name}}</div>
     </div>
   
     <ion-icon 
@@ -19,10 +19,34 @@
       <img src="../../assets/icon/back.svg" alt="prev image icon" />
     </ion-button>
   
-    <ion-button (click)="prevImage()" id="next-button" color="light">
+    <ion-button (click)="nextImage()" id="next-button" color="light">
       <img  src="../../assets/icon/next.svg" alt="prev image icon" />
     </ion-button>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
   
   
   <div *ngIf="editImage">

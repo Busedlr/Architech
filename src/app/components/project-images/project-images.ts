@@ -69,39 +69,60 @@ export class ProjectImages implements OnInit {
     });
   }
 
-  async openModal(i) {
+  getModalStyleSheet() {
+    this.modalStyleSheet = this.segmentsService.imageModalStyleSheet;
+  }
+
+  async openModal(openingImageIndex) {
     const modal = await this.modalController.create({
       component: ImageDisplayModalPage,
       componentProps: {
-        index: i
+        index: openingImageIndex
       },
       cssClass: "images-modal"
     });
 
-    const myImg = document.getElementById(i) as HTMLImageElement;
-    let height = myImg.naturalHeight
-    if (height > 800) height = 800
-    let width = myImg.naturalWidth
-    if (width > 800) width = 800
+    this.calculateModalSize(openingImageIndex);
 
-    const stringHeight = height.toString() + "px"
-    const stringWidth = width.toString() + "px"
-    this.setModalSize(stringHeight, stringWidth);
-    
     return await modal.present();
   }
-  
-  setModalSize(height, width) {
-    this.modalStyleSheet.cssRules[0].style.height = height;
-    this.modalStyleSheet.cssRules[0].style.width = width;
-  }
 
-  getModalStyleSheet() {
-    const styleSheets = document.styleSheets;
-    for (let index = 0; index < styleSheets.length; ++index) {
-      const sheet = styleSheets[index];
-      if (sheet.title === "modal-style") this.modalStyleSheet = sheet;
+  calculateModalSize(i) {
+    const myImg = document.getElementById(i) as HTMLImageElement;
+    let width = myImg.naturalWidth;
+    let height = myImg.naturalHeight;
+
+    console.log("myImg", myImg);
+    console.log("original width", width);
+    console.log("original height", height);
+    let maxModalWidth = window.outerWidth - (window.outerWidth / 100) * 20;
+    let maxModalHeight = window.outerHeight - (window.outerHeight / 100) * 20;
+    
+    console.log("maxModalWidth", maxModalWidth);
+    console.log("maxModalHeight", maxModalHeight);
+    const aspectRatio = width / height;
+    console.log("aspectRatio", aspectRatio);
+
+    if (width > maxModalWidth) {
+      width = maxModalWidth;
+      height = width / aspectRatio;
     }
+    if (height > maxModalHeight) {
+      height = maxModalHeight;
+      width = height * aspectRatio;
+    }
+
+    console.log("width", width);
+    console.log("height", height);
+    this.setModalSize(width, height);
+  }
+  
+
+  setModalSize(width, height) {
+    const stringWidth = width.toString() + "px";
+    const stringHeight = height.toString() + "px";
+    this.segmentsService.imageModalStyleSheet.cssRules[0].style.width = stringWidth;
+    this.segmentsService.imageModalStyleSheet.cssRules[0].style.height = stringHeight;
   }
 
 
@@ -114,8 +135,6 @@ export class ProjectImages implements OnInit {
   simulateClick(id) {
     document.getElementById(id).click();
   }
-
- 
 
   ///
 

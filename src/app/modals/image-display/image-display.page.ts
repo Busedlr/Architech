@@ -35,7 +35,7 @@ export class ImageDisplayModalPage implements OnInit {
       this.index = 0;
     }
     this.currentImage = this.images[this.index];
-    this.setModalSize(100);
+    this.calculateModalSize();
   }
 
   prevImage() {
@@ -45,13 +45,40 @@ export class ImageDisplayModalPage implements OnInit {
       this.index = this.images.length - 1;
     }
     this.currentImage = this.images[this.index];
-    this.setModalSize(200);
+
+    this.calculateModalSize();
   }
 
-  setModalSize(height) {
-    const sylesheets = document.styleSheets
-    console.log(sylesheets[0])
+  calculateModalSize() {
+    const index = this.index.toString();
+    const myImg = document.getElementById(index) as HTMLImageElement;
+    let width = myImg.naturalWidth;
+    let height = myImg.naturalHeight;
+
+    let maxModalWidth = window.outerWidth - (window.outerWidth / 100) * 20;
+    let maxModalHeight = window.outerHeight - (window.outerHeight / 100) * 20;
+    
+    const aspectRatio = width / height;
+
+    if (width > maxModalWidth) {
+      width = maxModalWidth;
+      height = width / aspectRatio;
+    }
+    if (height > maxModalHeight) {
+      height = maxModalHeight;
+      width = height * aspectRatio;
+    }
+    this.setModalSize(width, height);
   }
+
+  setModalSize(width, height) {
+    const stringWidth = width.toString() + "px";
+    const stringHeight = height.toString() + "px";
+    
+    this.segmentsService.imageModalStyleSheet.cssRules[0].style.width = stringWidth;
+    this.segmentsService.imageModalStyleSheet.cssRules[0].style.height = stringHeight;
+  }
+
 
   toggleEditImage() {
     this.editImage = !this.editImage;
