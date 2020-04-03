@@ -49,12 +49,6 @@ export class ImageDisplayModalPage implements OnInit {
   }
 
   setModalSize(height) {
-    /* let modalList = document.querySelectorAll(".images-modal .modal-wrapper");
-    let modal = modalList[0] as HTMLElement;
-    console.log("modallist", modalList)
-    console.log("modal", modal)
-    modal.style.height = height; */
-
     const sylesheets = document.styleSheets
     console.log(sylesheets[0])
   }

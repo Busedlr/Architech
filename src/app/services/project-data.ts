@@ -99,7 +99,8 @@ export class ProjectData {
   saveToStorage(files, id, type) {
     const rawFiles = [];
     files.forEach(file => {
-      let extension = "." + file.name.substr(file.name.lastIndexOf(".") + 1);
+      console.log("file", file)
+      const extension = "." + file.name.substr(file.name.lastIndexOf(".") + 1);
       const fullPath = id + "/" + type + "/" + file.lastModified + extension;
       const promise = this.storageRef
         .child(fullPath)

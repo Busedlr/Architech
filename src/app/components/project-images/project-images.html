@@ -8,7 +8,7 @@
       <ion-slides #slides [options]="slideOpts">
         <ion-slide *ngFor="let image of segmentsService.images; let i = index">
           <div class="slide-content">
-            <img src="{{ image.url }}" alt="project image" (click)="openModal(i)" />
+            <img src="{{ image.url }}" alt="project image" (click)="openModal(i)" [id]="i" />
             <div>{{image.name}}</div>
           </div>
         </ion-slide>
