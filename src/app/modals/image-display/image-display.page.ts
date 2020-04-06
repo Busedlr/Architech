@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { SegmentsService } from "src/app/services/segments-service";
 import { ProjectData } from "src/app/services/project-data";
 import Cropper from "cropperjs";
+import { ModalController } from "@ionic/angular";
 
 @Component({
   selector: "app-image-display",
@@ -12,6 +13,7 @@ export class ImageDisplayModalPage implements OnInit {
   images = [];
   editImage: boolean = false;
   myCropper: any;
+  imageContainer: any;
 
   @Input() index: number;
 
@@ -19,13 +21,16 @@ export class ImageDisplayModalPage implements OnInit {
 
   constructor(
     public segmentsService: SegmentsService,
-    public projectData: ProjectData
+    public projectData: ProjectData,
+    public modalController: ModalController
   ) {
     this.images = this.segmentsService.images;
   }
 
   ngOnInit() {
     this.currentImage = this.images[this.index];
+    this.imageContainer = document.getElementById("image-container");
+    this.calculateImageSize();
   }
 
   nextImage() {
@@ -35,10 +40,11 @@ export class ImageDisplayModalPage implements OnInit {
       this.index = 0;
     }
     this.currentImage = this.images[this.index];
-    this.calculateModalSize();
+    this.calculateImageSize();
   }
 
-  prevImage() {
+ async prevImage() {
+    await this.calculateImageSize();
     if (this.index !== 0) {
       this.index = this.index - 1;
     } else {
@@ -46,18 +52,19 @@ export class ImageDisplayModalPage implements OnInit {
     }
     this.currentImage = this.images[this.index];
 
-    this.calculateModalSize();
+    
   }
 
-  calculateModalSize() {
+  calculateImageSize() {
     const index = this.index.toString();
-    const myImg = document.getElementById(index) as HTMLImageElement;
-    let width = myImg.naturalWidth;
-    let height = myImg.naturalHeight;
+    const projectImg = document.getElementById(index) as HTMLImageElement;
+
+    let width = projectImg.naturalWidth;
+    let height = projectImg.naturalHeight;
 
     let maxModalWidth = window.outerWidth - (window.outerWidth / 100) * 20;
-    let maxModalHeight = window.outerHeight - (window.outerHeight / 100) * 20;
-    
+    let maxModalHeight = window.outerHeight - (window.outerHeight / 100) * 30;
+
     const aspectRatio = width / height;
 
     if (width > maxModalWidth) {
@@ -68,17 +75,16 @@ export class ImageDisplayModalPage implements OnInit {
       height = maxModalHeight;
       width = height * aspectRatio;
     }
-    this.setModalSize(width, height);
+    this.setImageSize(width, height);
   }
 
-  setModalSize(width, height) {
+  setImageSize(width, height) {
     const stringWidth = width.toString() + "px";
     const stringHeight = height.toString() + "px";
-    
-    this.segmentsService.imageModalStyleSheet.cssRules[0].style.width = stringWidth;
-    this.segmentsService.imageModalStyleSheet.cssRules[0].style.height = stringHeight;
-  }
 
+    this.imageContainer.style.width = stringWidth;
+    this.imageContainer.style.height = stringHeight;
+  }
 
   toggleEditImage() {
     this.editImage = !this.editImage;
@@ -105,8 +111,14 @@ export class ImageDisplayModalPage implements OnInit {
     return extention;
   }
 
-  quitImageDisplay() {
-    this.editImage = false;
+  closeModal() {
+    this.modalController.dismiss();
+  }
+
+  async deleteImage() {
+    await this.projectData.deleteImage(this.currentImage);
+    this.closeModal();
+    this.segmentsService.getImages();
   }
 
   cropImage() {

@@ -81,12 +81,11 @@ export class ProjectImages implements OnInit {
       },
       cssClass: "images-modal"
     });
-
-    this.calculateModalSize(openingImageIndex);
-
     return await modal.present();
   }
 
+
+/* 
   calculateModalSize(i) {
     const myImg = document.getElementById(i) as HTMLImageElement;
     let width = myImg.naturalWidth;
@@ -115,22 +114,17 @@ export class ProjectImages implements OnInit {
     console.log("width", width);
     console.log("height", height);
     this.setModalSize(width, height);
-  }
+  } */
   
 
-  setModalSize(width, height) {
+ /*  setModalSize(width, height) {
     const stringWidth = width.toString() + "px";
     const stringHeight = height.toString() + "px";
     this.segmentsService.imageModalStyleSheet.cssRules[0].style.width = stringWidth;
     this.segmentsService.imageModalStyleSheet.cssRules[0].style.height = stringHeight;
-  }
+  } */
 
 
-  dismiss() {
-    this.modalController.dismiss({
-      dismissed: true
-    });
-  }
 
   simulateClick(id) {
     document.getElementById(id).click();

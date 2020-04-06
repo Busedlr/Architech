@@ -1,138 +1,105 @@
+.image-row {
+  height: 90%;
+}
+
+.displayed-img {
+  border-radius: 10px;
+}
+
 #image-container {
+  border-radius: 10px;
+  box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
+}
+
+.center {
   width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   margin: 0;
-  padding: 0;
-}
-
-#image {
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-  margin: 0;
-  padding: 0;
-}
-
-#edit-tools {
-  visibility: hidden;
-}
-
-#edit-tools:hover {
-  visibility: visible;
-}
-
-#image-container:hover + #edit-tools {
-  visibility: visible;
-}
-
-.top-toolbar {
-  width: 100%;
-  height: 50px;
-  top: 0;
-  left: 0;
   position: absolute;
-  z-index: 5;
-  background-color: white;
-  opacity: 50%;
+  top: calc(50% + 25px);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
-
-.img-name {
-  position: absolute;
-  top: 5%;
-  left: 5%;
-  z-index: 5;
-}
-
 
 #prev-button {
   position: absolute;
   width: 40px;
   height: 40px;
+  margin: 0;
   top: 50%;
-  left: 2%;
-  z-index: 5;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 20%;
+  box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
 }
 
 #next-button {
   position: absolute;
   width: 40px;
   height: 40px;
+  margin: 0;
   top: 50%;
-  left: calc(98% - 40px);
-  z-index: 5;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: calc(80% - 40px);
+  box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
 }
 
+// after basics
 
-
-.name-container {
-  background-color: white;
-  border-radius: 5px;
-}
-
-.edit-cancel {
-  position: absolute;
-  z-index: 5;
-  top: 5%;
-  left: 90%;
-}
-
-.input {
-  width: 90%;
-  position: absolute;
-  border: solid black 1px;
-  border-radius: 2px;
-  z-index: 5;
-  top: 10%;
-  left: 4%;
-}
-
-.label {
-  position: absolute;
-  z-index: 5;
-  top: 3%;
-  left: 4%;
-}
-
-.button {
-  position: absolute;
-  z-index: 5;
-  top: 91%;
-  left: 80%;
-}
-
-.cropper-icon {
-  background-color: white;
-  border-radius: 5px;
-  position: absolute;
-  z-index: 5;
-  top: 92%;
-  left: 5%;
-  width: 25px;
-  height: 25px;
-}
-
-.cropper-icon:hover {
-  cursor: pointer;
-}
-
-.edit-header {
-  width: 100%;
-  height: 120px;
+.tools-container {
   top: 0;
-  left: 0;
-  position: absolute;
-  z-index: 5;
-  background-color: white;
-  opacity: 80%;
+  align-content: center;
+  height: 50px;
+  width: 100%;
+  background-color: rgb(255, 255, 255, 0.8);
+
+  box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
 }
 
-.save-background {
+.edit-container {
+  top: 0;
+  align-content: center;
+  height: 150px;
   width: 100%;
-  height: 60px;
-  top: 90%;
-  left: 0;
-  position: absolute;
-  z-index: 4;
-  background-color: white;
-  opacity: 80%;
+  background-color: rgb(255, 255, 255, 0.8);
+
+  box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
+}
+
+.edit-icon-col {
+  text-align: end;
+}
+
+.input-col {
+  align-content: center;
+  text-align: center;
+}
+
+.save-button-col {
+  text-align: center;
+}
+
+.tools-col {
+  text-align: end;
+}
+
+.edit-rows {
+  height: 50%;
+}
+
+#newName {
+  left: 37.5%;
+  width: 25%;
+  background-color: rgb(255, 255, 255, 1);
+  border-radius: 10px;
+}
+
+
+ion-icon {
+  margin: 10px;
 }

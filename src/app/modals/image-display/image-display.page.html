@@ -1,76 +1,58 @@
+<ion-row class="tools-container" *ngIf="!editImage">
+  <ion-col size="2">
+    <div>{{currentImage.name}}</div>
+  </ion-col>
+  <ion-col class="edit-icon-col" size="2" offset="8">
+    <ion-icon (click)="deleteImage()" name="trash"></ion-icon>
+    <ion-icon (click)="toggleEditImage()" name="create"></ion-icon>
+    <ion-icon (click)="closeModal()" name="close"></ion-icon>
+  </ion-col>
+</ion-row>
 
+
+<ion-row class="edit-container" *ngIf="editImage">
+ <ion-col>
+  <ion-row class="edit-rows">
+    <ion-col offset="2" class="input-col" size="8">
+      <ion-label position="floating">New Name</ion-label>
+      <ion-input [placeholder]=currentImage.name id="newName"></ion-input>
+    </ion-col>
+    <ion-col class="edit-icon-col" size="2">
+      <ion-icon (click)="toggleEditImage()" name="close"></ion-icon>
+    </ion-col>
+  </ion-row>
+  <ion-row class="edit-rows">
+    <ion-col size="8" offset="2" class="save-button-col">
+      <ion-button (click)="saveChanges('newName', currentImage)"
+        >save</ion-button
+      >
+    </ion-col>
+    <ion-col class="tools-col" size="2">
+      <ion-icon (click)="cropImage()" name="crop">
+      </ion-icon>
+    </ion-col>
+  </ion-row>
+ </ion-col>
+</ion-row>
+<div class="center">
   <div id="image-container">
-    <img [id]="index" [src]="currentImage.url" alt="img" />
+    <img
+      class="displayed-img"
+      [id]="index"
+      [src]="currentImage.url"
+      alt="img"
+    />
   </div>
-  
-  <div *ngIf="!editImage" id="edit-tools">
-    <div>
-      <div class="top-toolbar"></div>
-      <div class="img-name">{{currentImage.name}}</div>
-    </div>
-  
-    <ion-icon 
-      class="edit-cancel"
-      (click)="toggleEditImage()"
-      name="create"
-    ></ion-icon>
-  
+</div>
+<ion-row class="image-row">
+  <ion-col size="2">
     <ion-button (click)="prevImage()" id="prev-button" color="light">
       <img src="../../assets/icon/back.svg" alt="prev image icon" />
     </ion-button>
-  
+  </ion-col>
+  <ion-col size="2" offset="8">
     <ion-button (click)="nextImage()" id="next-button" color="light">
-      <img  src="../../assets/icon/next.svg" alt="prev image icon" />
+      <img src="../../assets/icon/next.svg" alt="prev image icon" />
     </ion-button>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-  <div *ngIf="editImage">
-    <div class="edit-header"></div>
-    <ion-icon
-      *ngIf="editImage"
-      class="edit-cancel"
-      (click)="quitImageDisplay()"
-      name="close"
-    ></ion-icon>
-    <ion-label class="label" position="floating">New Name</ion-label>
-    <ion-input
-      id="newName"
-      class="input"
-      placeholder="{{currentImage.name}}"
-    ></ion-input>
-  
-    <ion-icon (click)="cropImage()" class="cropper-icon" name="crop"></ion-icon>
-  
-    <ion-button class="button" (click)="saveChanges('newName', currentImage)"
-      >save</ion-button
-    >
-    <div class="save-background"></div>
-  </div>
-
-
-
+  </ion-col>
+</ion-row>
