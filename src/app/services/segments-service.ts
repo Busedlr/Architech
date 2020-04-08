@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ProjectData } from "./project-data";
+import { Events } from "@ionic/angular";
 
 @Injectable({
   providedIn: "root",
@@ -11,8 +12,9 @@ export class SegmentsService {
   imageModalStyleSheet;
   editMode: boolean = false;
   imageClicked: any;
+  activeIndex: any;
 
-  constructor(public projectData: ProjectData) {
+  constructor(public projectData: ProjectData, public events: Events) {
     this.getModalStyleSheet();
   }
 
@@ -66,10 +68,16 @@ export class SegmentsService {
     }
   }
 
-  toggleEditMode(imageClicked?) {
+  async toggleEditMode(imageClicked?) {
     this.editMode = !this.editMode;
     if (imageClicked) {
       this.imageClicked = false;
+    } else {
+      this.imageClicked = this.activeIndex;
     }
+  }
+
+  getActiveImageIndex() {
+    this.events.publish("get-active-index");
   }
 }

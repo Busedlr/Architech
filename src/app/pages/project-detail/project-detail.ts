@@ -57,6 +57,7 @@ export class ProjectDetail implements OnInit {
       event: ev,
       translucent: true
     });
+    this.segmentsService.getActiveImageIndex()
     return await popover.present();
   }
 

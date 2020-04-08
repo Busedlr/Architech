@@ -1,5 +1,10 @@
 import { Component, OnInit, Input, ViewChild } from "@angular/core";
-import { AlertController, ModalController, IonSlides, Events } from "@ionic/angular";
+import {
+  AlertController,
+  ModalController,
+  IonSlides,
+  Events,
+} from "@ionic/angular";
 
 import { ProjectData } from "src/app/services/project-data";
 import { ImageDisplayModalPage } from "src/app/modals/image-display/image-display.page";
@@ -33,6 +38,12 @@ export class ProjectImages implements OnInit {
       freeMode: this.projectData.settings.free_mode,
       allowTouchMove: false,
     };
+
+    events.subscribe("get-active-index", () => {
+      this.slides.getActiveIndex().then((res) => {
+        this.segmentsService.activeIndex = res;
+      });
+    });
 
     events.subscribe("change slide per view", (number) => {
       this.slidesPerView = number;
@@ -75,14 +86,12 @@ export class ProjectImages implements OnInit {
   }
 
   imageClick(openingImageIndex) {
-   if(!this.segmentsService.editMode) {
-     this.openModal(openingImageIndex);
-   } else {
-     this.segmentsService.imageClicked = openingImageIndex
-   }
+    if (!this.segmentsService.editMode) {
+      this.openModal(openingImageIndex);
+    } else {
+      this.segmentsService.imageClicked = openingImageIndex;
+    }
   }
-
-
 
   async openModal(openingImageIndex) {
     const modal = await this.modalController.create({
@@ -95,34 +104,19 @@ export class ProjectImages implements OnInit {
     return await modal.present();
   }
 
-
   simulateClick(id) {
     document.getElementById(id).click();
   }
 
   async deleteImage() {
-    let image = this.segmentsService.images[this.segmentsService.imageClicked]
+    let image = this.segmentsService.images[this.segmentsService.imageClicked];
     await this.projectData.deleteImage(image);
     this.segmentsService.getImages();
   }
 
+  //
 
-
-
-
-//
-
-
-
-
-//
-
-
-
-
-
-
-
+  //
 
   //
   /* 
@@ -162,8 +156,6 @@ export class ProjectImages implements OnInit {
     this.segmentsService.imageModalStyleSheet.cssRules[0].style.width = stringWidth;
     this.segmentsService.imageModalStyleSheet.cssRules[0].style.height = stringHeight;
   } */
-
- 
 
   ///
 

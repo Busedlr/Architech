@@ -14,7 +14,7 @@
         <ion-slide *ngFor="let image of segmentsService.images; let i = index">
           <div class="slide-content">
             <img
-              [ngClass]="{'image-editing': segmentsService.editMode && segmentsService.imageClicked !== i}"
+              [ngClass]="{'image-editing': segmentsService.editMode && segmentsService.imageClicked === i}"
               src="{{ image.url }}"
               alt="project image"
               (click)="imageClick(i)"
@@ -42,7 +42,7 @@
             </div>
 
             <div
-              [ngClass]="{'display-button-4': imageClicked === i}"
+              [ngClass]="{'display-button-4': segmentsService.imageClicked === i}"
               class="button-4"
             >
               <ion-button
