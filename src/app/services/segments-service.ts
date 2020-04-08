@@ -2,13 +2,15 @@ import { Injectable } from "@angular/core";
 import { ProjectData } from "./project-data";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class SegmentsService {
   images: any[] = [];
   documents: any[] = [];
   segmentName: any;
   imageModalStyleSheet;
+  editMode: boolean = false;
+  imageClicked: any;
 
   constructor(public projectData: ProjectData) {
     this.getModalStyleSheet();
@@ -26,7 +28,7 @@ export class SegmentsService {
       const image = {
         url: url,
         fullPath: item.fullPath,
-        name: metaData.customMetadata.name
+        name: metaData.customMetadata.name,
       };
 
       this.images.push(image);
@@ -50,7 +52,7 @@ export class SegmentsService {
         iconSrc:
           "../../assets/icon/" +
           metaData.customMetadata.extension.substring(1) +
-          ".svg"
+          ".svg",
       };
       this.documents.push(document);
     }
@@ -61,6 +63,13 @@ export class SegmentsService {
     for (let index = 0; index < styleSheets.length; ++index) {
       const sheet = styleSheets[index];
       if (sheet.title === "modal-style") this.imageModalStyleSheet = sheet;
+    }
+  }
+
+  toggleEditMode(imageClicked?) {
+    this.editMode = !this.editMode;
+    if (imageClicked) {
+      this.imageClicked = false;
     }
   }
 }

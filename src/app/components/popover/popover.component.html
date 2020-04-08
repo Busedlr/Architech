@@ -1,6 +1,6 @@
 <ion-row>
-  <ion-button expand="full" fill="clear">
-    <label for="project-images" (click)="resetInput('project-images')">
+  <ion-button  (click)="resetInput('project-images')" expand="full" fill="clear">
+    <label for="project-images">
       <span>add a new {{ this.segmentsService.segmentName }}</span>
       <ion-icon name="add"></ion-icon>
     </label>
@@ -24,5 +24,12 @@
   </ion-button>
   <ion-button expand="full" fill="clear" (click)="changePerView(8)">
     8
+  </ion-button>
+</ion-row>
+
+<ion-row>
+  <ion-button expand="full" fill="clear" (click)="toggleEditMode()">
+    <span>Edit</span>
+    <ion-icon name="create"></ion-icon>
   </ion-button>
 </ion-row>

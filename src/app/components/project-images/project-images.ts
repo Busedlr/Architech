@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from "@angular/core";
-import { ModalController, IonSlides, Events } from "@ionic/angular";
+import { AlertController, ModalController, IonSlides, Events } from "@ionic/angular";
 
 import { ProjectData } from "src/app/services/project-data";
 import { ImageDisplayModalPage } from "src/app/modals/image-display/image-display.page";
@@ -8,7 +8,7 @@ import { SegmentsService } from "src/app/services/segments-service";
 @Component({
   selector: "project-images",
   templateUrl: "./project-images.html",
-  styleUrls: ["./project-images.scss"]
+  styleUrls: ["./project-images.scss"],
 })
 export class ProjectImages implements OnInit {
   @ViewChild("slides", { static: false }) slides: IonSlides;
@@ -25,15 +25,16 @@ export class ProjectImages implements OnInit {
     public projectData: ProjectData,
     public segmentsService: SegmentsService,
     public modalController: ModalController,
+    public alertController: AlertController,
     public events: Events
   ) {
     this.slideOpts = {
       slidesPerView: this.projectData.settings.slides_per_view,
       freeMode: this.projectData.settings.free_mode,
-      allowTouchMove: false
+      allowTouchMove: false,
     };
 
-    events.subscribe("change slide per view", number => {
+    events.subscribe("change slide per view", (number) => {
       this.slidesPerView = number;
       this.changeSlidesPerView(number);
       //necessary to get the images again ?
@@ -60,7 +61,7 @@ export class ProjectImages implements OnInit {
   }
 
   canSlide() {
-    this.slides.length().then(res => {
+    this.slides.length().then((res) => {
       if (res + 1 <= this.slidesPerView) {
         this.display = false;
       } else {
@@ -73,19 +74,58 @@ export class ProjectImages implements OnInit {
     this.modalStyleSheet = this.segmentsService.imageModalStyleSheet;
   }
 
+  imageClick(openingImageIndex) {
+   if(!this.segmentsService.editMode) {
+     this.openModal(openingImageIndex);
+   } else {
+     this.segmentsService.imageClicked = openingImageIndex
+   }
+  }
+
+
+
   async openModal(openingImageIndex) {
     const modal = await this.modalController.create({
       component: ImageDisplayModalPage,
       componentProps: {
-        index: openingImageIndex
+        index: openingImageIndex,
       },
-      cssClass: "images-modal"
+      cssClass: "images-modal",
     });
     return await modal.present();
   }
 
 
-/* 
+  simulateClick(id) {
+    document.getElementById(id).click();
+  }
+
+  async deleteImage() {
+    let image = this.segmentsService.images[this.segmentsService.imageClicked]
+    await this.projectData.deleteImage(image);
+    this.segmentsService.getImages();
+  }
+
+
+
+
+
+//
+
+
+
+
+//
+
+
+
+
+
+
+
+
+  //
+  /* 
   calculateModalSize(i) {
     const myImg = document.getElementById(i) as HTMLImageElement;
     let width = myImg.naturalWidth;
@@ -115,20 +155,15 @@ export class ProjectImages implements OnInit {
     console.log("height", height);
     this.setModalSize(width, height);
   } */
-  
 
- /*  setModalSize(width, height) {
+  /*  setModalSize(width, height) {
     const stringWidth = width.toString() + "px";
     const stringHeight = height.toString() + "px";
     this.segmentsService.imageModalStyleSheet.cssRules[0].style.width = stringWidth;
     this.segmentsService.imageModalStyleSheet.cssRules[0].style.height = stringHeight;
   } */
 
-
-
-  simulateClick(id) {
-    document.getElementById(id).click();
-  }
+ 
 
   ///
 
@@ -137,11 +172,6 @@ export class ProjectImages implements OnInit {
   ///
 
   ///
-
-  /*
-  on arrows in html 
-  [ngClass]="{'hide': this.activeSlide === 0, 'display': activeSlide !== 0 }"
-  [ngClass]="{'hide': endReached, 'display': !endReached }" */
 
   /* toggleEditImages() {
     this.checkedImages = [];
@@ -187,32 +217,6 @@ export class ProjectImages implements OnInit {
       }
     } else {
       this.openModal(id);
-    }
-  } */
-
-  /* slide(number) {
-    this.slides.length().then(res => {
-      if (res > number) {
-        this.endReached = false;
-      } else {
-        this.endReached = true;
-      }
-    });
-  }
-
-  async slideChanged() {
-    this.activeSlide = await this.slides.getActiveIndex();
-  }
-
-  slideEndReached() {
-    if (this.activeSlide > 0) {
-      this.endReached = true;
-    }
-  }
-
-  prevStarted() {
-    if (this.endReached) {
-      this.endReached = false;
     }
   } */
 }

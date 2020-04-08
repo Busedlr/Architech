@@ -6,7 +6,7 @@ import { PopoverController, Events } from "@ionic/angular";
 @Component({
   selector: "app-popover",
   templateUrl: "./popover.component.html",
-  styleUrls: ["./popover.component.scss"]
+  styleUrls: ["./popover.component.scss"],
 })
 export class PopoverComponent implements OnInit {
   files: any[] = [];
@@ -43,27 +43,6 @@ export class PopoverComponent implements OnInit {
     }
   }
 
- /*  resetInput(inputId) {
-    let fileInput = document.getElementById(inputId) as HTMLInputElement;
-    fileInput.value = "";
-    this.files = [];
-  }
-
-  async selectFile(event) {
-    for (const key of Object.keys(event.srcElement.files)) {
-      const value = await event.srcElement.files[key];
-      this.files.push(value);
-    }
-    this.popoverController.dismiss();
-    if (this.segmentName === "image") {
-      this.saveImages();
-    } else if (this.segmentName === "document") {
-      this.saveDocuments();
-    } else {
-      // save for companies?
-    }
-  }
- */
   async saveDocuments() {
     try {
       await this.projectData.saveToStorage(
@@ -96,6 +75,11 @@ export class PopoverComponent implements OnInit {
 
   changePerView(number) {
     this.events.publish("change slide per view", number);
+    this.popoverController.dismiss();
+  }
+
+  async toggleEditMode() {
+    this.segmentsService.toggleEditMode();
     this.popoverController.dismiss();
   }
 }

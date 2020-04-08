@@ -59,4 +59,5 @@ export class ProjectDetail implements OnInit {
     });
     return await popover.present();
   }
+
 }

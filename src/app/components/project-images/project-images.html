@@ -1,22 +1,67 @@
 <ion-grid>
   <ion-row class="ion-align-items-center">
-    <ion-col class="arrow-col">
-      <img *ngIf="display" class="filter pointer" src="../../assets/icon/back.svg" alt="previous slide icon"
-        (click)="slides.slidePrev()" />
+    <ion-col size="1" class="arrow-col">
+      <img
+        *ngIf="display"
+        class="filter pointer"
+        src="../../assets/icon/back.svg"
+        alt="previous slide icon"
+        (click)="slides.slidePrev()"
+      />
     </ion-col>
-    <ion-col class="slider-col">
+    <ion-col size="10" class="slider-col">
       <ion-slides #slides [options]="slideOpts">
         <ion-slide *ngFor="let image of segmentsService.images; let i = index">
           <div class="slide-content">
-            <img src="{{ image.url }}" alt="project image" (click)="openModal(i)" [id]="i" />
+            <img
+              [ngClass]="{'image-editing': segmentsService.editMode && segmentsService.imageClicked !== i}"
+              src="{{ image.url }}"
+              alt="project image"
+              (click)="imageClick(i)"
+              [id]="i"
+            />
+            <div
+              [ngClass]="{'display-button-1': segmentsService.imageClicked === i }"
+              class="button-1"
+            >
+              <ion-button (click)="deleteImage()"
+                ><ion-icon name="trash"></ion-icon
+              ></ion-button>
+            </div>
+            <div
+              [ngClass]="{'display-button-2': segmentsService.imageClicked === i}"
+              class="button-2"
+            >
+              <ion-button><ion-icon name="create"></ion-icon></ion-button>
+            </div>
+            <div
+              [ngClass]="{'display-button-3': segmentsService.imageClicked === i}"
+              class="button-3"
+            >
+              <ion-button><ion-icon name="cloud-upload"></ion-icon></ion-button>
+            </div>
+
+            <div
+              [ngClass]="{'display-button-4': imageClicked === i}"
+              class="button-4"
+            >
+              <ion-button
+                ><ion-icon name="radio-button-off"></ion-icon
+              ></ion-button>
+            </div>
             <div>{{image.name}}</div>
           </div>
         </ion-slide>
       </ion-slides>
     </ion-col>
-    <ion-col class="arrow-col">
-      <img *ngIf="display" src="../../assets/icon/next.svg" alt="next slide icon" class="filter pointer"
-        (click)="slides.slideNext()" />
+    <ion-col size="1" class="arrow-col">
+      <img
+        *ngIf="display"
+        src="../../assets/icon/next.svg"
+        alt="next slide icon"
+        class="filter pointer arrow-icon"
+        (click)="slides.slideNext()"
+      />
     </ion-col>
   </ion-row>
 </ion-grid>
