@@ -2,14 +2,15 @@
   <ion-row class="ion-align-items-center">
     <ion-col size="1" class="arrow-col">
       <img
-        *ngIf="display"
+      *ngIf="segmentsService.images.length>projectData.settings.slides_per_view"
         class="filter pointer"
         src="../../assets/icon/back.svg"
         alt="previous slide icon"
         (click)="slides.slidePrev()"
       />
     </ion-col>
-    <ion-col size="10" class="slider-col">
+
+    <ion-col size="10" class="slide-col">
       <ion-slides #slides [options]="slideOpts">
         <ion-slide *ngFor="let image of segmentsService.images; let i = index">
           <div class="slide-content">
@@ -20,6 +21,7 @@
               (click)="imageClick(i)"
               [id]="i"
             />
+            <div>{{image.name}}</div>
             <div
               [ngClass]="{'display-button-1': segmentsService.imageClicked === i }"
               class="button-1"
@@ -49,17 +51,16 @@
                 ><ion-icon name="radio-button-off"></ion-icon
               ></ion-button>
             </div>
-            <div>{{image.name}}</div>
           </div>
         </ion-slide>
       </ion-slides>
     </ion-col>
     <ion-col size="1" class="arrow-col">
       <img
-        *ngIf="display"
+        *ngIf="segmentsService.images.length > projectData.settings.slides_per_view"
         src="../../assets/icon/next.svg"
         alt="next slide icon"
-        class="filter pointer arrow-icon"
+        class="filter pointer"
         (click)="slides.slideNext()"
       />
     </ion-col>

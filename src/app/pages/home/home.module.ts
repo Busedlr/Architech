@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { HomePage } from './home.page';
+import { Home } from './home';
 
 import { ComponentsModule } from 'src/app/components/components.module';
 
@@ -17,11 +17,11 @@ import { ComponentsModule } from 'src/app/components/components.module';
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage
+        component: Home
       }
     ])
   ],
-  declarations: [HomePage],
+  declarations: [Home],
   entryComponents: [
   ]
 })

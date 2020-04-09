@@ -4,11 +4,11 @@ import { SegmentsService } from "src/app/services/segments-service";
 import { PopoverController, Events } from "@ionic/angular";
 
 @Component({
-  selector: "app-popover",
-  templateUrl: "./popover.component.html",
-  styleUrls: ["./popover.component.scss"],
+  selector: "segment-menu",
+  templateUrl: "./segment-menu.html",
+  styleUrls: ["./segment-menu.scss"],
 })
-export class PopoverComponent implements OnInit {
+export class SegmentMenu implements OnInit {
   files: any[] = [];
   changeClicked: boolean = false;
   segmentName = this.segmentsService.segmentName;
@@ -54,6 +54,7 @@ export class PopoverComponent implements OnInit {
       console.log(error);
     }
     this.segmentsService.getDocuments();
+   
   }
 
   async saveImages() {
@@ -82,4 +83,6 @@ export class PopoverComponent implements OnInit {
     this.segmentsService.toggleEditMode();
     this.popoverController.dismiss();
   }
+
+  
 }

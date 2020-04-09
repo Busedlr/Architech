@@ -71,29 +71,62 @@
       />
     </ion-col>
 
-    <ion-col class="slider-col">
-      <ion-slides
-        #slides
-        [options]="slideOpts"
-        (ionSlideTransitionEnd)="slideChanged()"
-        (ionSlidePrevStart)="prevStarted()"
-        (ionSlideReachEnd)="slideEndReached()"
-      >
+    <ion-col class="slide-col">
+      <ion-slides #slides [options]="slideOpts">
         <ion-slide
           *ngFor="let doc of segmentsService.documents; let i = index"
           (click)="documentClick(i, doc)"
         >
           <div class="slide-content">
             <div class="slide-background"></div>
-            <a class="center" [href]="doc.url" [target]="doc.name">
+            <a
+              *ngIf="!segmentsService.editMode"
+              class="center"
+              [href]="doc.url"
+              [target]="doc.name"
+            >
               <img
                 class="doc-icon filter"
-                [src]=doc.iconSrc
+                [src]="doc.iconSrc"
                 alt="previous slide icon"
-                (click)="slides.slidePrev()"
               />
             </a>
+            <img
+              *ngIf="segmentsService.editMode"
+              class="doc-icon filter"
+              [src]="doc.iconSrc"
+              alt="previous slide icon"
+            />
             <div class="doc-name">{{doc.name}}</div>
+            <div
+              [ngClass]="{'display-button-1': segmentsService.imageClicked === i }"
+              class="button-1"
+            >
+              <ion-button (click)="deleteImage()"
+                ><ion-icon name="trash"></ion-icon
+              ></ion-button>
+            </div>
+            <div
+              [ngClass]="{'display-button-2': segmentsService.imageClicked === i}"
+              class="button-2"
+            >
+              <ion-button><ion-icon name="create"></ion-icon></ion-button>
+            </div>
+            <div
+              [ngClass]="{'display-button-3': segmentsService.imageClicked === i}"
+              class="button-3"
+            >
+              <ion-button><ion-icon name="cloud-upload"></ion-icon></ion-button>
+            </div>
+
+            <div
+              [ngClass]="{'display-button-4': segmentsService.imageClicked === i}"
+              class="button-4"
+            >
+              <ion-button
+                ><ion-icon name="radio-button-off"></ion-icon
+              ></ion-button>
+            </div>
           </div>
         </ion-slide>
       </ion-slides>

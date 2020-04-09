@@ -2,20 +2,20 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { ProjectData } from "src/app/services/project-data";
-import { ProjectImages } from "src/app/components/project-images/project-images";
+import { Images } from "src/app/components/images/images";
 import { PopoverController } from "@ionic/angular";
-import { PopoverComponent } from "src/app/components/popover/popover.component";
+import { SegmentMenu } from "src/app/components/segment-menu/segment-menu";
 import { SegmentsService } from "src/app/services/segments-service";
 
 @Component({
-  selector: "project-detail",
-  templateUrl: "./project-detail.html",
-  styleUrls: ["./project-detail.scss"]
+  selector: "project",
+  templateUrl: "./project.html",
+  styleUrls: ["./project.scss"]
 })
 export class ProjectDetail implements OnInit {
-  @ViewChild(ProjectImages, { static: false }) child: ProjectImages;
+  @ViewChild(Images, { static: false }) child: Images;
   loading: boolean;
-  segment: any = "image";
+  segment: any = "document";
 
   constructor(
     public projectData: ProjectData,
@@ -53,7 +53,7 @@ export class ProjectDetail implements OnInit {
 
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
-      component: PopoverComponent,
+      component: SegmentMenu,
       event: ev,
       translucent: true
     });

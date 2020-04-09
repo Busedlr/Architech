@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { ProjectDetailRoutingModule } from './project-detail-routing.module';
-import { ProjectDetail } from './project-detail';
+import { ProjectDetailRoutingModule } from './project-routing.module';
+import { ProjectDetail } from './project';
 import { ImageDisplayModalPage } from 'src/app/modals/image-display/image-display.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { TodoListPage } from 'src/app/modals/todo-list/todo-list.page';
-import { PopoverComponent } from 'src/app/components/popover/popover.component';
+import { SegmentMenu } from 'src/app/components/segment-menu/segment-menu';
 
 
 
@@ -20,9 +20,9 @@ import { PopoverComponent } from 'src/app/components/popover/popover.component';
     ProjectDetailRoutingModule,
     ComponentsModule
   ],
-  declarations: [ProjectDetail, ImageDisplayModalPage, TodoListPage, PopoverComponent],
+  declarations: [ProjectDetail, ImageDisplayModalPage, TodoListPage, SegmentMenu],
   entryComponents: [
-    ImageDisplayModalPage, TodoListPage, PopoverComponent
+    ImageDisplayModalPage, TodoListPage, SegmentMenu
   ]
 })
 export class ProjectDetailModule {}

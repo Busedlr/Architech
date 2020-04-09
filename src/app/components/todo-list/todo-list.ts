@@ -4,9 +4,9 @@ import { TodoListPage } from "src/app/modals/todo-list/todo-list.page";
 import { ProjectData } from "src/app/services/project-data";
 
 @Component({
-  selector: "project-to-do-list",
-  templateUrl: "./project-to-do-list.html",
-  styleUrls: ["./project-to-do-list.scss"]
+  selector: "todo-list",
+  templateUrl: "./todo-list.html",
+  styleUrls: ["./todo-list.scss"]
 })
 export class ToDoList implements OnInit {
   @Input("project") project;

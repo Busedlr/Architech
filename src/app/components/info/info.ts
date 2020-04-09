@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "project-info",
-  templateUrl: "./project-info.html",
-  styleUrls: ["./project-info.scss"]
+  selector: "info",
+  templateUrl: "./info.html",
+  styleUrls: ["./info.scss"]
 })
-export class ProjectInfo implements OnInit {
+export class Info implements OnInit {
   @Input("project") project;
 
   constructor(public router: Router) {}

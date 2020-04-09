@@ -11,20 +11,18 @@ import { ImageDisplayModalPage } from "src/app/modals/image-display/image-displa
 import { SegmentsService } from "src/app/services/segments-service";
 
 @Component({
-  selector: "project-images",
-  templateUrl: "./project-images.html",
-  styleUrls: ["./project-images.scss"],
+  selector: "images",
+  templateUrl: "./images.html",
+  styleUrls: ["./images.scss"],
 })
-export class ProjectImages implements OnInit {
+export class Images implements OnInit {
   @ViewChild("slides", { static: false }) slides: IonSlides;
   @Input("projectId") projectId;
   files: any = [];
   images: any = [];
   slideOpts: any = {};
   loading: boolean = true;
-  display: boolean = false;
   slidesPerView = this.projectData.settings.slides_per_view;
-  modalStyleSheet: any;
 
   constructor(
     public projectData: ProjectData,
@@ -53,12 +51,10 @@ export class ProjectImages implements OnInit {
       this.projectData.changeSettings("slides_per_view", number);
     });
 
-    this.getModalStyleSheet();
   }
 
   async getImages() {
     await this.segmentsService.getImages();
-    this.canSlide();
   }
 
   ngOnInit() {
@@ -68,21 +64,7 @@ export class ProjectImages implements OnInit {
   async changeSlidesPerView(number) {
     const swiper = await this.slides.getSwiper();
     swiper.params.slidesPerView = number;
-    this.canSlide();
-  }
-
-  canSlide() {
-    this.slides.length().then((res) => {
-      if (res + 1 <= this.slidesPerView) {
-        this.display = false;
-      } else {
-        this.display = true;
-      }
-    });
-  }
-
-  getModalStyleSheet() {
-    this.modalStyleSheet = this.segmentsService.imageModalStyleSheet;
+    this.projectData.settings.slides_per_view = number;
   }
 
   imageClick(openingImageIndex) {
@@ -113,57 +95,6 @@ export class ProjectImages implements OnInit {
     await this.projectData.deleteImage(image);
     this.segmentsService.getImages();
   }
-
-  //
-
-  //
-
-  //
-  /* 
-  calculateModalSize(i) {
-    const myImg = document.getElementById(i) as HTMLImageElement;
-    let width = myImg.naturalWidth;
-    let height = myImg.naturalHeight;
-
-    console.log("myImg", myImg);
-    console.log("original width", width);
-    console.log("original height", height);
-    let maxModalWidth = window.outerWidth - (window.outerWidth / 100) * 20;
-    let maxModalHeight = window.outerHeight - (window.outerHeight / 100) * 20;
-    
-    console.log("maxModalWidth", maxModalWidth);
-    console.log("maxModalHeight", maxModalHeight);
-    const aspectRatio = width / height;
-    console.log("aspectRatio", aspectRatio);
-
-    if (width > maxModalWidth) {
-      width = maxModalWidth;
-      height = width / aspectRatio;
-    }
-    if (height > maxModalHeight) {
-      height = maxModalHeight;
-      width = height * aspectRatio;
-    }
-
-    console.log("width", width);
-    console.log("height", height);
-    this.setModalSize(width, height);
-  } */
-
-  /*  setModalSize(width, height) {
-    const stringWidth = width.toString() + "px";
-    const stringHeight = height.toString() + "px";
-    this.segmentsService.imageModalStyleSheet.cssRules[0].style.width = stringWidth;
-    this.segmentsService.imageModalStyleSheet.cssRules[0].style.height = stringHeight;
-  } */
-
-  ///
-
-  ///
-
-  ///
-
-  ///
 
   /* toggleEditImages() {
     this.checkedImages = [];

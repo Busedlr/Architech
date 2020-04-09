@@ -80,4 +80,6 @@ export class SegmentsService {
   getActiveImageIndex() {
     this.events.publish("get-active-index");
   }
+
+
 }

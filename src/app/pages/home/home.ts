@@ -4,11 +4,11 @@ import { Router } from "@angular/router";
 import { ProjectData } from "src/app/services/project-data";
 
 @Component({
-  selector: "app-home",
-  templateUrl: "home.page.html",
-  styleUrls: ["home.page.scss"]
+  selector: "home",
+  templateUrl: "home.html",
+  styleUrls: ["home.scss"]
 })
-export class HomePage {
+export class Home {
   db: any;
   projectsRef: any;
   loading: boolean;
@@ -29,7 +29,7 @@ export class HomePage {
     this.projectData.currentProject = project;
     console.log("current", this.projectData.currentProject);
     this.router.navigate([
-      "/project-detail/" + this.projectData.currentProject.id
+      "/project/" + this.projectData.currentProject.id
     ]);
   }
 

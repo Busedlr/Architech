@@ -6,12 +6,12 @@ import { IonicModule } from "@ionic/angular";
 
 import {  RouterModule } from '@angular/router';
 
-import { ProjectInfo } from './project-info/project-info';
-import { ProjectImages } from './project-images/project-images';
-import { ProjectDocuments } from './project-documents/project-documents';
-import { ProjectCompanies } from './project-companies/project-companies';
-import { ProjectCalendarComponent } from './project-calendar/project-calendar.component';
-import { ToDoList } from './project-to-do-list/project-to-do-list';
+import { Info } from './info/info';
+import { Images } from './images/images';
+import { Documents } from './documents/documents';
+import { Companies } from './companies/companies';
+import { Calendar } from './calendar/calendar';
+import { ToDoList } from './todo-list/todo-list';
 
 
 
@@ -20,8 +20,8 @@ import { ToDoList } from './project-to-do-list/project-to-do-list';
 
 @NgModule({
     imports: [CommonModule, FormsModule, IonicModule, RouterModule],
-    declarations: [ProjectInfo, ProjectImages, ProjectDocuments, ProjectCompanies, ToDoList, ProjectCalendarComponent],
-    exports: [ProjectInfo, ProjectImages, ProjectDocuments, ProjectCompanies, ToDoList, ProjectCalendarComponent]
+    declarations: [Info, Images, Documents, Companies, ToDoList, Calendar],
+    exports: [Info, Images, Documents, Companies, ToDoList, Calendar]
 })
 
 export class ComponentsModule {}

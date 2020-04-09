@@ -148,7 +148,7 @@ export class CreateProjectPage implements OnInit {
       };
 
       await this.ProjectData.updateProject(projectData, this.formInfo.id);
-      this.router.navigate(["/project-detail/" + this.formInfo.id]);
+      this.router.navigate(["/project/" + this.formInfo.id]);
     } else {
       console.log("please complete the form");
     }
@@ -178,7 +178,7 @@ export class CreateProjectPage implements OnInit {
       };
 
       const doc = await this.ProjectData.saveProject(projectData);
-      this.router.navigate(["/project-detail/" + doc.id]);
+      this.router.navigate(["/project/" + doc.id]);
     } else {
       console.log("please complete the form");
     }

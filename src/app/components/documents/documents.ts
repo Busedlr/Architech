@@ -4,21 +4,20 @@ import { ModalController, IonSlides, Events } from "@ionic/angular";
 import { SegmentsService } from "src/app/services/segments-service";
 
 @Component({
-  selector: "project-documents",
-  templateUrl: "./project-documents.html",
-  styleUrls: ["./project-documents.scss"]
+  selector: "documents",
+  templateUrl: "./documents.html",
+  styleUrls: ["./documents.scss"]
 })
-export class ProjectDocuments implements OnInit {
+export class Documents implements OnInit {
   @ViewChild("slides", { static: false }) slides: IonSlides;
   @Input("projectId") projectId;
   checkedDocuments: any = [];
   editDocuments: any = false;
   changeNameIndex: any;
   changeButtons: boolean = false;
-  canSlide: boolean = false;
   slideOpts: any = {};
   activeSlide: number = 0;
-  endReached: boolean;
+
 
   constructor(
     public projectData: ProjectData,
@@ -50,34 +49,9 @@ export class ProjectDocuments implements OnInit {
   async changeSlidesPerView(number) {
     const swiper = await this.slides.getSwiper();
     swiper.params.slidesPerView = number;
-    this.slide(number);
+
   }
 
-  slide(number) {
-    this.slides.length().then(res => {
-      if (res > number) {
-        this.endReached = false;
-      } else {
-        this.endReached = true;
-      }
-    });
-  }
-
-  async slideChanged() {
-    this.activeSlide = await this.slides.getActiveIndex();
-  }
-
-  slideEndReached() {
-    if (this.activeSlide > 0) {
-      this.endReached = true;
-    }
-  }
-
-  prevStarted() {
-    if (this.endReached) {
-      this.endReached = false;
-    }
-  }
 
   /*  toggleEditDocuments() {
     this.checkedDocuments = [];
@@ -93,7 +67,18 @@ export class ProjectDocuments implements OnInit {
     });
   } */
 
+
+ 
+
   documentClick(id, doc) {
+  if(this.segmentsService.editMode) {
+    this.segmentsService.imageClicked = id
+  }
+  }
+
+
+
+  /* documentClick(id, doc) {
     if (this.editDocuments) {
       const checkbox = document.getElementById(id) as HTMLInputElement;
       checkbox.checked = !checkbox.checked;
@@ -108,7 +93,7 @@ export class ProjectDocuments implements OnInit {
         this.checkedDocuments.splice(index, 1);
       }
     }
-  }
+  } */
 
   getDocType(file) {
     let extention = "." + file.name.substr(file.name.lastIndexOf(".") + 1);

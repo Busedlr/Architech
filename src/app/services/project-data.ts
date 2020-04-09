@@ -4,7 +4,7 @@ import "firebase/firestore";
 import "firebase/storage";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class ProjectData {
   db: any;
@@ -28,7 +28,7 @@ export class ProjectData {
     return this.projectsRef
       .doc(projectId)
       .update(prop, val)
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -36,10 +36,10 @@ export class ProjectData {
   saveProject(projectData) {
     return this.projectsRef
       .add(projectData)
-      .then(doc => {
+      .then((doc) => {
         return doc;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -51,7 +51,7 @@ export class ProjectData {
       .then(() => {
         return true;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -59,10 +59,10 @@ export class ProjectData {
   getProjects() {
     return this.projectsRef
       .get()
-      .then(result => {
+      .then((result) => {
         return result;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -71,15 +71,15 @@ export class ProjectData {
     this.projects = [];
     return this.projectsRef
       .get()
-      .then(result => {
-        result.docs.forEach(doc => {
+      .then((result) => {
+        result.docs.forEach((doc) => {
           let project = doc.data();
           project.id = doc.id;
           this.projects.push(project);
         });
         return true;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -88,18 +88,18 @@ export class ProjectData {
     return this.projectsRef
       .doc(id)
       .get()
-      .then(result => {
+      .then((result) => {
         return result;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
 
   saveToStorage(files, id, type) {
     const rawFiles = [];
-    files.forEach(file => {
-      console.log("file", file)
+    files.forEach((file) => {
+      console.log("file", file);
       const extension = "." + file.name.substr(file.name.lastIndexOf(".") + 1);
       const fullPath = id + "/" + type + "/" + file.lastModified + extension;
       const promise = this.storageRef
@@ -108,7 +108,7 @@ export class ProjectData {
         .then(() => {
           this.updateMetadata(file.name, extension, fullPath);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
       rawFiles.push(promise);
@@ -120,26 +120,26 @@ export class ProjectData {
     if (extension === "extension") {
       let newMetadata = {
         customMetadata: {
-          name: name
-        }
+          name: name,
+        },
       };
       return this.storageRef
         .child(fullPath)
         .updateMetadata(newMetadata)
-        .then(res => {
+        .then((res) => {
           return res;
         });
     } else {
       let newMetadata = {
         customMetadata: {
           name: name,
-          extension: extension
-        }
+          extension: extension,
+        },
       };
       return this.storageRef
         .child(fullPath)
         .updateMetadata(newMetadata)
-        .then(res => {
+        .then((res) => {
           return res;
         });
     }
@@ -149,7 +149,7 @@ export class ProjectData {
     return this.storageRef
       .child(fullPath)
       .getMetadata()
-      .then(res => {
+      .then((res) => {
         return res;
       });
   }
@@ -158,7 +158,7 @@ export class ProjectData {
     return this.storageRef
       .child(projectId + "/documents")
       .listAll()
-      .then(res => {
+      .then((res) => {
         return res.items;
       });
   }
@@ -167,7 +167,7 @@ export class ProjectData {
     return this.storageRef
       .child(projectId + "/images")
       .listAll()
-      .then(res => {
+      .then((res) => {
         return res.items;
       });
   }
@@ -176,7 +176,7 @@ export class ProjectData {
     return this.storageRef
       .child(fullPath)
       .getDownloadURL()
-      .then(downloadUrl => {
+      .then((downloadUrl) => {
         return downloadUrl;
       });
   }
@@ -185,7 +185,7 @@ export class ProjectData {
     return this.storageRef
       .child(image.fullPath)
       .delete()
-      .then(res => {
+      .then((res) => {
         return res;
       });
   }
@@ -194,16 +194,13 @@ export class ProjectData {
     return this.storageRef
       .child(doc.fullPath)
       .delete()
-      .then(res => {
+      .then((res) => {
         return res;
       });
   }
 
   updateProjectData(imageUrl, id) {
-    this.db
-      .collection("projects")
-      .doc(id)
-      .update({ thumbnail: imageUrl });
+    this.db.collection("projects").doc(id).update({ thumbnail: imageUrl });
   }
 
   changeDocName(fullPath, newName) {
@@ -215,19 +212,20 @@ export class ProjectData {
     return this.settingsRef
       .doc(this.settings.id)
       .update(updateProp, val)
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
+    this.getSettings();
   }
 
   getSettings() {
     return this.settingsRef
       .get()
-      .then(res => {
+      .then((res) => {
         this.settings = res.docs[0].data().settings;
         this.settings.id = res.docs[0].id;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }

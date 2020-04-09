@@ -14,15 +14,15 @@
     <div [ngClass]="{'edit-mode': segmentsService.editMode}">
       <ion-row>
         <ion-col size="4">
-          <project-info [project]="projectData.currentProject"></project-info>
+          <info [project]="projectData.currentProject"></info>
         </ion-col>
         <ion-col size="4">
-          <project-to-do-list
+          <todo-list
             [project]="projectData.currentProject"
-          ></project-to-do-list>
+          ></todo-list>
         </ion-col>
         <ion-col size="4">
-          <project-calendar></project-calendar>
+          <calendar></calendar>
         </ion-col>
       </ion-row>
 
@@ -57,18 +57,18 @@
     </div>
     <ion-icon class="close-icon" *ngIf="segmentsService.editMode" name="close" (click)="segmentsService.toggleEditMode('imageClicked')"></ion-icon>
     <ion-row>
-      <project-images
+      <images
         class="segments"
         *ngIf="segment === 'image'"
         [projectId]="projectData.currentProject.id"
       >
-      </project-images>
-      <project-documents
+      </images>
+      <documents
         class="segments"
         *ngIf="segment === 'document'"
         [projectId]="projectData.currentProject.id"
       >
-      </project-documents>
+      </documents>
     </ion-row>
   </ion-grid>
 </ion-content>

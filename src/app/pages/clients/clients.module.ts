@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ClientsPageRoutingModule } from './clients-routing.module';
 
-import { ClientsPage } from './clients.page';
+import { ClientsPage } from './clients';
 
 @NgModule({
   imports: [
