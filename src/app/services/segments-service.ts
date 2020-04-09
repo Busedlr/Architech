@@ -11,8 +11,9 @@ export class SegmentsService {
   segmentName: any;
   imageModalStyleSheet;
   editMode: boolean = false;
-  imageClicked: any;
+  itemClicked: any;
   activeIndex: any;
+  itemsToDelete: any[] = [];
 
   constructor(public projectData: ProjectData, public events: Events) {
     this.getModalStyleSheet();
@@ -68,18 +69,26 @@ export class SegmentsService {
     }
   }
 
-  async toggleEditMode(imageClicked?) {
+  async toggleEditMode(itemClicked?) {
     this.editMode = !this.editMode;
-    if (imageClicked) {
-      this.imageClicked = false;
+    if (itemClicked) {
+      this.itemClicked = false;
     } else {
-      this.imageClicked = this.activeIndex;
+      this.itemClicked = this.activeIndex;
+    }
+    if (this.itemsToDelete) {
+      this.itemsToDelete.forEach((item) => {
+        this.projectData.delete(item).then(() => {
+          this.itemsToDelete = [];
+        });
+      });
+      if (this.images.length === 0) {
+        this.editMode = false;
+      }
     }
   }
 
   getActiveImageIndex() {
     this.events.publish("get-active-index");
   }
-
-
 }

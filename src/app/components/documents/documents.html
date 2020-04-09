@@ -60,7 +60,7 @@
 </ion-row>
  -->
 
-<ion-grid>
+<!-- <ion-grid>
   <ion-row class="ion-align-items-center">
     <ion-col class="arrow-col">
       <img
@@ -133,6 +133,98 @@
     </ion-col>
     <ion-col class="arrow-col">
       <img
+        src="../../assets/icon/next.svg"
+        alt="next slide icon"
+        class="filter pointer"
+        (click)="slides.slideNext()"
+      />
+    </ion-col>
+  </ion-row>
+</ion-grid>
+ -->
+
+<ion-grid>
+  <ion-row class="ion-align-items-center">
+    <ion-col size="1" class="arrow-col">
+      <img
+        *ngIf="segmentsService.documents.length>projectData.settings.slides_per_view"
+        class="filter pointer"
+        src="../../assets/icon/back.svg"
+        alt="previous slide icon"
+        (click)="slides.slidePrev()"
+      />
+    </ion-col>
+
+    <ion-col size="10" class="slide-col">
+      <ion-slides #slides [options]="slideOpts">
+        <ion-slide *ngFor="let doc of segmentsService.documents; let i = index">
+          <div class="slide-content">
+            <a
+              *ngIf="!segmentsService.editMode"
+              class="center"
+              [href]="doc.url"
+              [target]="doc.name"
+            >
+              <div
+                class="background"
+                [ngClass]="{'editing': segmentsService.editMode && segmentsService.itemClicked === i}"
+              >
+                <img
+                  (click)="documentClick(i)"
+                  [src]="doc.iconSrc"
+                  alt="previous slide icon"
+                />
+              </div>
+              <div>{{doc.name}}</div>
+            </a>
+
+            <div *ngIf="segmentsService.editMode">
+              <div
+              (click)="documentClick(i)"
+                class="background"
+                [ngClass]="{'editing': segmentsService.editMode && segmentsService.itemClicked === i}"
+              >
+                <img [src]="doc.iconSrc" alt="previous slide icon" />
+              </div>
+              <div>{{doc.name}}</div>
+            </div>
+
+            <div
+              [ngClass]="{'display-button-1': segmentsService.itemClicked === i }"
+              class="button-1"
+            >
+              <ion-button (click)="deleteDoc()"
+                ><ion-icon name="trash"></ion-icon
+              ></ion-button>
+            </div>
+            <div
+              [ngClass]="{'display-button-2': segmentsService.itemClicked === i}"
+              class="button-2"
+            >
+              <ion-button><ion-icon name="create"></ion-icon></ion-button>
+            </div>
+            <div
+              [ngClass]="{'display-button-3': segmentsService.itemClicked === i}"
+              class="button-3"
+            >
+              <ion-button><ion-icon name="cloud-upload"></ion-icon></ion-button>
+            </div>
+
+            <div
+              [ngClass]="{'display-button-4': segmentsService.itemClicked === i}"
+              class="button-4"
+            >
+              <ion-button
+                ><ion-icon name="radio-button-off"></ion-icon
+              ></ion-button>
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </ion-col>
+    <ion-col size="1" class="arrow-col">
+      <img
+        *ngIf="segmentsService.documents.length > projectData.settings.slides_per_view"
         src="../../assets/icon/next.svg"
         alt="next slide icon"
         class="filter pointer"

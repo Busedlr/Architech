@@ -15,7 +15,7 @@ import { SegmentsService } from "src/app/services/segments-service";
 export class ProjectDetail implements OnInit {
   @ViewChild(Images, { static: false }) child: Images;
   loading: boolean;
-  segment: any = "document";
+  segment: any = "image";
 
   constructor(
     public projectData: ProjectData,

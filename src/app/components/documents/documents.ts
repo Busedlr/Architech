@@ -6,7 +6,7 @@ import { SegmentsService } from "src/app/services/segments-service";
 @Component({
   selector: "documents",
   templateUrl: "./documents.html",
-  styleUrls: ["./documents.scss"]
+  styleUrls: ["./documents.scss"],
 })
 export class Documents implements OnInit {
   @ViewChild("slides", { static: false }) slides: IonSlides;
@@ -18,7 +18,6 @@ export class Documents implements OnInit {
   slideOpts: any = {};
   activeSlide: number = 0;
 
-
   constructor(
     public projectData: ProjectData,
     public modalController: ModalController,
@@ -28,30 +27,52 @@ export class Documents implements OnInit {
     this.slideOpts = {
       slidesPerView: this.projectData.settings.slides_per_view,
       freeMode: this.projectData.settings.free_mode,
-      allowTouchMove: false
+      allowTouchMove: false,
     };
-    events.subscribe("change slide per view", number => {
+
+    events.subscribe("get-active-index", () => {
+      this.slides.getActiveIndex().then((res) => {
+        this.segmentsService.activeIndex = res;
+      });
+    });
+
+    events.subscribe("change slide per view", (number) => {
       this.changeSlidesPerView(number);
       //necessary to get the documents again ?
-      this.getDocuments();
+      this.segmentsService.getDocuments();
       this.projectData.changeSettings("slides_per_view", number);
     });
   }
 
   async ngOnInit() {
-    this.getDocuments();
-  }
-
-  async getDocuments() {
     this.segmentsService.getDocuments();
   }
 
   async changeSlidesPerView(number) {
     const swiper = await this.slides.getSwiper();
     swiper.params.slidesPerView = number;
-
+    this.projectData.settings.slides_per_view = number;
   }
 
+  documentClick(id) {
+    if (this.segmentsService.editMode) {
+      this.segmentsService.itemClicked = id;
+    }
+  }
+
+  async deleteDoc() {
+    let item = this.segmentsService.documents[this.segmentsService.itemClicked];
+    this.segmentsService.itemsToDelete.push(item);
+    this.segmentsService.documents.splice(this.segmentsService.itemClicked, 1);
+  }
+
+  //
+
+  //
+
+  //
+
+  //
 
   /*  toggleEditDocuments() {
     this.checkedDocuments = [];
@@ -66,17 +87,6 @@ export class Documents implements OnInit {
       checkbox.checked = false;
     });
   } */
-
-
- 
-
-  documentClick(id, doc) {
-  if(this.segmentsService.editMode) {
-    this.segmentsService.imageClicked = id
-  }
-  }
-
-
 
   /* documentClick(id, doc) {
     if (this.editDocuments) {

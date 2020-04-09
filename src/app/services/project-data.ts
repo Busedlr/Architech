@@ -181,23 +181,25 @@ export class ProjectData {
       });
   }
 
-  deleteImage(image) {
+  delete(item) {
     return this.storageRef
-      .child(image.fullPath)
+      .child(item.fullPath)
       .delete()
       .then((res) => {
         return res;
       });
   }
 
-  deleteDocument(doc) {
+/*   deleteDocument(doc) {
     return this.storageRef
       .child(doc.fullPath)
       .delete()
       .then((res) => {
         return res;
       });
-  }
+  } */
+
+
 
   updateProjectData(imageUrl, id) {
     this.db.collection("projects").doc(id).update({ thumbnail: imageUrl });

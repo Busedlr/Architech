@@ -50,7 +50,6 @@ export class Images implements OnInit {
       this.getImages();
       this.projectData.changeSettings("slides_per_view", number);
     });
-
   }
 
   async getImages() {
@@ -71,7 +70,7 @@ export class Images implements OnInit {
     if (!this.segmentsService.editMode) {
       this.openModal(openingImageIndex);
     } else {
-      this.segmentsService.imageClicked = openingImageIndex;
+      this.segmentsService.itemClicked = openingImageIndex;
     }
   }
 
@@ -91,10 +90,16 @@ export class Images implements OnInit {
   }
 
   async deleteImage() {
-    let image = this.segmentsService.images[this.segmentsService.imageClicked];
-    await this.projectData.deleteImage(image);
-    this.segmentsService.getImages();
+    let item = this.segmentsService.images[this.segmentsService.itemClicked];
+    this.segmentsService.itemsToDelete.push(item);
+    this.segmentsService.images.splice(this.segmentsService.itemClicked, 1);
   }
+
+  /*  async deleteImage() {
+    let image = this.segmentsService.images[this.segmentsService.itemClicked];
+    await this.projectData.delete(image);
+    this.segmentsService.getImages();
+  } */
 
   /* toggleEditImages() {
     this.checkedImages = [];
