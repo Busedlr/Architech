@@ -49,6 +49,34 @@ ion-slide {
   box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
 }
 
+.save-button {
+  visibility: hidden;
+  position: absolute;
+  top: 260px;
+  left: 60%;
+}
+
+.display-save-button {
+  visibility: visible;
+  top: 260px;
+}
+
+
+.input-newname {
+  border-radius: 10px;
+  box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
+  width: 40%;
+  position: absolute;
+  visibility: hidden;
+  background-color: rgb(255, 255, 255, 0.8);
+  top: 260px;
+  left: 10%;
+}
+
+.display-input {
+  visibility: visible;
+}
+
 .button-1 {
   visibility: hidden;
   position: absolute;

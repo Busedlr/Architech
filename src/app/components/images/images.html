@@ -2,7 +2,7 @@
   <ion-row class="ion-align-items-center">
     <ion-col size="1" class="arrow-col">
       <img
-      *ngIf="segmentsService.images.length>projectData.settings.slides_per_view"
+        *ngIf="segmentsService.images.length>projectData.settings.slides_per_view"
         class="filter pointer"
         src="../../assets/icon/back.svg"
         alt="previous slide icon"
@@ -22,35 +22,47 @@
               [id]="i"
             />
             <div>{{image.name}}</div>
-            <div
-              [ngClass]="{'display-button-1': segmentsService.itemClicked === i }"
-              class="button-1"
-            >
-              <ion-button (click)="deleteImage()"
-                ><ion-icon name="trash"></ion-icon
-              ></ion-button>
-            </div>
-            <div
-              [ngClass]="{'display-button-2': segmentsService.itemClicked === i}"
-              class="button-2"
-            >
-              <ion-button><ion-icon name="create"></ion-icon></ion-button>
-            </div>
-            <div
-              [ngClass]="{'display-button-3': segmentsService.itemClicked === i}"
-              class="button-3"
-            >
-              <ion-button><ion-icon name="cloud-upload"></ion-icon></ion-button>
-            </div>
 
+            <ion-input [ngClass]="{'display-input': segmentsService.itemClicked === i }"  class="input-newname"  *ngIf="changeNameClicked" id="newName"></ion-input>
+            <ion-button
+            [ngClass]="{'display-save-button': segmentsService.itemClicked === i }"
+            class="save-button"
+              *ngIf="changeNameClicked"
+              (click)="changeName('newName', image)"
+            >save</ion-button>
+          <div *ngIf="!changeNameClicked">
             <div
-              [ngClass]="{'display-button-4': segmentsService.itemClicked === i}"
-              class="button-4"
-            >
-              <ion-button
-                ><ion-icon name="radio-button-off"></ion-icon
-              ></ion-button>
-            </div>
+            [ngClass]="{'display-button-1': segmentsService.itemClicked === i }"
+            class="button-1"
+          >
+            <ion-button (click)="deleteImage()"
+              ><ion-icon name="trash"></ion-icon
+            ></ion-button>
+          </div>
+          <div
+            [ngClass]="{'display-button-2': segmentsService.itemClicked === i}"
+            class="button-2"
+          >
+            <ion-button (click)="onChangeName()"
+              ><ion-icon name="create"></ion-icon
+            ></ion-button>
+          </div>
+          <div
+            [ngClass]="{'display-button-3': segmentsService.itemClicked === i}"
+            class="button-3"
+          >
+            <ion-button><ion-icon name="cloud-upload"></ion-icon></ion-button>
+          </div>
+
+          <div
+            [ngClass]="{'display-button-4': segmentsService.itemClicked === i}"
+            class="button-4"
+          >
+            <ion-button
+              ><ion-icon name="radio-button-off"></ion-icon
+            ></ion-button>
+          </div>
+          </div>
           </div>
         </ion-slide>
       </ion-slides>

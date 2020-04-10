@@ -17,6 +17,7 @@ export class Documents implements OnInit {
   changeButtons: boolean = false;
   slideOpts: any = {};
   activeSlide: number = 0;
+  changeNameClicked: boolean = false;
 
   constructor(
     public projectData: ProjectData,
@@ -64,6 +65,22 @@ export class Documents implements OnInit {
     let item = this.segmentsService.documents[this.segmentsService.itemClicked];
     this.segmentsService.itemsToDelete.push(item);
     this.segmentsService.documents.splice(this.segmentsService.itemClicked, 1);
+  }
+
+  onChangeName() {
+    this.changeNameClicked = true;
+  }
+  async changeName(id, doc) {
+    this.changeNameClicked = false;
+    const newName = document.getElementById(id) as HTMLInputElement;
+    const name = newName.value + this.segmentsService.getDocType(doc);
+    const metadata = await this.projectData.updateMetadata(
+      name,
+      "extension",
+      doc.fullPath
+    );
+    this.segmentsService.documents[this.segmentsService.itemClicked].name =
+      metadata.customMetadata.name;
   }
 
   //

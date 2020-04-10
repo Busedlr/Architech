@@ -22,6 +22,7 @@ export class Images implements OnInit {
   images: any = [];
   slideOpts: any = {};
   loading: boolean = true;
+  changeNameClicked: boolean = false;
   slidesPerView = this.projectData.settings.slides_per_view;
 
   constructor(
@@ -95,56 +96,19 @@ export class Images implements OnInit {
     this.segmentsService.images.splice(this.segmentsService.itemClicked, 1);
   }
 
-  /*  async deleteImage() {
-    let image = this.segmentsService.images[this.segmentsService.itemClicked];
-    await this.projectData.delete(image);
-    this.segmentsService.getImages();
-  } */
-
-  /* toggleEditImages() {
-    this.checkedImages = [];
-    this.editImages = !this.editImages;
-    if (!this.editImages) this.resetCheckedImages();
-  } */
-
-  /* resetCheckedImages() {
-    for full screen page
-    this.images.forEach((img, i) => {
-      const checkbox = document.getElementById(i) as HTMLInputElement;
-      checkbox.checked = false;
-    });
-  } */
-
-  /* async deleteImages() {
-    for full screen page
-    this.checkedImages.forEach(img => {
-      console.log(img.name);
-    });
-    for (let image of this.checkedImages) {
-      await this.projectData.deleteImage(image);
-    }
-
-    this.toggleEditImages();
-    this.getImages();
-  } */
-
-  /* imageClick(id, image) {
-    for full screen page
-    if (this.editImages) {
-      const checkbox = document.getElementById(id) as HTMLInputElement;
-      checkbox.checked = !checkbox.checked;
-
-      const index = this.checkedImages.findIndex(
-        x => x.fullPath === image.fullPath
-      );
-
-      if (checkbox.checked) {
-        this.checkedImages.push(image);
-      } else {
-        this.checkedImages.splice(index, 1);
-      }
-    } else {
-      this.openModal(id);
-    }
-  } */
+  onChangeName() {
+    this.changeNameClicked = true;
+  }
+  async changeName(id, image) {
+    this.changeNameClicked = false;
+    const newName = document.getElementById(id) as HTMLInputElement;
+    const name = newName.value + this.segmentsService.getDocType(image);
+    const metadata = await this.projectData.updateMetadata(
+      name,
+      "extension",
+      image.fullPath
+    );
+    this.segmentsService.images[this.segmentsService.itemClicked].name =
+      metadata.customMetadata.name;
+  }
 }

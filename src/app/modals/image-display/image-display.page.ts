@@ -97,7 +97,7 @@ export class ImageDisplayModalPage implements OnInit {
 
   async changeName(id, img) {
     const newName = document.getElementById(id) as HTMLInputElement;
-    const name = newName.value + this.getDocType(img);
+    const name = newName.value + this.segmentsService.getDocType(img);
     const metadata = await this.projectData.updateMetadata(
       name,
       "extension",
@@ -106,17 +106,17 @@ export class ImageDisplayModalPage implements OnInit {
     this.segmentsService.images[this.index].name = metadata.customMetadata.name;
   }
 
-  getDocType(file) {
+  /* getDocType(file) {
     let extention = "." + file.name.substr(file.name.lastIndexOf(".") + 1);
     return extention;
-  }
+  } */
 
   closeModal() {
     this.modalController.dismiss();
   }
 
   async deleteImage() {
-    await this.projectData.deleteImage(this.currentImage);
+    await this.projectData.delete(this.currentImage);
     this.closeModal();
     this.segmentsService.getImages();
   }

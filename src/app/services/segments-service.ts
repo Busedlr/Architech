@@ -91,4 +91,9 @@ export class SegmentsService {
   getActiveImageIndex() {
     this.events.publish("get-active-index");
   }
+
+  getDocType(file) {
+    let extention = "." + file.name.substr(file.name.lastIndexOf(".") + 1);
+    return extention;
+  }
 }

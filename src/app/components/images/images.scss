@@ -20,7 +20,7 @@ ion-col {
   border-radius: 10px;
   width: 90%;
   cursor: pointer;
-  img {   
+  img {
     border-radius: 10px;
     margin-top: 0;
     width: 100%;
@@ -41,6 +41,36 @@ ion-slide {
 .image-editing {
   border: 6px solid rgba(69, 157, 191);
   box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
+}
+
+
+
+.save-button {
+  visibility: hidden;
+  position: absolute;
+  top: 260px;
+  left: 60%;
+}
+
+.display-save-button {
+  visibility: visible;
+  top: 260px;
+}
+
+
+.input-newname {
+  border-radius: 10px;
+  box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
+  width: 40%;
+  position: absolute;
+  visibility: hidden;
+  background-color: rgb(255, 255, 255, 0.8);
+  top: 260px;
+  left: 10%;
+}
+
+.display-input {
+  visibility: visible;
 }
 
 .button-1 {
@@ -98,35 +128,3 @@ ion-slide {
   transition-property: top;
   transition-duration: 1.4s;
 }
-
-
-
-/* label {
-  cursor: pointer;
-  display: block;
-}
-
-label:before {
-  background-color: white;
-  color: white;
-  content: " ";
-  display: block;
-  border-radius: 50%;
-  border: 1px solid grey;
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  width: 25px;
-  height: 25px;
-  text-align: center;
-  line-height: 28px;
-  transition-duration: 0.4s;
-  transform: scale(0);
-  z-index: 9;
-}
-
-:checked + label:before {
-  content: "✓";
-  background-color: grey;
-  transform: scale(1);
-} */
