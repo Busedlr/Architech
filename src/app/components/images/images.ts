@@ -1,19 +1,19 @@
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {
-  AlertController,
-  ModalController,
-  IonSlides,
-  Events,
-} from "@ionic/angular";
+	AlertController,
+	ModalController,
+	IonSlides,
+	Events,
+} from '@ionic/angular';
 
-import { ProjectData } from "src/app/services/project-data";
-import { ImageDisplayModalPage } from "src/app/modals/image-display/image-display.page";
-import { SegmentsService } from "src/app/services/segments-service";
+import { ProjectData } from 'src/app/services/project-data';
+import { ImageDisplayModalPage } from 'src/app/modals/image-display/image-display.page';
+import { SegmentsService } from 'src/app/services/segments-service';
 
 @Component({
-  selector: "images",
-  templateUrl: "./images.html",
-  styleUrls: ["./images.scss"],
+	selector: 'images',
+	templateUrl: './images.html',
+	styleUrls: ['./images.scss'],
 })
 export class Images implements OnInit {
   @ViewChild("slides", { static: false }) slides: IonSlides;
