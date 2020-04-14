@@ -13,11 +13,14 @@
               src="{{ image.url }}" alt="project image" (click)="imageClick(i)" [id]="i" />
             <div>{{image.name}}</div>
 
-<<<<<<< HEAD
             <ion-input [ngClass]="{'display-input': segmentsService.itemClicked === i }" class="input-newname"
               *ngIf="changeNameClicked" id="newName"></ion-input>
             <ion-button [ngClass]="{'display-save-button': segmentsService.itemClicked === i }" class="save-button"
               *ngIf="changeNameClicked" (click)="changeName('newName', image)">save</ion-button>
+            <ion-button [ngClass]="{'display-close-button': segmentsService.itemClicked === i }" class="close-button"
+              *ngIf="changeNameClicked" (click)="closeChangeName()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
             <div *ngIf="!changeNameClicked">
               <div [ngClass]="{'display-button-1': segmentsService.itemClicked === i }" class="button-1">
                 <ion-button (click)="deleteImage()">
@@ -36,77 +39,13 @@
               </div>
 
               <div [ngClass]="{'display-button-4': segmentsService.itemClicked === i}" class="button-4">
-                <ion-button>
-                  <ion-icon name="radio-button-on"></ion-icon>
+                <ion-button (click)="toggleImageFlag(image)">
+                  <ion-icon *ngIf="image.flagged; else notFlagged" name="radio-button-on"></ion-icon>
+                  <ng-template #notFlagged>
+                    <ion-icon name="radio-button-off"></ion-icon>
+                  </ng-template>
                 </ion-button>
               </div>
-=======
-            <ion-input
-              [ngClass]="{'display-input': segmentsService.itemClicked === i }"
-              class="input-newname"
-              *ngIf="changeNameClicked"
-              id="newName"
-            ></ion-input>
-            <ion-button
-              [ngClass]="{'display-save-button': segmentsService.itemClicked === i }"
-              class="save-button"
-              *ngIf="changeNameClicked"
-              (click)="changeName('newName', image)"
-              >save</ion-button
-            >
-            <ion-button
-              [ngClass]="{'display-close-button': segmentsService.itemClicked === i }"
-              class="close-button"
-              *ngIf="changeNameClicked"
-              (click)="closeChangeName()"
-              ><ion-icon name="close"></ion-icon
-            ></ion-button>
-            <div *ngIf="!changeNameClicked">
-              <div
-                [ngClass]="{'display-button-1': segmentsService.itemClicked === i }"
-                class="button-1"
-              >
-                <ion-button (click)="deleteImage()"
-                  ><ion-icon name="trash"></ion-icon
-                ></ion-button>
-              </div>
-              <div
-                [ngClass]="{'display-button-2': segmentsService.itemClicked === i}"
-                class="button-2"
-              >
-                <ion-button (click)="onChangeName()"
-                  ><ion-icon name="create"></ion-icon
-                ></ion-button>
-              </div>
-              <div
-                [ngClass]="{'display-button-3': segmentsService.itemClicked === i}"
-                class="button-3"
-              >
-                <ion-button
-                  ><ion-icon name="cloud-upload"></ion-icon
-                ></ion-button>
-              </div>
-
-              <!-- <div
-                [ngClass]="{'display-button-4': segmentsService.itemClicked === i}"
-                class="button-4"
-              >
-                <ion-button
-                  [ngClass]="{'hide-radio-button-off' : segmentsService.chosenItemIndex === i
-              }"
-                  (click)="selectItem(i, image)"
-                  ><ion-icon name="radio-button-off"></ion-icon>
-                </ion-button>
-
-                <ion-button
-                  class="radio-button-on"
-                  [ngClass]="{'display-radio-button-on': segmentsService.chosenItemIndex === i}"
-                  (click)="unselectItem(i, image)"
-                >
-                  <ion-icon name="radio-button-on"></ion-icon>
-                </ion-button>
-              </div> -->
->>>>>>> 153af203661e0c0bd848a5561826bdea132924bb
             </div>
           </div>
         </ion-slide>
