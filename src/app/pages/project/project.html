@@ -17,9 +17,7 @@
           <info [project]="projectData.currentProject"></info>
         </ion-col>
         <ion-col size="4">
-          <todo-list
-            [project]="projectData.currentProject"
-          ></todo-list>
+          <todo-list [project]="projectData.currentProject"></todo-list>
         </ion-col>
         <ion-col size="4">
           <calendar></calendar>
@@ -30,9 +28,10 @@
         <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
           <ion-col>
             <ion-segment-button value="image">
-              <ion-label
-                >images
-                <span id="enlarge"> <ion-icon name="resize"></ion-icon></span>
+              <ion-label>images
+                <span id="enlarge">
+                  <ion-icon name="resize"></ion-icon>
+                </span>
               </ion-label>
             </ion-segment-button>
           </ion-col>
@@ -48,26 +47,14 @@
               <ion-label>companies</ion-label>
             </ion-segment-button>
           </ion-col>
-
-          <ion-col>
-            <ion-icon *ngIf="!segmentsService.editMode" name="menu" (click)="presentPopover($event)"></ion-icon>
-          </ion-col>
         </ion-segment>
       </ion-row>
     </div>
-    <ion-icon class="close-icon" *ngIf="segmentsService.editMode" name="close" (click)="segmentsService.toggleEditMode('itemClicked')"></ion-icon>
+    <ion-icon class="close-icon" *ngIf="segmentsService.editMode" name="close"
+      (click)="segmentsService.toggleEditMode('itemClicked')"></ion-icon>
     <ion-row>
-      <images
-        class="segments"
-        *ngIf="segment === 'image'"
-        [projectId]="projectData.currentProject.id"
-      >
-      </images>
-      <documents
-        class="segments"
-        *ngIf="segment === 'document'"
-        [projectId]="projectData.currentProject.id"
-      >
+      <slider *ngIf="segment === 'image'" [items]="images"></slider>
+      <documents class="segments" *ngIf="segment === 'document'" [projectId]="projectData.currentProject.id">
       </documents>
     </ion-row>
   </ion-grid>

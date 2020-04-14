@@ -1,0 +1,72 @@
+<div id="container">
+  <div id="edit-button">
+    <ion-icon *ngIf="!editMode; else closeButton" name="menu" (click)="presentPopover($event)">
+    </ion-icon>
+    <ng-template #closeButton>
+      <ion-icon *ngIf="editMode" name="close" (click)="closeEditMode()"></ion-icon>
+    </ng-template>
+  </div>
+
+  <ion-grid *ngIf="slideOpts">
+    <ion-row align-items-center>
+      <ion-col size="1" class="arrow-col">
+        <img *ngIf="items.length > slideOpts.slidesPerView" class="filter pointer" src="../../assets/icon/back.svg"
+          alt="previous slide icon" (click)="slides.slidePrev()" />
+      </ion-col>
+      <ion-col class="slide-col" size="10">
+        <ion-slides #slides [options]="slideOpts">
+          <ion-slide *ngFor="let item of items; let i = index">
+            <div class="slide-content">
+              <img [ngClass]="{'editing': editMode && itemClicked === i}" src="{{ item.url }}" alt="project image"
+                (click)="itemClick(i)" [id]="i" />
+              <div>{{item.name}}</div>
+
+              <div *ngIf="changeItemName === i && itemClicked === i">
+                <ion-input class="input-new-name" id="new-name"></ion-input>
+
+
+                <ion-button class="save-button" (click)="changeName('new-name', image)">save</ion-button>
+
+                <ion-button class="close-button" (click)="closeChangeName()">
+                  <ion-icon name="close"></ion-icon>
+                </ion-button>
+              </div>
+
+
+              <div *ngIf="changeItemName !== i">
+                <div [ngClass]="{'display-button-1': itemClicked === i }" class="button-1">
+                  <ion-button (click)="deleteImage()">
+                    <ion-icon name="trash"></ion-icon>
+                  </ion-button>
+                </div>
+                <div [ngClass]="{'display-button-2': itemClicked === i}" class="button-2">
+                  <ion-button (click)="onChangeName(i)">
+                    <ion-icon name="create"></ion-icon>
+                  </ion-button>
+                </div>
+                <div [ngClass]="{'display-button-3': itemClicked === i}" class="button-3">
+                  <ion-button>
+                    <ion-icon name="cloud-upload"></ion-icon>
+                  </ion-button>
+                </div>
+
+                <div [ngClass]="{'display-button-4': itemClicked === i}" class="button-4">
+                  <ion-button (click)="toggleImageFlag(image)">
+                    <ion-icon *ngIf="item.flagged; else notFlagged" name="radio-button-on"></ion-icon>
+                    <ng-template #notFlagged>
+                      <ion-icon name="radio-button-off"></ion-icon>
+                    </ng-template>
+                  </ion-button>
+                </div>
+              </div>
+            </div>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col size="1" class="arrow-col">
+        <img *ngIf="items.length > slideOpts.slidesPerView" src="../../assets/icon/next.svg" alt="next slide icon"
+          class="filter pointer" (click)="slides.slideNext()" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

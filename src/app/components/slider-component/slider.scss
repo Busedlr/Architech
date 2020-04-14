@@ -1,0 +1,155 @@
+.pointer {
+	cursor: pointer;
+}
+
+.filter {
+	filter: invert(47%) sepia(64%) saturate(3659%) hue-rotate(164deg)
+		brightness(99%) contrast(101%);
+}
+
+ion-col {
+	text-align: center;
+}
+
+.arrow-col {
+	max-width: 50px !important;
+	min-width: 50px;
+}
+
+.slide-content {
+	border-radius: 10px;
+	width: 90%;
+	cursor: pointer;
+	img {
+		border-radius: 10px;
+		margin-top: 0;
+		width: 100%;
+		height: 310px;
+		object-fit: cover;
+	}
+}
+
+.slide-col {
+	max-width: calc(100% - 100px);
+	min-width: calc(100% - 100px);
+}
+
+ion-slide {
+	border-radius: 10px;
+}
+
+.editing {
+	border: 6px solid rgba(69, 157, 191);
+	box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
+}
+
+.display-radio-button-on {
+	visibility: visible;
+}
+
+.close-button {
+	padding: 0;
+	position: absolute;
+	top: 260px;
+	left: 76%;
+}
+
+.display-close-button {
+	visibility: visible;
+	top: 260px;
+}
+
+.save-button {
+	position: absolute;
+	top: 260px;
+	left: 53%;
+}
+
+.display-save-button {
+	visibility: visible;
+	top: 260px;
+}
+
+.input-new-name {
+	border-radius: 10px;
+	box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
+	width: 40%;
+	position: absolute;
+	background-color: rgb(255, 255, 255, 0.8);
+	top: 260px;
+	left: 10%;
+}
+
+.display-input {
+	visibility: visible;
+}
+
+.button-1 {
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 10%;
+}
+
+.button-2 {
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 30%;
+}
+
+.button-3 {
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 50%;
+}
+
+.button-4 {
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 70%;
+}
+
+.display-button-1 {
+	visibility: visible;
+	top: 260px;
+	transition-property: top;
+	transition-duration: 0.5s;
+}
+
+.display-button-2 {
+	visibility: visible;
+	top: 260px;
+	transition-property: top;
+	transition-duration: 0.8s;
+}
+
+.display-button-3 {
+	visibility: visible;
+	top: 260px;
+	transition-property: top;
+	transition-duration: 1.1s;
+}
+
+.display-button-4 {
+	visibility: visible;
+	top: 260px;
+	transition-property: top;
+	transition-duration: 1.4s;
+}
+
+#container {
+	position: relative;
+}
+
+#edit-button {
+	position: absolute;
+	left: 15px;
+	top: 8px;
+	font-size: 35px;
+	:hover {
+		cursor: pointer;
+	}
+}

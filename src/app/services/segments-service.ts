@@ -74,6 +74,7 @@ export class SegmentsService {
 
 	async toggleEditMode(itemClicked?) {
 		this.editMode = !this.editMode;
+		console.log('editMode', this.editMode);
 		if (itemClicked) {
 			this.itemClicked = false;
 		} else {

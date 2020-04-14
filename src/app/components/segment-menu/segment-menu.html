@@ -1,5 +1,5 @@
 <ion-row>
-  <ion-button  (click)="resetInput('project-images')" expand="full" fill="clear">
+  <ion-button (click)="resetInput('project-images')" expand="full" fill="clear">
     <label for="project-images">
       <span>add a new {{ this.segmentsService.segmentName }}</span>
       <ion-icon name="add"></ion-icon>
@@ -28,7 +28,7 @@
 </ion-row>
 
 <ion-row>
-  <ion-button expand="full" fill="clear" (click)="toggleEditMode()">
+  <ion-button expand="full" fill="clear" (click)="openEditMode()">
     <span>Edit</span>
     <ion-icon name="create"></ion-icon>
   </ion-button>

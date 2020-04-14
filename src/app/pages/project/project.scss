@@ -1,31 +1,41 @@
-.segments {
-  width: 100%;
+slider {
+	width: 100%;
 }
 
 .page-container {
-  padding: 5px 30px;
+	padding: 5px 30px;
 }
 
 #add-image {
-  position: relative;
-  left: 100px;
-  font-size: 20px;
+	position: relative;
+	left: 100px;
+	font-size: 20px;
 }
 
 #enlarge {
-  position: relative;
-  left: 110px;
-  font-size: 16px;
+	position: relative;
+	left: 110px;
+	font-size: 16px;
 }
 
 .edit-mode {
-opacity: 20%;
+	opacity: 20%;
 }
 
 .close-icon {
-  position: absolute;
-  font-size: 35px;
-  opacity : 100% !important;
-  left:88%;
-  top:45%
+	position: absolute;
+	font-size: 35px;
+	opacity: 100% !important;
+	left: 88%;
+	top: 45%;
+}
+
+.col-30 {
+	max-width: 32%;
+	min-width: 32%;
+}
+
+.col-10 {
+	max-width: 4%;
+	min-width: 4%;
 }

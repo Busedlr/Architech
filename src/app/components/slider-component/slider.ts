@@ -1,44 +1,42 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import {
-	AlertController,
-	ModalController,
 	IonSlides,
+	ModalController,
 	Events,
+	AlertController,
+	PopoverController,
 } from '@ionic/angular';
-
 import { ProjectData } from 'src/app/services/project-data';
-import { ImageDisplayModalPage } from 'src/app/modals/image-display/image-display.page';
 import { SegmentsService } from 'src/app/services/segments-service';
+import { ImageDisplayModalPage } from 'src/app/modals/image-display/image-display.page';
+import { EditPopover } from '../segment-menu/segment-menu';
 
 @Component({
-	selector: 'images',
-	templateUrl: './images.html',
-	styleUrls: ['./images.scss'],
+	selector: 'slider',
+	templateUrl: './slider.html',
+	styleUrls: ['./slider.scss'],
 })
-export class Images implements OnInit {
+export class SliderComponent implements OnInit {
 	@ViewChild('slides', { static: false }) slides: IonSlides;
-	@Input('projectId') projectId;
+	@Input('items') items: any;
+	@Input('itemType') itemType: string;
 	files: any = [];
 	images: any = [];
 	flagged: any = [];
-	slideOpts: any = {};
+	slideOpts: any;
 	loading: boolean = true;
-	changeNameClicked: boolean = false;
-	slidesPerView = this.projectData.settings.slides_per_view;
+	changeItemName: number = null;
+	editMode: boolean;
+	itemClicked: any;
 
 	constructor(
 		public projectData: ProjectData,
 		public segmentsService: SegmentsService,
 		public modalController: ModalController,
 		public alertController: AlertController,
+		public popoverCtrl: PopoverController,
 		public events: Events
 	) {
-		/* this.slideOpts = {
-			slidesPerView: this.projectData.settings.slides_per_view,
-			freeMode: this.projectData.settings.free_mode,
-			allowTouchMove: false,
-		};
-
 		events.subscribe('get-active-index', () => {
 			this.slides.getActiveIndex().then((res) => {
 				this.segmentsService.activeIndex = res;
@@ -46,20 +44,42 @@ export class Images implements OnInit {
 		});
 
 		events.subscribe('change slide per view', (number) => {
-			this.slidesPerView = number;
 			this.changeSlidesPerView(number);
-			//necessary to get the images again ?
-			//this.getImages();
-			this.projectData.changeSettings('slides_per_view', number);
-		}); */
+			this.projectData.changeSettings('slider', 'slides_per_view', number);
+		});
 	}
 
-	async getImages() {
-		await this.segmentsService.getImages();
+	async ngOnInit() {
+		const settings = await this.projectData.getSettings();
+
+		this.slideOpts = {
+			slidesPerView: settings.slider.slides_per_view,
+			freeMode: settings.slider.free_mode,
+			allowTouchMove: false,
+		};
 	}
 
-	ngOnInit() {
-		//this.getImages();
+	async presentPopover(ev: any) {
+		const popover = await this.popoverCtrl.create({
+			component: EditPopover,
+			event: ev,
+			translucent: true,
+		});
+
+		popover.onWillDismiss().then(async (res) => {
+			if (res) {
+				this.editMode = res.data;
+				this.itemClicked = await this.slides.getActiveIndex();
+			}
+		});
+
+		this.segmentsService.getActiveImageIndex();
+		return await popover.present();
+	}
+
+	closeEditMode() {
+		this.editMode = false;
+		this.itemClicked = null;
 	}
 
 	async changeSlidesPerView(number) {
@@ -68,11 +88,12 @@ export class Images implements OnInit {
 		this.projectData.settings.slides_per_view = number;
 	}
 
-	imageClick(openingImageIndex) {
-		if (!this.segmentsService.editMode) {
-			this.openModal(openingImageIndex);
+	itemClick(itemIndex) {
+		this.changeItemName = null;
+		if (!this.editMode) {
+			this.openModal(itemIndex);
 		} else {
-			this.segmentsService.itemClicked = openingImageIndex;
+			this.itemClicked = itemIndex;
 		}
 	}
 
@@ -101,11 +122,12 @@ export class Images implements OnInit {
 		}
 	}
 
-	onChangeName() {
-		this.changeNameClicked = true;
+	onChangeName(i) {
+		this.changeItemName = i;
 	}
+
 	async changeName(id, image) {
-		this.changeNameClicked = false;
+		this.changeItemName = null;
 		const newName = document.getElementById(id) as HTMLInputElement;
 		if (newName.value) {
 			const name = newName.value + this.segmentsService.getDocType(image);
@@ -120,7 +142,7 @@ export class Images implements OnInit {
 	}
 
 	closeChangeName() {
-		this.changeNameClicked = false;
+		this.changeItemName = null;
 	}
 
 	toggleImageFlag(image) {
