@@ -211,21 +211,25 @@ export class ProjectData {
 
   changeSettings(prop, val) {
     const updateProp = "settings." + prop;
+    this.getSettings();
     return this.settingsRef
       .doc(this.settings.id)
       .update(updateProp, val)
       .catch((error) => {
         console.log(error);
       });
-    this.getSettings();
+    
   }
 
   getSettings() {
+    console.log("getting")
     return this.settingsRef
       .get()
       .then((res) => {
-        this.settings = res.docs[0].data().settings;
+        console.log(res.docs[0].data())
+        this.settings.slider = res.docs[0].data().slider;
         this.settings.id = res.docs[0].id;
+        console.log("settings",this.settings)
       })
       .catch((error) => {
         console.log(error);

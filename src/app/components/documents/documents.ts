@@ -26,7 +26,7 @@ export class Documents implements OnInit {
     public events: Events
   ) {
     this.slideOpts = {
-      slidesPerView: this.projectData.settings.slides_per_view,
+      slidesPerView: this.projectData.settings.slider.slides_per_view,
       freeMode: this.projectData.settings.free_mode,
       allowTouchMove: false,
     };
@@ -41,7 +41,7 @@ export class Documents implements OnInit {
       this.changeSlidesPerView(number);
       //necessary to get the documents again ?
       this.segmentsService.getDocuments();
-      this.projectData.changeSettings("slides_per_view", number);
+      this.projectData.changeSettings("slider.slides_per_view", number);
     });
   }
 
@@ -52,7 +52,7 @@ export class Documents implements OnInit {
   async changeSlidesPerView(number) {
     const swiper = await this.slides.getSwiper();
     swiper.params.slidesPerView = number;
-    this.projectData.settings.slides_per_view = number;
+    this.projectData.settings.slider.slides_per_view = number;
   }
 
   documentClick(id) {

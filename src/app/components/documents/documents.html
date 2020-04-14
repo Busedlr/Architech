@@ -147,7 +147,7 @@
   <ion-row class="ion-align-items-center">
     <ion-col size="1" class="arrow-col">
       <img
-        *ngIf="segmentsService.documents.length>projectData.settings.slides_per_view"
+        *ngIf="segmentsService.documents.length>projectData.settings.slider.slides_per_view"
         class="filter pointer"
         src="../../assets/icon/back.svg"
         alt="previous slide icon"
@@ -248,7 +248,7 @@
     </ion-col>
     <ion-col size="1" class="arrow-col">
       <img
-        *ngIf="segmentsService.documents.length > projectData.settings.slides_per_view"
+        *ngIf="segmentsService.documents.length > projectData.settings.slider.slides_per_view"
         src="../../assets/icon/next.svg"
         alt="next slide icon"
         class="filter pointer"
