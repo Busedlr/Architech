@@ -14,6 +14,8 @@ export class SegmentsService {
   itemClicked: any;
   activeIndex: any;
   itemsToDelete: any[] = [];
+  chosenItems: any[] = [];
+  chosenItemIndex:any;
 
   constructor(public projectData: ProjectData, public events: Events) {
     this.getModalStyleSheet();

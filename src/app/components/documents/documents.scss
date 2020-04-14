@@ -49,11 +49,24 @@ ion-slide {
   box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
 }
 
+.close-button{
+  padding: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 260px;
+  left: 76%;
+}
+
+.display-close-button {
+  visibility: visible;
+  top: 260px;
+}
+
 .save-button {
   visibility: hidden;
   position: absolute;
   top: 260px;
-  left: 60%;
+  left: 53%;
 }
 
 .display-save-button {

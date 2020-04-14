@@ -44,19 +44,43 @@ ion-slide {
 }
 
 
+.hide-radio-button-off {
+  visibility: hidden;
+}
+
+
+.radio-button-on {
+  visibility: hidden;
+}
+
+.display-radio-button-on {
+  visibility: visible;
+}
+
+.close-button {
+  padding: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 260px;
+  left: 76%;
+}
+
+.display-close-button {
+  visibility: visible;
+  top: 260px;
+}
 
 .save-button {
   visibility: hidden;
   position: absolute;
   top: 260px;
-  left: 60%;
+  left: 53%;
 }
 
 .display-save-button {
   visibility: visible;
   top: 260px;
 }
-
 
 .input-newname {
   border-radius: 10px;

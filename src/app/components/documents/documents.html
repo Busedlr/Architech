@@ -202,6 +202,13 @@
               (click)="changeName('newName', doc)"
               >save</ion-button
             >
+            <ion-button
+              [ngClass]="{'display-close-button': segmentsService.itemClicked === i }"
+              class="close-button"
+              *ngIf="changeNameClicked"
+              (click)="closeChangeName()"
+              ><ion-icon name="close"></ion-icon></ion-button
+            >
             <div *ngIf="!changeNameClicked">
               <div
                 [ngClass]="{'display-button-1': segmentsService.itemClicked === i }"
