@@ -94,6 +94,10 @@ export class Images implements OnInit {
     let item = this.segmentsService.images[this.segmentsService.itemClicked];
     this.segmentsService.itemsToDelete.push(item);
     this.segmentsService.images.splice(this.segmentsService.itemClicked, 1);
+    if (this.segmentsService.images.length <= 0) {
+      this.segmentsService.toggleEditMode();
+      this.segmentsService.itemClicked = null;
+    }
   }
 
   onChangeName() {
@@ -102,13 +106,34 @@ export class Images implements OnInit {
   async changeName(id, image) {
     this.changeNameClicked = false;
     const newName = document.getElementById(id) as HTMLInputElement;
-    const name = newName.value + this.segmentsService.getDocType(image);
-    const metadata = await this.projectData.updateMetadata(
-      name,
-      "extension",
-      image.fullPath
-    );
-    this.segmentsService.images[this.segmentsService.itemClicked].name =
-      metadata.customMetadata.name;
+    if (newName.value) {
+      const name = newName.value + this.segmentsService.getDocType(image);
+      const metadata = await this.projectData.updateMetadata(
+        name,
+        "extension",
+        image.fullPath
+      );
+      this.segmentsService.images[this.segmentsService.itemClicked].name =
+        metadata.customMetadata.name;
+    }
   }
+
+  closeChangeName() {
+    this.changeNameClicked = false;
+  }
+
+  /* selectItem(i, item) {
+    this.segmentsService.chosenItemIndex = i;
+    this.segmentsService.chosenItems.push(item);
+    console.log("select", this.segmentsService.chosenItems);
+  } */
+
+ /*  unselectItem(item) {
+    this.segmentsService.chosenItemIndex = null;
+    const findIndex = img => img === item;
+    const index = this.segmentsService.chosenItems.findIndex(findIndex);
+    console.log("index",index)
+    this.segmentsService.chosenItems.splice(index, 1);
+    console.log("unselect", this.segmentsService.chosenItems);
+  } */
 }
