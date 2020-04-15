@@ -1,62 +1,68 @@
-import { Component, OnInit } from "@angular/core";
-import { NavController, ModalController, Events } from "@ionic/angular";
+import { Component, OnInit } from '@angular/core';
+import { NavController, ModalController, Events } from '@ionic/angular';
 
 @Component({
-  selector: "project-todo-list",
-  templateUrl: "./todo-list.page.html",
-  styleUrls: ["./todo-list.page.scss"]
+	selector: 'project-todo-list',
+	templateUrl: './todo-list.page.html',
+	styleUrls: ['./todo-list.page.scss']
 })
 export class TodoListPage implements OnInit {
-  items: any;
-  selectedItem: any;
-  newItem: any;
-  newItemDetail= "";
+	items: any;
+	selectedItem: any;
+	newItem: any;
+	newItemDetail = '';
+	addItemMode: boolean = false;
 
+	constructor(
+		public navCtrl: NavController,
+		public modalController: ModalController,
+		public events: Events
+	) {}
 
-  constructor(
-    public navCtrl: NavController,
-    public modalController: ModalController,
-    public events: Events
-  ) {}
+	ngOnInit() {}
 
-  ngOnInit() {}
+	addItem() {
+		this.addItemMode = true;
+	}
 
-  addItem() {
+	saveItem() {
+		let item = {
+			title: this.newItem,
+			detail: this.newItemDetail,
+			checked: false
+		};
+		this.items.push(item);
+		this.newItem = null;
+		this.newItemDetail = null;
+		console.log(this.items);
+	}
 
-    let item = {
-      title: this.newItem,
-      detail: this.newItemDetail,
-      checked: false
-    };
-    this.items.push(item);
-    this.newItem = null;
-    this.newItemDetail = null;
-    console.log(this.items)
+	deleteItem(item) {
+		const index = this.items.indexOf(item);
+		this.items.splice(index, 1);
+	}
 
-  }
+	toggleItemCheck(item) {
+		item.checked = !item.checked;
+	}
 
-  deleteItem(item) {
-    const index = this.items.indexOf(item);
-    this.items.splice(index, 1);
-  }
+	save() {
+		this.modalController.dismiss(this.items);
+	}
 
-  toggleItemCheck(item) {
-    item.checked = !item.checked;
-  }
+	ioncheckbox(event) {
+		console.log('event', event);
+	}
 
-  save() {
-    this.modalController.dismiss(this.items);
-  }
+	check(item) {
+		console.log('item', item);
+	}
 
-  ioncheckbox(event) {
-    console.log("event", event);
-  }
+	close() {
+		this.addItemMode = false;
+	}
 
-  check(item) {
-    console.log("item", item);
-  }
-
-  /*   dismiss() {
+	/*   dismiss() {
     this.modalController.dismiss(this.items);
   } */
 }

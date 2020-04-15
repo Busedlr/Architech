@@ -1,29 +1,29 @@
 ion-card {
-  padding: 15px;
-  position: relative;
-  height: 300px;
+	padding: 15px;
+	position: relative;
+	height: 300px;
 
-  &:hover {
-    ion-icon {
-      display: block;
-    }
-  }
+	&:hover {
+		ion-icon {
+			display: block;
+		}
+	}
 }
 
 ion-icon {
-  font-size: 20px;
-  position: relative;
-  top: 5px;
-  left: 5px;
-  display: none;
+	font-size: 20px;
+	position: relative;
+	top: 5px;
+	left: 5px;
+	display: none;
 }
 
 .icon-container {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 30px;
-  height: 30px;
-  z-index: 9;
-  cursor: pointer;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 30px;
+	height: 30px;
+	z-index: 9;
+	cursor: pointer;
 }

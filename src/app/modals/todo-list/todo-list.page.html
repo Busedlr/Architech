@@ -1,33 +1,35 @@
+<ion-grid>
+  <ion-card class="outer-container">
+    <div class="title">To Do List</div>
+    <ion-row>
+      <ion-card class="container">
+        <ion-row class="item-container" *ngFor="let item of items">
+          <ion-col size="1">
+            <ion-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="item.checked"></ion-checkbox>
+          </ion-col>
+          <ion-col size="10">{{item.title}}
+            <br />
+            {{item.detail}}</ion-col>
+          <ion-col size="1">
+            <ion-icon name="close" (click)="deleteItem(item)"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-row>
+    <ion-row>
+      <ion-col size="8">
+        <div *ngIf="addItemMode">
+          <ion-row><input placeholder="Add an item" class="input" type="text" [(ngModel)]="newItem" /></ion-row>
+          <ion-row><input placeholder="more details..." class="input" type="text" [(ngModel)]="newItemDetail" />
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col class="buttons-container" size="4">
+        <ion-button *ngIf="!addItemMode" (click)="addItem()">Add an item</ion-button>
+        <ion-button *ngIf="addItemMode" (click)="saveItem()">Add</ion-button>
+        <ion-icon *ngIf="addItemMode" name="close" (click)="close()"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
-
-<ion-content>
-  <ion-row>
-    <ion-col size="12">
-      <ion-item *ngFor="let item of items">
-        {{item.title}}
-        <br/>
-        {{item.detail}}
-        <span>
-          <ion-icon name="close" (click)="deleteItem(item)"></ion-icon
-        ></span>
-        <ion-checkbox
-          slot="start"
-          color="primary"
-          [(ngModel)]="item.checked"
-        ></ion-checkbox>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col size="8">
-      <input type="text" [(ngModel)]="newItem" />
-      <input type="text" [(ngModel)]="newItemDetail" />
-    </ion-col>
-    <ion-col size="4">
-      <ion-button (click)="addItem()">add</ion-button>
-    </ion-col>
-    <ion-col size="4">
-      <ion-button (click)="save()">save</ion-button>
-    </ion-col>
-  </ion-row>
-</ion-content>
+</ion-grid>
