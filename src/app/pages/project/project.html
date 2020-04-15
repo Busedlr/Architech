@@ -1,74 +1,66 @@
 <ion-header translucent>
-  <ion-toolbar>
-    <ion-title>Project Detail</ion-title>
-    <!-- 
+	<ion-toolbar>
+		<ion-title>Project Detail</ion-title>
+		<!-- 
     <ion-button (click)="goHome()">home</ion-button> -->
-  </ion-toolbar>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div *ngIf="loading">
-    LOADING...
-  </div>
-  <ion-grid *ngIf="!loading" class="page-container">
-    <div [ngClass]="{'edit-mode': segmentsService.editMode}">
-      <ion-row>
-        <ion-col size="4">
-          <info [project]="projectData.currentProject"></info>
-        </ion-col>
-        <ion-col size="4">
-          <todo-list
-            [project]="projectData.currentProject"
-          ></todo-list>
-        </ion-col>
-        <ion-col size="4">
-          <calendar></calendar>
-        </ion-col>
-      </ion-row>
+	<div *ngIf="loading">
+		LOADING...
+	</div>
+	<ion-grid *ngIf="!loading" class="page-container">
+		<div [ngClass]="{'edit-mode': segmentsService.editMode}">
+			<ion-row>
+				<ion-col size="6">
+					<info [project]="projectData.currentProject"></info>
+				</ion-col>
+				<ion-col size="3">
+					<todo-list [project]="projectData.currentProject"></todo-list>
+				</ion-col>
+				<ion-col size="3">
+					<calendar></calendar>
+				</ion-col>
+			</ion-row>
 
-      <ion-row>
-        <ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
-          <ion-col>
-            <ion-segment-button value="image">
-              <ion-label
-                >images
-                <span id="enlarge"> <ion-icon name="resize"></ion-icon></span>
-              </ion-label>
-            </ion-segment-button>
-          </ion-col>
+			<ion-row>
+				<ion-segment (ionChange)="segmentChanged($event)" [value]="segment">
+					<ion-col>
+						<ion-segment-button value="image">
+							<ion-label>images
+								<span id="enlarge">
+									<ion-icon name="resize"></ion-icon>
+								</span>
+							</ion-label>
+						</ion-segment-button>
+					</ion-col>
 
-          <ion-col>
-            <ion-segment-button value="document">
-              <ion-label>documents</ion-label>
-            </ion-segment-button>
-          </ion-col>
+					<ion-col>
+						<ion-segment-button value="document">
+							<ion-label>documents</ion-label>
+						</ion-segment-button>
+					</ion-col>
 
-          <ion-col>
-            <ion-segment-button value="company">
-              <ion-label>companies</ion-label>
-            </ion-segment-button>
-          </ion-col>
+					<ion-col>
+						<ion-segment-button value="company">
+							<ion-label>companies</ion-label>
+						</ion-segment-button>
+					</ion-col>
 
-          <ion-col>
-            <ion-icon *ngIf="!segmentsService.editMode" name="menu" (click)="presentPopover($event)"></ion-icon>
-          </ion-col>
-        </ion-segment>
-      </ion-row>
-    </div>
-    <ion-icon class="close-icon" *ngIf="segmentsService.editMode" name="close" (click)="segmentsService.toggleEditMode('itemClicked')"></ion-icon>
-    <ion-row>
-      <images
-        class="segments"
-        *ngIf="segment === 'image'"
-        [projectId]="projectData.currentProject.id"
-      >
-      </images>
-      <documents
-        class="segments"
-        *ngIf="segment === 'document'"
-        [projectId]="projectData.currentProject.id"
-      >
-      </documents>
-    </ion-row>
-  </ion-grid>
+					<ion-col>
+						<ion-icon *ngIf="!segmentsService.editMode" name="menu" (click)="presentPopover($event)"></ion-icon>
+					</ion-col>
+				</ion-segment>
+			</ion-row>
+		</div>
+		<ion-icon class="close-icon" *ngIf="segmentsService.editMode" name="close"
+			(click)="segmentsService.toggleEditMode('itemClicked')"></ion-icon>
+		<ion-row>
+			<images class="segments" *ngIf="segment === 'image'" [projectId]="projectData.currentProject.id">
+			</images>
+			<documents class="segments" *ngIf="segment === 'document'" [projectId]="projectData.currentProject.id">
+			</documents>
+		</ion-row>
+	</ion-grid>
 </ion-content>

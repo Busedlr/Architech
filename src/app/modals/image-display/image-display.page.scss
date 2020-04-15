@@ -1,103 +1,102 @@
 .image-row {
-  height: 90%;
+	height: 90%;
 }
 
 .displayed-img {
-  border-radius: 10px;
+	border-radius: 10px;
 }
 
 #image-container {
-  border-radius: 10px;
-  box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
+	border-radius: 10px;
+	box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
 }
 
 .center {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  position: absolute;
-  top: calc(50% + 25px);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+	position: absolute;
+	top: calc(50% + 25px);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
 }
 
 #prev-button {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  margin: 0;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  left: 20%;
-  box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	margin: 0;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	left: 20%;
+	box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
 }
 
 #next-button {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  margin: 0;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  left: calc(80% - 40px);
-  box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	margin: 0;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	left: calc(80% - 40px);
+	box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
 }
 
 // after basics
 
 .tools-container {
-  top: 0;
-  align-content: center;
-  height: 50px;
-  width: 100%;
-  background-color: rgb(255, 255, 255, 0.8);
-  box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
+	top: 0;
+	align-content: center;
+	height: 50px;
+	width: 100%;
+	background-color: rgb(255, 255, 255, 0.8);
+	box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
 }
 
 .edit-container {
-  top: 0;
-  align-content: center;
-  height: 150px;
-  width: 100%;
-  background-color: rgb(255, 255, 255, 0.8);
-  box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
+	top: 0;
+	align-content: center;
+	height: 150px;
+	width: 100%;
+	background-color: rgb(255, 255, 255, 0.8);
+	box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
 }
 
 .edit-icon-col {
-  text-align: end;
+	text-align: end;
 }
 
 .input-col {
-  align-content: center;
-  text-align: center;
+	align-content: center;
+	text-align: center;
 }
 
 .save-button-col {
-  text-align: center;
+	text-align: center;
 }
 
 .tools-col {
-  text-align: end;
+	text-align: end;
 }
 
 .edit-rows {
-  height: 50%;
+	height: 50%;
 }
 
 #newName {
-  left: 37.5%;
-  width: 25%;
-  background-color: rgb(255, 255, 255, 1);
-  border-radius: 10px;
+	left: 37.5%;
+	width: 25%;
+	background-color: rgb(255, 255, 255, 1);
+	border-radius: 10px;
 }
 
-
 ion-icon {
-  margin: 10px;
+	margin: 10px;
 }
