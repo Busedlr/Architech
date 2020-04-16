@@ -32,8 +32,9 @@ export class ToDoList implements OnInit {
 			cssClass: 'modal-container'
 		});
 		modal.onDidDismiss().then(list => {
-			console.log('list.data', list.data);
-			this.projectData.updateProjectProp(this.project.id, 'list', list.data);
+			if (list.data !== undefined) {
+				this.projectData.updateProjectProp(this.project.id, 'list', list.data);
+			}
 		});
 		return await modal.present();
 	}

@@ -9,20 +9,28 @@ import { ImageDisplayModalPage } from 'src/app/modals/image-display/image-displa
 import { ComponentsModule } from 'src/app/components/components.module';
 import { TodoListPage } from 'src/app/modals/todo-list/todo-list.page';
 import { SegmentMenu } from 'src/app/components/segment-menu/segment-menu';
-
-
+import { TodoListMenu } from 'src/app/components/todo-list-menu/todo-list-menu';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ProjectDetailRoutingModule,
-    ComponentsModule
-  ],
-  declarations: [ProjectDetail, ImageDisplayModalPage, TodoListPage, SegmentMenu],
-  entryComponents: [
-    ImageDisplayModalPage, TodoListPage, SegmentMenu
-  ]
+	imports: [
+		CommonModule,
+		FormsModule,
+		IonicModule,
+		ProjectDetailRoutingModule,
+		ComponentsModule
+	],
+	declarations: [
+		ProjectDetail,
+		ImageDisplayModalPage,
+		TodoListPage,
+		SegmentMenu,
+		TodoListMenu
+	],
+	entryComponents: [
+		ImageDisplayModalPage,
+		TodoListPage,
+		SegmentMenu,
+		TodoListMenu
+	]
 })
 export class ProjectDetailModule {}

@@ -6,15 +6,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { TodoListPageRoutingModule } from './todo-list-routing.module';
 
-
-
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    TodoListPageRoutingModule
-  ],
-  declarations: []
+	imports: [CommonModule, FormsModule, IonicModule, TodoListPageRoutingModule],
+	declarations: []
 })
 export class TodoListPageModule {}

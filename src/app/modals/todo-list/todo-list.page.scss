@@ -9,6 +9,14 @@ ion-grid {
 	padding-left: 2%;
 }
 
+.item {
+	font-size: 18px;
+	font-weight: bold;
+}
+.detail {
+	font-size: 18px;
+}
+
 .outer-container {
 	align-content: center;
 	padding: 20px;
@@ -27,19 +35,24 @@ ion-grid {
 }
 
 .item-container {
-	ion-icon {
+	.more-icon {
+		padding: 6px, 6px;
 		display: none;
+		width: 30px;
+		height: 30px;
 	}
 	border-radius: 3px;
 	&:hover {
 		background-color: rgba(250, 249, 249, 0.8);
-		ion-icon {
+		.more-icon {
+			cursor: pointer;
 			display: block;
 		}
 	}
 }
 
 .input {
+	display: none;
 	padding: 0;
 	border-radius: 3px;
 	margin: 5px;
@@ -47,6 +60,10 @@ ion-grid {
 	width: 90%;
 	height: 35px;
 	background-color: rgb(255, 255, 255, 0.8);
+}
+
+.display-input {
+	display: block;
 }
 
 ion-button .button-native {
