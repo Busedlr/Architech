@@ -124,5 +124,6 @@ export class TodoListPage implements OnInit {
 
 	close() {
 		this.addItemMode = false;
+		this.editMode = false;
 	}
 }

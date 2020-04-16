@@ -29,7 +29,8 @@ export class ToDoList implements OnInit {
 			componentProps: {
 				items: this.items
 			},
-			cssClass: 'modal-container'
+			cssClass: 'modal-container',
+			backdropDismiss: false
 		});
 		modal.onDidDismiss().then(list => {
 			if (list.data !== undefined) {
