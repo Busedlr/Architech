@@ -75,13 +75,11 @@ ion-button .button-native {
 }
 
 .input-edit {
-	input {
-		width: 98%;
-		border: 1px solid rgb(160, 160, 160);
-		border-radius: 4px;
-		line-height: 35px;
-		padding: 0 8px;
-	}
+	width: 98%;
+	border: 1px solid rgb(160, 160, 160);
+	border-radius: 4px;
+	line-height: 35px;
+	padding: 0 8px;
 }
 
 .input-standard {
@@ -98,5 +96,11 @@ ion-button .button-native {
 	font-size: 35px;
 	&:hover {
 		cursor: pointer;
+	}
+}
+
+.inputs-col {
+	&:hover {
+		cursor: pointer !important;
 	}
 }

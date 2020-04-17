@@ -66,14 +66,42 @@
       <ion-col size="1">
         <ion-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="item.checked"></ion-checkbox>
       </ion-col>
-      <ion-col size="10">
-        <div [ngClass]="{'input-edit' : item.editing, 'input-standard' : !item.editing}" class="item"><input
-            [formControlName]="item.titleControl"></div>
+      <!-- <ion-col class="inputs-col" size="10" (click)="editItem()">
+        <div [ngClass]="{'input-edit' : item.editing, 'input-standard' : !item.editing}" class="item">
+          <input [formControlName]="item.titleControl" placeholder="title goes here">
+        </div>
         <div [ngClass]="{'input-edit' : item.editing, 'input-standard' : !item.editing}" class="detail"><input
-            [formControlName]="item.detailControl"></div>
+            [formControlName]="item.detailControl" placeholder="detail goes here"></div>
+      </ion-col> -->
+
+      <ion-col class="inputs-col" size="10" (click)="editItem(item)">
+        <div class="item">
+          <input *ngIf="item.editing; else notEditing" class="input-edit" [formControlName]="item.titleControl"
+            placeholder="title goes here">
+          <ng-template #notEditing>
+            <div class="input-standard"> {{todoForm.controls[item.titleControl].value}} </div>
+          </ng-template>
+        </div>
+
+        <div class="detail">
+          <input *ngIf="item.editing; else notEditingTwo" class="input-edit" [formControlName]="item.detailControl"
+            placeholder="detail goes here">
+          <ng-template #notEditingTwo>
+            <div class="input-standard"> {{todoForm.controls[item.detailControl].value}} </div>
+          </ng-template>
+        </div>
+        <!-- <div [ngClass]="{'input-edit' : item.editing, 'input-standard' : !item.editing}" class="detail"><input
+            [formControlName]="item.detailControl" placeholder="detail goes here"></div> -->
       </ion-col>
+
+
       <ion-col size="1">
         <img class="more-icon" src="../../assets/icon/more.svg" alt="options" (click)="presentPopover($event, item)" />
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="addItem()"> Add item </ion-button>
       </ion-col>
     </ion-row>
   </ion-card>

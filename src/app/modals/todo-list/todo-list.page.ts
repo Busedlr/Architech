@@ -37,8 +37,7 @@ export class TodoListPage implements OnInit {
 	initForm() {
 		this.todoForm = this.fb.group({});
 		this.items.map((item, i) => {
-			this.todoForm.addControl(`title${i}`, new FormControl(item.title));
-			this.todoForm.addControl(`detail${i}`, new FormControl(item.detail));
+			this.addControl(item, i);
 			item.titleControl = `title${i}`;
 			item.detailControl = `detail${i}`;
 		});
@@ -56,9 +55,9 @@ export class TodoListPage implements OnInit {
 				case 'delete':
 					this.deleteItem();
 					break;
-				case 'edit':
+				/* case 'edit':
 					this.editItem(item);
-					break;
+					break; */
 				case 'label':
 					this.labelItem('red');
 					break;
@@ -71,7 +70,7 @@ export class TodoListPage implements OnInit {
 		this.addItemMode = true;
 	}
 
-	addItem() {
+	/* addItem() {
 		if (this.newItem) {
 			let item = {
 				title: this.newItem,
@@ -82,6 +81,30 @@ export class TodoListPage implements OnInit {
 			this.newItem = null;
 			this.newItemDetail = null;
 		}
+	} */
+
+	addItem() {
+		const item = {
+			title: '',
+			detail: '',
+			checked: false,
+			editing: true
+		};
+
+		this.items.push(item);
+		const lastIndex = this.items.length - 1;
+		this.items[lastIndex].titleControl = `title${lastIndex}`;
+		this.items[lastIndex].detailControl = `detail${lastIndex}`;
+
+		this.addControl(item, lastIndex);
+		console.log('form', this.todoForm);
+	}
+
+	addControl(item, i) {
+		console.log('item', item);
+		console.log('i', i);
+		this.todoForm.addControl(`title${i}`, new FormControl(item.title));
+		this.todoForm.addControl(`detail${i}`, new FormControl(item.detail));
 	}
 
 	editItem(item) {
