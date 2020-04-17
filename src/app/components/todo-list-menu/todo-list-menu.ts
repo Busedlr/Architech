@@ -7,11 +7,16 @@ import { PopoverController } from '@ionic/angular';
 	styleUrls: ['./todo-list-menu.scss']
 })
 export class TodoListMenu implements OnInit {
+	label: boolean = false;
 	constructor(public popoverController: PopoverController) {}
 
 	ngOnInit() {}
 
 	dismiss(action) {
 		this.popoverController.dismiss(action);
+	}
+
+	chooseLabel() {
+		this.label = true;
 	}
 }

@@ -48,7 +48,7 @@ export class TodoListPage implements OnInit {
 					this.editItem();
 					break;
 				case 'label':
-					this.labelItem();
+					this.labelItem('red');
 					break;
 			}
 		});
@@ -102,9 +102,7 @@ export class TodoListPage implements OnInit {
 		this.selectedItem = '';
 	}
 
-	labelItem() {
-		console.log('labeling');
-	}
+	labelItem(color) {}
 
 	toggleItemCheck(item) {
 		item.checked = !item.checked;

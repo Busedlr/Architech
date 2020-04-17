@@ -1,4 +1,4 @@
-<ion-grid>
+<div *ngIf="!label">
   <ion-row>
     <ion-button expand="full" fill="clear" (click)="dismiss('delete')">
       <span>delete</span>
@@ -12,9 +12,23 @@
     </ion-button>
   </ion-row>
   <ion-row>
-    <ion-button expand="full" fill="clear" (click)="dismiss('label')">
+    <ion-button expand="full" fill="clear" (click)="chooseLabel()">
       <span>label</span>
       <ion-icon name="color-palette"></ion-icon>
     </ion-button>
   </ion-row>
-</ion-grid>
+</div>
+
+<div *ngIf="label">
+  <ion-row>
+    <ion-button (click)="dismiss('label')">
+      red
+    </ion-button>
+    <ion-button (click)="dismiss('label')">
+      green
+    </ion-button>
+    <ion-button (click)="dismiss('label')">
+      blue
+    </ion-button>
+  </ion-row>
+</div>
