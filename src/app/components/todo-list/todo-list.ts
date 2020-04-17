@@ -32,11 +32,28 @@ export class ToDoList implements OnInit {
 			cssClass: 'modal-container',
 			backdropDismiss: false
 		});
-		modal.onDidDismiss().then(list => {
-			if (list.data !== undefined) {
-				this.projectData.updateProjectProp(this.project.id, 'list', list.data);
+		modal.onDidDismiss().then(saveObject => {
+			if (!saveObject.data.form.pristine) {
+				this.saveForm(saveObject.data.form, saveObject.data.items);
 			}
 		});
 		return await modal.present();
+	}
+
+	saveForm(form, items) {
+		const todoList = [];
+		items.forEach((item, i) => {
+			const title = `title${i}`;
+			const detail = `detail${i}`;
+
+			const todo = {
+				title: form.controls[title].value,
+				detail: form.controls[detail].value,
+				checked: item.checked
+			};
+			todoList.push(todo);
+		});
+
+		this.projectData.updateProjectProp(this.project.id, 'list', todoList);
 	}
 }

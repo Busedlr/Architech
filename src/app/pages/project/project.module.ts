@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ProjectDetailRoutingModule } from './project-routing.module';
@@ -17,7 +17,8 @@ import { TodoListMenu } from 'src/app/components/todo-list-menu/todo-list-menu';
 		FormsModule,
 		IonicModule,
 		ProjectDetailRoutingModule,
-		ComponentsModule
+		ComponentsModule,
+		ReactiveFormsModule
 	],
 	declarations: [
 		ProjectDetail,

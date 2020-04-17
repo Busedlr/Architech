@@ -6,6 +6,7 @@ import {
 	PopoverController
 } from '@ionic/angular';
 import { TodoListMenu } from 'src/app/components/todo-list-menu/todo-list-menu';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'project-todo-list',
@@ -19,20 +20,31 @@ export class TodoListPage implements OnInit {
 	newItemDetail = '';
 	addItemMode: boolean = false;
 	editMode: boolean = false;
+	todoForm: FormGroup;
 
 	constructor(
 		public navCtrl: NavController,
 		public modalController: ModalController,
 		public events: Events,
-		public popoverController: PopoverController
+		public popoverController: PopoverController,
+		public fb: FormBuilder
 	) {}
 
 	ngOnInit() {
-		console.log('items', this.items);
+		this.initForm();
+	}
+
+	initForm() {
+		this.todoForm = this.fb.group({});
+		this.items.map((item, i) => {
+			this.todoForm.addControl(`title${i}`, new FormControl(item.title));
+			this.todoForm.addControl(`detail${i}`, new FormControl(item.detail));
+			item.titleControl = `title${i}`;
+			item.detailControl = `detail${i}`;
+		});
 	}
 
 	async presentPopover(ev: any, item) {
-		this.selectedItem = item;
 		const popover = await this.popoverController.create({
 			component: TodoListMenu,
 			event: ev,
@@ -45,7 +57,7 @@ export class TodoListPage implements OnInit {
 					this.deleteItem();
 					break;
 				case 'edit':
-					this.editItem();
+					this.editItem(item);
 					break;
 				case 'label':
 					this.labelItem('red');
@@ -72,14 +84,18 @@ export class TodoListPage implements OnInit {
 		}
 	}
 
-	editItem() {
+	editItem(item) {
+		item.editing = true;
+	}
+
+	/* editItem() {
 		this.editMode = true;
 		this.addItemMode = true;
 		const title = document.getElementById('title') as HTMLInputElement;
 		const detail = document.getElementById('detail') as HTMLInputElement;
 		title.value = this.selectedItem.title;
 		detail.value = this.selectedItem.detail;
-	}
+	} */
 
 	confirmEdits() {
 		const title = document.getElementById('title') as HTMLInputElement;
@@ -96,7 +112,6 @@ export class TodoListPage implements OnInit {
 	}
 
 	deleteItem() {
-		console.log('deleting');
 		const index = this.items.indexOf(this.selectedItem);
 		this.items.splice(index, 1);
 		this.selectedItem = '';
@@ -108,8 +123,9 @@ export class TodoListPage implements OnInit {
 		item.checked = !item.checked;
 	}
 
-	save() {
-		this.modalController.dismiss(this.items);
+	closeAndSave() {
+		const saveObject = { form: this.todoForm, items: this.items };
+		this.modalController.dismiss(saveObject);
 	}
 
 	ioncheckbox(event) {

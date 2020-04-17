@@ -38,6 +38,10 @@ ion-grid {
 	height: 420px;
 }
 
+ion-button .button-native {
+	margin: 5px;
+}
+
 .item-container {
 	.more-icon {
 		padding: 6px, 6px;
@@ -70,6 +74,29 @@ ion-grid {
 	display: block;
 }
 
-ion-button .button-native {
-	margin: 5px;
+.input-edit {
+	input {
+		width: 98%;
+		border: 1px solid rgb(160, 160, 160);
+		border-radius: 4px;
+		line-height: 35px;
+		padding: 0 8px;
+	}
+}
+
+.input-standard {
+	input {
+		border: none;
+	}
+}
+
+.input-edit:first-child {
+	margin-bottom: 10px;
+}
+
+#close-button {
+	font-size: 35px;
+	&:hover {
+		cursor: pointer;
+	}
 }
