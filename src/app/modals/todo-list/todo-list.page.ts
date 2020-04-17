@@ -55,9 +55,6 @@ export class TodoListPage implements OnInit {
 				case 'delete':
 					this.deleteItem();
 					break;
-				/* case 'edit':
-					this.editItem(item);
-					break; */
 				case 'label':
 					this.labelItem('red');
 					break;
@@ -69,19 +66,6 @@ export class TodoListPage implements OnInit {
 	addItemModeOn() {
 		this.addItemMode = true;
 	}
-
-	/* addItem() {
-		if (this.newItem) {
-			let item = {
-				title: this.newItem,
-				detail: this.newItemDetail,
-				checked: false
-			};
-			this.items.push(item);
-			this.newItem = null;
-			this.newItemDetail = null;
-		}
-	} */
 
 	addItem() {
 		const item = {
@@ -107,18 +91,9 @@ export class TodoListPage implements OnInit {
 		this.todoForm.addControl(`detail${i}`, new FormControl(item.detail));
 	}
 
-	editItem(item) {
-		item.editing = true;
+	toggleEdit(item, val) {
+		item.editing = val;
 	}
-
-	/* editItem() {
-		this.editMode = true;
-		this.addItemMode = true;
-		const title = document.getElementById('title') as HTMLInputElement;
-		const detail = document.getElementById('detail') as HTMLInputElement;
-		title.value = this.selectedItem.title;
-		detail.value = this.selectedItem.detail;
-	} */
 
 	confirmEdits() {
 		const title = document.getElementById('title') as HTMLInputElement;
