@@ -23,6 +23,10 @@ export class ToDoList implements OnInit {
 		}
 	}
 
+	ngOnChanges() {
+		console.log('change');
+	}
+
 	async openModal() {
 		const modal = await this.modalController.create({
 			component: TodoListPage,
@@ -33,14 +37,12 @@ export class ToDoList implements OnInit {
 			backdropDismiss: false
 		});
 		modal.onDidDismiss().then(saveObject => {
-			if (!saveObject.data.form.pristine) {
-				this.saveForm(saveObject.data.form, saveObject.data.items);
-			}
+			this.saveForm(saveObject.data.form, saveObject.data.items);
 		});
 		return await modal.present();
 	}
 
-	saveForm(form, items) {
+	async saveForm(form, items) {
 		const todoList = [];
 		items.forEach((item, i) => {
 			const title = `title${i}`;
@@ -51,9 +53,11 @@ export class ToDoList implements OnInit {
 				detail: form.controls[detail].value,
 				checked: item.checked
 			};
-			todoList.push(todo);
+
+			if (todo.title) todoList.push(todo);
 		});
 
-		this.projectData.updateProjectProp(this.project.id, 'list', todoList);
+		await this.projectData.updateProjectProp(this.project.id, 'list', todoList);
+		this.items = todoList;
 	}
 }

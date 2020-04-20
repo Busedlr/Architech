@@ -28,6 +28,9 @@ export class ProjectData {
 		return this.projectsRef
 			.doc(projectId)
 			.update(prop, val)
+			.then(() => {
+				return true;
+			})
 			.catch(error => {
 				console.log(error);
 			});
