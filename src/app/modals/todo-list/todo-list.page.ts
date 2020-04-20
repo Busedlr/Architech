@@ -19,7 +19,7 @@ export class TodoListPage implements OnInit {
 	newItem: any;
 	newItemDetail = '';
 	addItemMode: boolean = false;
-	editMode: boolean = false;
+	editing: boolean;
 	todoForm: FormGroup;
 
 	constructor(
@@ -50,13 +50,13 @@ export class TodoListPage implements OnInit {
 			translucent: true
 		});
 		popover.onWillDismiss().then(res => {
-			const action = res.data;
-			switch (action) {
+			const dataObj = res.data;
+			switch (dataObj.action) {
 				case 'delete':
 					this.deleteItem();
 					break;
 				case 'label':
-					this.labelItem('red');
+					this.labelItem(item, dataObj.detail);
 					break;
 			}
 		});
@@ -72,8 +72,12 @@ export class TodoListPage implements OnInit {
 			title: '',
 			detail: '',
 			checked: false,
-			editing: true
+			editing: true,
+			newlyAdded: true,
+			label: 'transparent'
 		};
+
+		this.editing = true;
 
 		this.items.push(item);
 		const lastIndex = this.items.length - 1;
@@ -81,18 +85,46 @@ export class TodoListPage implements OnInit {
 		this.items[lastIndex].detailControl = `detail${lastIndex}`;
 
 		this.addControl(item, lastIndex);
-		console.log('form', this.todoForm);
 	}
 
 	addControl(item, i) {
-		console.log('item', item);
-		console.log('i', i);
 		this.todoForm.addControl(`title${i}`, new FormControl(item.title));
 		this.todoForm.addControl(`detail${i}`, new FormControl(item.detail));
 	}
 
 	toggleEdit(item, val) {
+		if (val === false) {
+			if (this.todoForm.controls[item.titleControl].value === '') {
+				return;
+			} else {
+				item.newlyAdded = false;
+			}
+		}
+
+		if (val === true) {
+			if (this.editing === true) return;
+			item.titlePrevValue = this.todoForm.controls[item.titleControl].value;
+			item.detailPrevValue = this.todoForm.controls[item.detailControl].value;
+		}
+
 		item.editing = val;
+		this.editing = val;
+	}
+
+	cancelEdit(item) {
+		item.editing = false;
+		this.editing = false;
+
+		if (item.newlyAdded) {
+			this.todoForm.removeControl(item.titleControl);
+			this.todoForm.removeControl(item.detailControl);
+			this.items.pop();
+		} else {
+			this.todoForm.get(item.titleControl).setValue(item.titlePrevValue);
+			this.todoForm.get(item.titleControl).updateValueAndValidity();
+			this.todoForm.get(item.detailControl).setValue(item.detailPrevValue);
+			this.todoForm.get(item.detailControl).updateValueAndValidity();
+		}
 	}
 
 	confirmEdits() {
@@ -102,7 +134,7 @@ export class TodoListPage implements OnInit {
 		this.selectedItem.detail = detail.value;
 		title.value = '';
 		detail.value = '';
-		this.editMode = false;
+		/* this.editMode = false; */
 		this.selectedItem = '';
 		this.addItemMode = false;
 		this.newItem = null;
@@ -115,7 +147,9 @@ export class TodoListPage implements OnInit {
 		this.selectedItem = '';
 	}
 
-	labelItem(color) {}
+	labelItem(item, color) {
+		item.label = color;
+	}
 
 	toggleItemCheck(item) {
 		item.checked = !item.checked;
@@ -124,18 +158,5 @@ export class TodoListPage implements OnInit {
 	closeAndSave() {
 		const saveObject = { form: this.todoForm, items: this.items };
 		this.modalController.dismiss(saveObject);
-	}
-
-	ioncheckbox(event) {
-		console.log('event', event);
-	}
-
-	check(item) {
-		console.log('item', item);
-	}
-
-	close() {
-		this.addItemMode = false;
-		this.editMode = false;
 	}
 }

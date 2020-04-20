@@ -1,59 +1,5 @@
-<!-- <ion-grid>
-  <ion-card class="outer-container">
-    <ion-row [formGroup]="todoForm">
-      <ion-col size="11">
-        <div class="title">To Do List</div>
-      </ion-col>
-      <ion-col size="1">
-        <ion-icon (click)="save()" name="close"></ion-icon>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-card [ngClass]="{'smaller-container' : addItemMode}" class="container">
-        <ion-row class="item-container" *ngFor="let item of items">
-          <ion-col size="1">
-            <ion-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="item.checked"></ion-checkbox>
-          </ion-col>
-          <ion-col size="10">
-            <div class="item">{{item.title}}</div>
-            <br />
-            <div class="detail">{{item.detail}}</div>
-          </ion-col>
-          <ion-col size="1">
-            <img class="more-icon" src="../../assets/icon/more.svg" alt="options"
-              (click)="presentPopover($event, item)" />
-          </ion-col>
-        </ion-row>
-      </ion-card>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-row>
-          <input id="title" class="input" [ngClass]="{'display-input': addItemMode}" placeholder="Add an item"
-            class="input" type="text" [(ngModel)]="newItem" />
-        </ion-row>
-        <ion-row>
-          <input id="detail" class="input" [ngClass]="{'display-input': addItemMode}" placeholder="more details..."
-            class="input" type="text" [(ngModel)]="newItemDetail" />
-        </ion-row>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-button *ngIf="!addItemMode" (click)="addItemModeOn()">Add an item</ion-button>
-        <ion-button *ngIf="addItemMode && !editMode" (click)="addItem()">Add</ion-button>
-        <ion-button *ngIf="editMode" (click)="confirmEdits()">Confirm edits</ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-icon *ngIf="addItemMode" name="close" (click)="close()"></ion-icon>
-      </ion-col>
-    </ion-row>
-  </ion-card>
-</ion-grid> -->
-
-
 <ion-grid>
-  <ion-card [formGroup]="todoForm" class="outer-container">
+  <ion-card [formGroup]="todoForm" class="outer-container no-scrollbar">
     <ion-row>
       <ion-col size="11">
         <div class="title">To Do List</div>
@@ -69,7 +15,7 @@
             <ion-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="item.checked"></ion-checkbox>
           </ion-col>
           <ion-col class="inputs-col" size="10" (click)="toggleEdit(item, true)">
-            <ion-row>
+            <ion-row [ngStyle]="{'background-color' : item.label }">
               <div class="item">
                 <input *ngIf="item.editing; else notEditing" class="input-edit" [formControlName]="item.titleControl"
                   placeholder="title goes here">
@@ -94,14 +40,18 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-button (click)="toggleEdit(item, false)"> Add </ion-button>
+          <ion-buttons *ngIf="item.editing === true">
+            <ion-button (click)="toggleEdit(item, false)"> Add </ion-button>
+            <ion-button (click)="cancelEdit(item)"> Cancel </ion-button>
+          </ion-buttons>
+
         </ion-row>
       </ion-col>
 
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button (click)="addItem()"> Add item </ion-button>
+        <ion-button *ngIf="!editing" (click)="addItem()"> Add item </ion-button>
       </ion-col>
     </ion-row>
   </ion-card>
