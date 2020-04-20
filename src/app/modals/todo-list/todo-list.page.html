@@ -23,7 +23,8 @@
                     [formControlName]="item.titleControl" placeholder="title goes here"
                     (keyup)="checkEnter(item, $event, i)">
                   <ng-template #notEditing>
-                    <div> {{todoForm.controls[item.titleControl].value}} </div>
+                    <div [ngStyle]="{'text-decoration':item.checked === true ? 'line-through' : 'none' }">
+                      {{todoForm.controls[item.titleControl].value}} </div>
                   </ng-template>
                 </div>
               </ion-row>
