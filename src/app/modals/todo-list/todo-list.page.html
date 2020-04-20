@@ -16,26 +16,26 @@
           </ion-col>
           <ion-col class="inputs-col" size="10" (click)="toggleEdit(item, true)">
             <ion-row [ngStyle]="{'background-color' : item.label }">
-              <div class="item">
+              <div class="item text-bold">
                 <input *ngIf="item.editing; else notEditing" class="input-edit" [formControlName]="item.titleControl"
                   placeholder="title goes here">
                 <ng-template #notEditing>
-                  <div class="input-standard"> {{todoForm.controls[item.titleControl].value}} </div>
+                  <div> {{todoForm.controls[item.titleControl].value}} </div>
                 </ng-template>
               </div>
             </ion-row>
             <ion-row>
-              <div class="detail">
+              <div class="item">
                 <input *ngIf="item.editing; else notEditingTwo" class="input-edit"
                   [formControlName]="item.detailControl" placeholder="detail goes here">
                 <ng-template #notEditingTwo>
-                  <div class="input-standard"> {{todoForm.controls[item.detailControl].value}} </div>
+                  <div> {{todoForm.controls[item.detailControl].value}} </div>
                 </ng-template>
               </div>
             </ion-row>
           </ion-col>
           <ion-col size="1">
-            <img class="more-icon" src="../../assets/icon/more.svg" alt="options"
+            <img *ngIf="!this.editing" class="more-icon" src="../../assets/icon/more.svg" alt="options"
               (click)="presentPopover($event, item)" />
           </ion-col>
         </ion-row>

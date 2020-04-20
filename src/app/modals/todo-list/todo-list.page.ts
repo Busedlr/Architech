@@ -7,6 +7,7 @@ import {
 } from '@ionic/angular';
 import { TodoListMenu } from 'src/app/components/todo-list-menu/todo-list-menu';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @Component({
 	selector: 'project-todo-list',
@@ -53,7 +54,7 @@ export class TodoListPage implements OnInit {
 			const dataObj = res.data;
 			switch (dataObj.action) {
 				case 'delete':
-					this.deleteItem();
+					this.deleteItem(item);
 					break;
 				case 'label':
 					this.labelItem(item, dataObj.detail);
@@ -61,10 +62,6 @@ export class TodoListPage implements OnInit {
 			}
 		});
 		return await popover.present();
-	}
-
-	addItemModeOn() {
-		this.addItemMode = true;
 	}
 
 	addItem() {
@@ -78,6 +75,7 @@ export class TodoListPage implements OnInit {
 		};
 
 		this.editing = true;
+		console.log('2', JSON.stringify(this.editing));
 
 		this.items.push(item);
 		const lastIndex = this.items.length - 1;
@@ -97,6 +95,9 @@ export class TodoListPage implements OnInit {
 			if (this.todoForm.controls[item.titleControl].value === '') {
 				return;
 			} else {
+				if (item.newlyAdded) {
+					this.addItem();
+				}
 				item.newlyAdded = false;
 			}
 		}
@@ -109,11 +110,13 @@ export class TodoListPage implements OnInit {
 
 		item.editing = val;
 		this.editing = val;
+		console.log('1', JSON.stringify(this.editing));
 	}
 
 	cancelEdit(item) {
 		item.editing = false;
 		this.editing = false;
+		console.log('3', JSON.stringify(this.editing));
 
 		if (item.newlyAdded) {
 			this.todoForm.removeControl(item.titleControl);
@@ -127,24 +130,11 @@ export class TodoListPage implements OnInit {
 		}
 	}
 
-	confirmEdits() {
-		const title = document.getElementById('title') as HTMLInputElement;
-		const detail = document.getElementById('detail') as HTMLInputElement;
-		this.selectedItem.title = title.value;
-		this.selectedItem.detail = detail.value;
-		title.value = '';
-		detail.value = '';
-		/* this.editMode = false; */
-		this.selectedItem = '';
-		this.addItemMode = false;
-		this.newItem = null;
-		this.newItemDetail = null;
-	}
-
-	deleteItem() {
-		const index = this.items.indexOf(this.selectedItem);
+	deleteItem(item) {
+		const index = this.items.indexOf(item);
+		this.todoForm.removeControl(item.titleControl);
+		this.todoForm.removeControl(item.detailControl);
 		this.items.splice(index, 1);
-		this.selectedItem = '';
 	}
 
 	labelItem(item, color) {
@@ -158,5 +148,9 @@ export class TodoListPage implements OnInit {
 	closeAndSave() {
 		const saveObject = { form: this.todoForm, items: this.items };
 		this.modalController.dismiss(saveObject);
+		this.items.forEach(item => {
+			item.editing = false;
+		});
+		this.editing = false;
 	}
 }

@@ -10,10 +10,8 @@ ion-grid {
 }
 
 .item {
-	font-size: 18px;
-	font-weight: bold;
-}
-.detail {
+	min-width: calc(100% - 15px);
+	max-width: calc(100% - 15px);
 	font-size: 18px;
 }
 
@@ -80,12 +78,6 @@ ion-button .button-native {
 	border-radius: 4px;
 	line-height: 35px;
 	padding: 0 8px;
-}
-
-.input-standard {
-	input {
-		border: none;
-	}
 }
 
 .input-edit:first-child {
