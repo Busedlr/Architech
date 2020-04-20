@@ -1,58 +1,64 @@
 <ion-grid>
-  <ion-card [formGroup]="todoForm" class="outer-container no-scrollbar">
-    <ion-row>
-      <ion-col size="11">
-        <div class="title">To Do List</div>
-      </ion-col>
-      <ion-col size="1">
-        <ion-icon id="close-button" (click)="closeAndSave()" name="close"></ion-icon>
-      </ion-col>
-    </ion-row>
-    <ion-row *ngFor="let item of items; let i = index">
-      <ion-col>
-        <ion-row>
-          <ion-col size="1">
-            <ion-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="item.checked"></ion-checkbox>
-          </ion-col>
-          <ion-col class="inputs-col" size="10" (click)="toggleEdit(item, true)">
-            <ion-row [ngStyle]="{'background-color' : item.label }">
-              <div class="item text-bold">
-                <input *ngIf="item.editing; else notEditing" class="input-edit" [formControlName]="item.titleControl"
-                  placeholder="title goes here">
-                <ng-template #notEditing>
-                  <div> {{todoForm.controls[item.titleControl].value}} </div>
-                </ng-template>
-              </div>
-            </ion-row>
-            <ion-row>
-              <div class="item">
-                <input *ngIf="item.editing; else notEditingTwo" class="input-edit"
-                  [formControlName]="item.detailControl" placeholder="detail goes here">
-                <ng-template #notEditingTwo>
-                  <div> {{todoForm.controls[item.detailControl].value}} </div>
-                </ng-template>
-              </div>
-            </ion-row>
-          </ion-col>
-          <ion-col size="1">
-            <img *ngIf="!this.editing" class="more-icon" src="../../assets/icon/more.svg" alt="options"
-              (click)="presentPopover($event, item)" />
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-buttons *ngIf="item.editing === true">
-            <ion-button (click)="toggleEdit(item, false)"> Add </ion-button>
-            <ion-button (click)="cancelEdit(item)"> Cancel </ion-button>
-          </ion-buttons>
+  <ion-card class="outer-container no-scrollbar">
+    <form [formGroup]="todoForm" (submit)="test()">
+      <ion-row>
+        <ion-col size="11">
+          <div class="title">To Do List</div>
+        </ion-col>
+        <ion-col size="1">
+          <ion-icon id="close-button" (click)="closeAndSave()" name="close"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let item of items; let i = index">
+        <ion-col>
 
-        </ion-row>
-      </ion-col>
+          <ion-row>
+            <ion-col size="1">
+              <ion-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="item.checked"></ion-checkbox>
+            </ion-col>
+            <ion-col class="inputs-col" size="10" (click)="editItem(item)">
+              <ion-row [ngStyle]="{'background-color' : item.label }">
+                <div class="item text-bold">
+                  <input *ngIf="item.editing; else notEditing" id="{{item.id}}" class="input-edit"
+                    [formControlName]="item.titleControl" placeholder="title goes here"
+                    (keyup)="checkEnter(item, $event, i)">
+                  <ng-template #notEditing>
+                    <div> {{todoForm.controls[item.titleControl].value}} </div>
+                  </ng-template>
+                </div>
+              </ion-row>
+              <ion-row>
+                <div class="item">
+                  <input *ngIf="item.editing; else notEditingTwo" class="input-edit"
+                    [formControlName]="item.detailControl" placeholder="detail goes here"
+                    (keyup)="checkEnter(item, $event)">
+                  <ng-template #notEditingTwo>
+                    <div> {{todoForm.controls[item.detailControl].value}} </div>
+                  </ng-template>
+                </div>
+              </ion-row>
+            </ion-col>
+            <ion-col size="1">
+              <img *ngIf="!this.editing" class="more-icon" src="../../assets/icon/more.svg" alt="options"
+                (click)="presentPopover($event, item, i)" />
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-buttons *ngIf="item.editing === true">
+              <ion-button (click)="saveItem(item)"> Add </ion-button>
+              <ion-button (click)="cancelEdit(item)"> Cancel </ion-button>
+            </ion-buttons>
 
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-button *ngIf="!editing" (click)="addItem()"> Add item </ion-button>
-      </ion-col>
-    </ion-row>
+          </ion-row>
+        </ion-col>
+
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button *ngIf="!editing" (click)="addItem()"> Add item </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+
   </ion-card>
 </ion-grid>

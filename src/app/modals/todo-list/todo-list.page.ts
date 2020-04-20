@@ -71,16 +71,22 @@ export class TodoListPage implements OnInit {
 			checked: false,
 			editing: true,
 			newlyAdded: true,
-			label: 'transparent'
+			label: 'transparent',
+			id: Date.now().toString()
 		};
 
+		console.log('item', item);
+
 		this.editing = true;
-		console.log('2', JSON.stringify(this.editing));
 
 		this.items.push(item);
 		const lastIndex = this.items.length - 1;
 		this.items[lastIndex].titleControl = `title${lastIndex}`;
 		this.items[lastIndex].detailControl = `detail${lastIndex}`;
+
+		setTimeout(() => {
+			this.focusNewInput(item.id);
+		}, 200);
 
 		this.addControl(item, lastIndex);
 	}
@@ -88,6 +94,41 @@ export class TodoListPage implements OnInit {
 	addControl(item, i) {
 		this.todoForm.addControl(`title${i}`, new FormControl(item.title));
 		this.todoForm.addControl(`detail${i}`, new FormControl(item.detail));
+	}
+
+	focusNewInput(inputId) {
+		const input = document.getElementById(inputId) as HTMLInputElement;
+		input.focus();
+	}
+
+	editItem(item) {
+		if (this.editing === true) {
+			return;
+		} else {
+			this.editing = true;
+			item.editing = true;
+		}
+		item.titlePrevValue = this.todoForm.controls[item.titleControl].value;
+		item.detailPrevValue = this.todoForm.controls[item.detailControl].value;
+	}
+
+	checkEnter(item, ev) {
+		if (ev.key === 'Enter') this.saveItem(item);
+		else return;
+	}
+
+	saveItem(item) {
+		if (this.todoForm.controls[item.titleControl].value === '') {
+			return;
+		} else {
+			if (item.newlyAdded) {
+				this.addItem();
+				item.newlyAdded = false;
+			} else {
+				this.editing = false;
+			}
+			item.editing = false;
+		}
 	}
 
 	toggleEdit(item, val) {
@@ -110,13 +151,11 @@ export class TodoListPage implements OnInit {
 
 		item.editing = val;
 		this.editing = val;
-		console.log('1', JSON.stringify(this.editing));
 	}
 
 	cancelEdit(item) {
 		item.editing = false;
 		this.editing = false;
-		console.log('3', JSON.stringify(this.editing));
 
 		if (item.newlyAdded) {
 			this.todoForm.removeControl(item.titleControl);
