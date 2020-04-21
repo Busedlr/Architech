@@ -1,21 +1,19 @@
-<ion-card>
+<ion-card class="no-scrollbar y-scroll">
+  <ion-row>
+    <div class="icon-container" (click)="openModal()">
+      <ion-icon name="resize"></ion-icon>
+    </div>
+  </ion-row>
   <ion-row>
     <ion-col>
       <ion-item *ngFor="let item of items">
         {{item.title}}
         <br />
         {{item.detail}}
-        <ion-checkbox
-          slot="start"
-          color="primary"
-          [(ngModel)]="item.checked"
-        ></ion-checkbox>
+        <ion-checkbox (ionChange)="saveList(items)" slot="start" color="primary" [(ngModel)]="item.checked">
+        </ion-checkbox>
       </ion-item>
     </ion-col>
   </ion-row>
-  <ion-row>
-    <div class="icon-container" (click)="openModal()">
-      <ion-icon name="resize"></ion-icon>
-    </div>
-  </ion-row>
+
 </ion-card>

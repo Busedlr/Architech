@@ -23,8 +23,8 @@ export class ToDoList implements OnInit {
 		}
 	}
 
-	ngOnChanges() {
-		console.log('change');
+	saveList(listArray) {
+		this.projectData.updateProjectProp(this.project.id, 'list', listArray);
 	}
 
 	async openModal() {
