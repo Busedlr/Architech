@@ -10,22 +10,32 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-@NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [
-    BrowserModule, 
-    IonicModule.forRoot(), 
-    AppRoutingModule, 
-    FormsModule, 
-    ReactiveFormsModule
-  ],
+/* Angular Calendar */
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
-  providers: [
-    StatusBar,
-    SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ],
-  bootstrap: [AppComponent]
+@NgModule({
+	declarations: [AppComponent],
+	entryComponents: [],
+	imports: [
+		BrowserModule,
+		IonicModule.forRoot(),
+		AppRoutingModule,
+		FormsModule,
+		ReactiveFormsModule,
+		BrowserAnimationsModule,
+		CalendarModule.forRoot({
+			provide: DateAdapter,
+			useFactory: adapterFactory
+		})
+	],
+
+	providers: [
+		StatusBar,
+		SplashScreen,
+		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule {}
