@@ -23,9 +23,7 @@ const routes: Routes = [
 	{
 		path: 'project/:id',
 		loadChildren: () =>
-			import('./pages/project/project.module').then(
-				m => m.ProjectDetailModule
-			)
+			import('./pages/project/project.module').then(m => m.ProjectDetailModule)
 	},
 	{
 		path: 'image-display',
@@ -39,6 +37,13 @@ const routes: Routes = [
 		loadChildren: () =>
 			import('./modals/todo-list/todo-list.module').then(
 				m => m.TodoListPageModule
+			)
+	},
+	{
+		path: 'calendar',
+		loadChildren: () =>
+			import('./modals/calendar/calendar.module').then(
+				m => m.CalendarPageModule
 			)
 	}
 ];
