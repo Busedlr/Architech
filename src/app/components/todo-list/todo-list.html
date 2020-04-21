@@ -1,10 +1,8 @@
-<ion-card class="no-scrollbar y-scroll">
-  <ion-row>
-    <div class="icon-container" (click)="openModal()">
-      <ion-icon name="resize"></ion-icon>
-    </div>
-  </ion-row>
-  <ion-row>
+<ion-card class="component-card no-scrollbar y-scroll">
+  <div class="icon-container" (click)="openModal()">
+    <ion-icon name="resize" class="expand-icon"></ion-icon>
+  </div>
+  <ion-row class="content-row">
     <ion-col>
       <ion-item *ngFor="let item of items">
         {{item.title}}
@@ -15,5 +13,4 @@
       </ion-item>
     </ion-col>
   </ion-row>
-
 </ion-card>

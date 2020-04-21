@@ -65,3 +65,40 @@
 .y-scroll {
 	overflow-y: scroll;
 }
+
+.component-card {
+	padding: 15px;
+	height: 300px;
+	&:hover {
+		.icon-container {
+			opacity: 1;
+			transition-property: opacity;
+			transition-duration: 1s;
+			cursor: pointer;
+		}
+	}
+
+	.icon-container {
+		position: sticky;
+		position: -webkit-sticky;
+		top: 0px;
+		left: calc(100% - 20px);
+		z-index: 9;
+		opacity: 0;
+		transition-property: opacity;
+		transition-duration: 0.2s;
+		width: 30px;
+		height: 30px;
+	}
+
+	.expand-icon {
+		position: relative;
+		top: 5px;
+		left: 5px;
+		font-size: 20px;
+	}
+
+	.content-row {
+		margin-top: -40px;
+	}
+}

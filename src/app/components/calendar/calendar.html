@@ -1,8 +1,10 @@
-<ion-card>
-  <div class="calendar-container">
-    Calender
-  </div>
+<ion-card class="component-card">
   <div class="icon-container" (click)="openModal()">
-    <ion-icon name="resize"></ion-icon>
+    <ion-icon name="resize" class="expand-icon"></ion-icon>
   </div>
+  <ion-row class="content-row">
+    <ion-col>
+      Calendar goes here
+    </ion-col>
+  </ion-row>
 </ion-card>
