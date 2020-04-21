@@ -48,3 +48,16 @@
 .text-bold {
 	font-weight: bold;
 }
+
+.visible {
+	opacity: 1;
+	transition-property: opacity;
+	transition-duration: 0.7s;
+}
+
+.hidden {
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: 0.3s;
+	pointer-events: none;
+}

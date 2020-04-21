@@ -40,8 +40,8 @@
               </ion-row>
             </ion-col>
             <ion-col size="1">
-              <img *ngIf="!this.editing" class="more-icon" src="../../assets/icon/more.svg" alt="options"
-                (click)="presentPopover($event, item, i)" />
+              <img [ngClass]="{'visible': !editing,'hidden': editing}" class="more-icon"
+                src="../../assets/icon/more.svg" alt="options" (click)="presentPopover($event, item, i)" />
             </ion-col>
           </ion-row>
           <ion-row>
