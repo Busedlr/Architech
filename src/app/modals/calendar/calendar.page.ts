@@ -24,6 +24,7 @@ import {
 	CalendarEventTimesChangedEvent,
 	CalendarView
 } from 'angular-calendar';
+import * as moment from 'moment';
 
 const colors: any = {
 	red: {
@@ -47,6 +48,7 @@ const colors: any = {
 })
 export class CalendarPage {
 	@ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+	addingEvent: boolean;
 
 	view: CalendarView = CalendarView.Month;
 
@@ -124,7 +126,49 @@ export class CalendarPage {
 
 	constructor(private modal: NgbModal) {}
 
+	createEvent() {
+		this.addingEvent = true;
+	}
+
 	dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+		console.log('event', events);
+		if (this.addingEvent) {
+			this.addEvent(date);
+		} else {
+			if (isSameMonth(date, this.viewDate)) {
+				if (
+					(isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+					events.length === 0
+				) {
+					this.activeDayIsOpen = false;
+				} else {
+					this.activeDayIsOpen = true;
+				}
+				this.viewDate = date;
+			}
+		}
+	}
+
+	addEvent(date): void {
+		this.events = [
+			...this.events,
+			{
+				title: 'two',
+				start: startOfDay(date),
+				end: endOfDay(date),
+				color: colors.red,
+				draggable: true,
+				resizable: {
+					beforeStart: true,
+					afterEnd: true
+				}
+			}
+		];
+		console.log('events', this.events);
+	}
+
+	/* dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+		console.log(date);
 		if (isSameMonth(date, this.viewDate)) {
 			if (
 				(isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -136,7 +180,7 @@ export class CalendarPage {
 			}
 			this.viewDate = date;
 		}
-	}
+	} */
 
 	eventTimesChanged({
 		event,
@@ -159,23 +203,6 @@ export class CalendarPage {
 	handleEvent(action: string, event: CalendarEvent): void {
 		this.modalData = { event, action };
 		this.modal.open(this.modalContent, { size: 'lg' });
-	}
-
-	addEvent(): void {
-		this.events = [
-			...this.events,
-			{
-				title: 'New event',
-				start: startOfDay(new Date()),
-				end: endOfDay(new Date()),
-				color: colors.red,
-				draggable: true,
-				resizable: {
-					beforeStart: true,
-					afterEnd: true
-				}
-			}
-		];
 	}
 
 	deleteEvent(eventToDelete: CalendarEvent) {

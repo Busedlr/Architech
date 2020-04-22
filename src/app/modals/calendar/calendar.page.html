@@ -2,7 +2,7 @@
   <ion-toolbar>
 
     <ion-row>
-      <ion-col>
+      <ion-col (click)="test()">
         <ion-title>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</ion-title>
       </ion-col>
       <ion-col>
@@ -19,6 +19,9 @@
         <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
           Month
         </div>
+      </ion-col>
+      <ion-col>
+        <ion-button (click)="createEvent()">add an event</ion-button>
       </ion-col>
     </ion-row>
   </ion-toolbar>
@@ -50,6 +53,9 @@
     [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
     (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
   </mwl-calendar-month-view>
+
+
+
   <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
     (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
   </mwl-calendar-week-view>
@@ -137,4 +143,4 @@
       OK
     </button>
   </div>
-</ng-template>  -->
+</ng-template> -->
