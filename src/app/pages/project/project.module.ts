@@ -16,6 +16,7 @@ import { CalendarPage } from 'src/app/modals/calendar/calendar.page';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 		ProjectDetailRoutingModule,
 		ComponentsModule,
 		ReactiveFormsModule,
+		NgbModule,
 		NgbModalModule,
 		FlatpickrModule.forRoot(),
 		CalendarModule.forRoot({
