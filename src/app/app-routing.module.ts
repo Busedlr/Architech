@@ -45,13 +45,6 @@ const routes: Routes = [
 			import('./modals/calendar/calendar.module').then(
 				m => m.CalendarPageModule
 			)
-	},
-	{
-		path: 'event-modal',
-		loadChildren: () =>
-			import('./modals/event-modal/event-modal.module').then(
-				m => m.EventModalModule
-			)
 	}
 ];
 

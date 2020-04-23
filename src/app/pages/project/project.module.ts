@@ -13,10 +13,10 @@ import { TodoListMenu } from 'src/app/components/todo-list-menu/todo-list-menu';
 import { CalendarPage } from 'src/app/modals/calendar/calendar.page';
 
 /* Angular Calendar */
-import { FlatpickrModule } from 'angularx-flatpickr';
+//import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
 	imports: [
@@ -26,8 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 		ProjectDetailRoutingModule,
 		ComponentsModule,
 		ReactiveFormsModule,
-		NgbModule,
-		FlatpickrModule.forRoot(),
+		NgbModalModule,
 		CalendarModule.forRoot({
 			provide: DateAdapter,
 			useFactory: adapterFactory
