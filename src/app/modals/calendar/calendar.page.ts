@@ -33,8 +33,7 @@ export class CalendarPage implements OnInit {
 				this.creatingEvent = false;
 				console.log(this.creatingEvent);
 			},
-			eventClick(event, element) {
-				info.title = 'buse';
+			eventClick(info) {
 				alert('Event: ' + info.event.title);
 				this.creatingEvent = true;
 			}
