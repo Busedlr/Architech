@@ -10,12 +10,15 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+<<<<<<< HEAD
 /* Angular Calendar */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+=======
+>>>>>>> c88b77701bceb6e846640be0ad624151ef0eab4f
 @NgModule({
 	declarations: [AppComponent],
 	entryComponents: [],
@@ -24,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 		IonicModule.forRoot(),
 		AppRoutingModule,
 		FormsModule,
+<<<<<<< HEAD
 		ReactiveFormsModule,
 		NgbModule,
 		BrowserAnimationsModule,
@@ -31,6 +35,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 			provide: DateAdapter,
 			useFactory: adapterFactory
 		})
+=======
+		ReactiveFormsModule
+>>>>>>> c88b77701bceb6e846640be0ad624151ef0eab4f
 	],
 
 	providers: [

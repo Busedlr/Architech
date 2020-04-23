@@ -1,6 +1,10 @@
-#calendar {
-	width: 90%;
-	margin: auto 5%;
+.create-event {
+	z-index: 99;
+	position: absolute;
+	font-size: 50px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .cal-event-action {
