@@ -12,12 +12,6 @@ import { SegmentMenu } from 'src/app/components/segment-menu/segment-menu';
 import { TodoListMenu } from 'src/app/components/todo-list-menu/todo-list-menu';
 import { CalendarPage } from 'src/app/modals/calendar/calendar.page';
 
-/* Angular Calendar */
-import { FlatpickrModule } from 'angularx-flatpickr';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-
 @NgModule({
 	imports: [
 		CommonModule,
@@ -25,13 +19,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 		IonicModule,
 		ProjectDetailRoutingModule,
 		ComponentsModule,
-		ReactiveFormsModule,
-		NgbModalModule,
-		FlatpickrModule.forRoot(),
-		CalendarModule.forRoot({
-			provide: DateAdapter,
-			useFactory: adapterFactory
-		})
+		ReactiveFormsModule
 	],
 	declarations: [
 		ProjectDetail,

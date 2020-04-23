@@ -14,8 +14,13 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
-/* Angular calendar */
-@import '../node_modules/angular-calendar/css/angular-calendar.css';
+/* Full calendar */
+@import '../node_modules/@fullcalendar/core/main.css';
+@import '../node_modules/@fullcalendar/daygrid/main.css';
+@import '../node_modules/@fullcalendar/timeline/main.css';
+@import '../node_modules/@fullcalendar/resource-timeline/main.css';
+@import '../node_modules/@fullcalendar/timegrid/main.css';
+@import '../node_modules/@fullcalendar/list/main.css';
 
 .modal-container .modal-wrapper {
 	width: 600px;
@@ -27,7 +32,7 @@
 .large-modal .modal-wrapper {
 	width: 100%;
 	height: 100%;
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: rgba(255, 255, 255, 1);
 	box-shadow: none;
 }
 
