@@ -5,6 +5,9 @@
         <ion-title>event-modal</ion-title>
       </ion-col>
       <ion-col>
+        <ion-button (click)="close()">close</ion-button>
+      </ion-col>
+      <ion-col>
         <ion-button class="ion-float-right" (click)="addEvent()">
           Add event
         </ion-button>
@@ -16,7 +19,7 @@
 <ion-content>
   <div class="day-selected">
     <ion-row *ngFor="let item of events">
-      <ion-col>
+      <ion-col size="10">
         <ion-row>
           <ion-col class="title-col">
             title:
@@ -45,7 +48,7 @@
               </label>
             </ion-button>
             <input id="item.startId" class="hidden out-of-sight" [format]="24" [ngxTimepicker]="startPicker">
-            <ngx-material-timepicker #startPicker (timeSet)="setTime($event, item, 'start')"></ngx-material-timepicker>
+            <ngx-material-timepicker #startPicker (timeSet)="setStartTime($event, item)"></ngx-material-timepicker>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -62,10 +65,13 @@
               </label>
             </ion-button>
             <input id="item.endId" class="hidden out-of-sight" [format]="24" [ngxTimepicker]="endPicker">
-            <ngx-material-timepicker #endPicker (timeSet)="setTime($event, item, 'end')">
+            <ngx-material-timepicker #endPicker (timeSet)="setEndTime($event, item)">
             </ngx-material-timepicker>
           </ion-col>
         </ion-row>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button (click)="deleteEvent(item)">Delete</ion-button>
       </ion-col>
     </ion-row>
   </div>

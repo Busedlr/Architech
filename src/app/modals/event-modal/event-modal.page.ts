@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
+import { CalendarEvent } from 'angular-calendar';
+import { ModalController } from '@ionic/angular';
 
 @Component({
 	selector: 'event-modal',
@@ -9,29 +11,41 @@ import * as moment from 'moment';
 export class EventModal implements OnInit {
 	events: any;
 	date: any;
-	constructor() {}
+	constructor(public modalController: ModalController) {}
 
 	ngOnInit() {}
 
-	setTime(ev, item, period) {
+	setStartTime(ev, item) {
+		let start;
+		start = item.start;
 		const hours = ev.split(':')[0];
 		const minutes = ev.split(':')[1];
-		item[period].setHours(hours);
-		item[period].setMinutes(minutes);
-		item[period].setSeconds(0);
+		start.setHours(hours);
+		start.setMinutes(minutes);
+		start.setSeconds(0);
 		item.allDay = false;
-		const timePeriod = period + 'Time';
-		item[timePeriod] = ev;
+		item.startTime = ev;
+		item.start = start;
 
 		console.log(item);
 	}
 
+	setEndTime(ev, item) {
+		const hours = ev.split(':')[0];
+		const minutes = ev.split(':')[1];
+		item.end.setHours(hours);
+		item.end.setMinutes(minutes);
+		item.end.setSeconds(0);
+		item.allDay = false;
+		item.endTime = ev;
+	}
+
 	addEvent() {
 		const newEvent = {
-			start: this.date,
-			end: this.date,
+			start: moment(this.date).startOf('day').toDate(),
+			end: moment(this.date).endOf('day').toDate(),
 			title: '',
-			color: 'blue',
+			color: 'red',
 			allDay: true,
 			resizable: {
 				beforeStart: true,
@@ -44,12 +58,24 @@ export class EventModal implements OnInit {
 			endTime: null
 		};
 
-		console.log('ev', newEvent);
 		this.events.push(newEvent);
 	}
 
 	allDayChanged(item) {
 		item.startTime = null;
 		item.endTime = null;
+	}
+
+	deleteEvent(eventToDelete: CalendarEvent) {
+		this.events = this.events.filter(event => event !== eventToDelete);
+	}
+
+	close() {
+		this.events.forEach(item => {
+			const check = moment(item.start).isSameOrBefore(item.end);
+			console.log('dates are in the right order', check);
+		});
+
+		this.modalController.dismiss(this.events);
 	}
 }

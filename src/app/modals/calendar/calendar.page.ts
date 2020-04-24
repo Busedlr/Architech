@@ -57,17 +57,17 @@ export class CalendarPage {
 
 	viewDate: Date = new Date();
 
-	modalData: {
+	/* modalData: {
 		action: string;
 		event: CalendarEvent;
-	};
+	}; */
 
 	actions: CalendarEventAction[] = [
 		{
 			label: '<i class="fa fa-fw fa-pencil"></i>',
 			a11yLabel: 'Edit',
 			onClick: ({ event }: { event: CalendarEvent }): void => {
-				this.handleEvent('Edited', event);
+				/* this.handleEvent('Edited', event); */
 			}
 		},
 		{
@@ -75,15 +75,30 @@ export class CalendarPage {
 			a11yLabel: 'Delete',
 			onClick: ({ event }: { event: CalendarEvent }): void => {
 				this.events = this.events.filter(iEvent => iEvent !== event);
-				this.handleEvent('Deleted', event);
+				/* this.handleEvent('Deleted', event); */
 			}
 		}
 	];
 
 	refresh: Subject<any> = new Subject();
 
-	events: CalendarEvent[] = [
+	events: any[] = [
 		{
+			start: addHours(startOfDay(new Date()), 2),
+			end: addHours(new Date(), 2),
+			title: 'A draggable and resizable event',
+			color: colors.yellow,
+			actions: this.actions,
+			resizable: {
+				beforeStart: true,
+				afterEnd: true
+			},
+			draggable: true,
+			startId: Date.now(),
+			endId: Date.now() + 1
+		}
+
+		/* 	{
 			start: subDays(startOfDay(new Date()), 1),
 			end: addDays(new Date(), 1),
 			title: 'A 3 day event',
@@ -120,7 +135,7 @@ export class CalendarPage {
 				afterEnd: true
 			},
 			draggable: true
-		}
+		} */
 	];
 
 	activeDayIsOpen: boolean = false;
@@ -132,7 +147,8 @@ export class CalendarPage {
 
 	dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
 		this.openModal(events, date);
-		if (isSameMonth(date, this.viewDate)) {
+
+		/* if (isSameMonth(date, this.viewDate)) {
 			if (
 				(isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
 				events.length === 0
@@ -142,7 +158,7 @@ export class CalendarPage {
 				this.activeDayIsOpen = false;
 			}
 			this.viewDate = date;
-		}
+		} */
 	}
 
 	eventTimesChanged({
@@ -160,13 +176,13 @@ export class CalendarPage {
 			}
 			return iEvent;
 		});
-		this.handleEvent('Dropped or resized', event);
+		/* this.handleEvent('Dropped or resized', event); */
 	}
 
-	handleEvent(action: string, event: CalendarEvent): void {
+	/* handleEvent(action: string, event: CalendarEvent): void {
 		this.modalData = { event, action };
 		this.modal.open(this.modalContent, { size: 'lg' });
-	}
+	} */
 
 	addEvent(): void {
 		this.events = [
@@ -206,7 +222,17 @@ export class CalendarPage {
 			}
 			/* cssClass: 'large-modal', */
 		});
-		modal.onDidDismiss().then(() => {});
+		modal.onDidDismiss().then(events => {
+			events.data.forEach(item => {
+				const index = this.events.findIndex(x => x.startId === item.startId);
+				if (index !== -1) {
+					this.events.splice(index, 1);
+				}
+				this.events.push(item);
+			});
+			this.viewDate = date;
+			console.log(this.events);
+		});
 		return await modal.present();
 	}
 }
