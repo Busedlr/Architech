@@ -6,14 +6,14 @@
 
 <ion-content>
   <div class="day-selected">
-    <ion-row *ngFor="let event of events">
+    <ion-row *ngFor="let item of events">
       <ion-col>
         <ion-row>
           <ion-col class="title-col">
             title:
           </ion-col>
           <ion-col>
-            <input [(ngModel)]="event.title">
+            <input [(ngModel)]="item.title">
           </ion-col>
         </ion-row>
         <ion-row>
@@ -21,7 +21,11 @@
             start:
           </ion-col>
           <ion-col>
-            <ng-datepicker [(ngModel)]="event.start"></ng-datepicker>
+            <ng-datepicker [(ngModel)]="item.start"></ng-datepicker>
+          </ion-col>
+          <ion-col>
+            <input [format]="24" [ngxTimepicker]="startPicker">
+            <ngx-material-timepicker #startPicker (timeSet)="setTime($event, item, 'start')"></ngx-material-timepicker>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -29,11 +33,12 @@
             end:
           </ion-col>
           <ion-col>
-            <ng-datepicker [(ngModel)]="event.end"></ng-datepicker>
+            <ng-datepicker [(ngModel)]="item.end"></ng-datepicker>
           </ion-col>
           <ion-col>
-            <input [ngxTimepicker]="picker">
-            <ngx-material-timepicker #picker></ngx-material-timepicker>
+            <input [format]="24" [ngxTimepicker]="endPicker">
+            <ngx-material-timepicker #endPicker (timeSet)="setTime($event, item, 'end')">
+            </ngx-material-timepicker>
           </ion-col>
         </ion-row>
       </ion-col>

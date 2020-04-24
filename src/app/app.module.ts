@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 		FormsModule,
 		ReactiveFormsModule,
 		BrowserAnimationsModule,
+		NgxMaterialTimepickerModule,
 		CalendarModule.forRoot({
 			provide: DateAdapter,
 			useFactory: adapterFactory

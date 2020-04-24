@@ -19,6 +19,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { EventModal } from 'src/app/modals/event-modal/event-modal.page';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
 	imports: [
@@ -30,6 +31,7 @@ import { EventModal } from 'src/app/modals/event-modal/event-modal.page';
 		ReactiveFormsModule,
 		NgbModalModule,
 		NgDatepickerModule,
+		NgxMaterialTimepickerModule,
 		CalendarModule.forRoot({
 			provide: DateAdapter,
 			useFactory: adapterFactory
