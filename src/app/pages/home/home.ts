@@ -6,7 +6,7 @@ import { ProjectData } from 'src/app/services/project-data';
 @Component({
 	selector: 'home',
 	templateUrl: 'home.html',
-	styleUrls: ['home.scss'],
+	styleUrls: ['home.scss']
 })
 export class Home {
 	db: any;
@@ -27,7 +27,6 @@ export class Home {
 
 	goToDetail(project) {
 		this.projectData.currentProject = project;
-		console.log('current', this.projectData.currentProject);
 		this.router.navigate(['/project/' + this.projectData.currentProject.id]);
 	}
 }

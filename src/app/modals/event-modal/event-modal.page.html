@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>event-modal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="day-selected">
+    <ion-row *ngFor="let event of events">
+      <ion-col>
+        <ion-row>
+          <ion-col class="title-col">
+            title:
+          </ion-col>
+          <ion-col>
+            <input [(ngModel)]="event.title">
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="title-col">
+            start:
+          </ion-col>
+          <ion-col>
+            <ng-datepicker [(ngModel)]="event.start"></ng-datepicker>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="title-col">
+            end:
+          </ion-col>
+          <ion-col>
+            <ng-datepicker [(ngModel)]="event.end"></ng-datepicker>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

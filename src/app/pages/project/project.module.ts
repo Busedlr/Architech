@@ -17,6 +17,8 @@ import { CalendarPage } from 'src/app/modals/calendar/calendar.page';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgDatepickerModule } from 'ng2-datepicker';
+import { EventModal } from 'src/app/modals/event-modal/event-modal.page';
 
 @NgModule({
 	imports: [
@@ -27,6 +29,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 		ComponentsModule,
 		ReactiveFormsModule,
 		NgbModalModule,
+		NgDatepickerModule,
 		CalendarModule.forRoot({
 			provide: DateAdapter,
 			useFactory: adapterFactory
@@ -38,14 +41,16 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 		TodoListPage,
 		SegmentMenu,
 		TodoListMenu,
-		CalendarPage
+		CalendarPage,
+		EventModal
 	],
 	entryComponents: [
 		ImageDisplayModalPage,
 		TodoListPage,
 		SegmentMenu,
 		TodoListMenu,
-		CalendarPage
+		CalendarPage,
+		EventModal
 	]
 })
 export class ProjectDetailModule {}

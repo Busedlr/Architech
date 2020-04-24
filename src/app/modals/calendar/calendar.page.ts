@@ -24,6 +24,9 @@ import {
 	CalendarEventTimesChangedEvent,
 	CalendarView
 } from 'angular-calendar';
+import * as moment from 'moment';
+import { ModalController } from '@ionic/angular';
+import { EventModal } from '../event-modal/event-modal.page';
 
 const colors: any = {
 	red: {
@@ -47,8 +50,6 @@ const colors: any = {
 })
 export class CalendarPage {
 	@ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-	daySelected: boolean = false;
-	daysEvents: any[] = [];
 
 	view: CalendarView = CalendarView.Month;
 
@@ -124,12 +125,13 @@ export class CalendarPage {
 
 	activeDayIsOpen: boolean = false;
 
-	constructor(private modal: NgbModal) {}
+	constructor(
+		private modal: NgbModal,
+		public modalController: ModalController
+	) {}
 
 	dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-		console.log('events', events);
-		this.daySelected = true;
-		this.daysEvents = events;
+		this.openModal(events);
 		if (isSameMonth(date, this.viewDate)) {
 			if (
 				(isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -193,5 +195,17 @@ export class CalendarPage {
 
 	closeOpenMonthViewDay() {
 		this.activeDayIsOpen = false;
+	}
+
+	async openModal(events) {
+		const modal = await this.modalController.create({
+			component: EventModal,
+			componentProps: {
+				events: events
+			}
+			/* cssClass: 'large-modal', */
+		});
+		modal.onDidDismiss().then(() => {});
+		return await modal.present();
 	}
 }

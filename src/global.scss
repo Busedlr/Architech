@@ -101,3 +101,10 @@
 		margin-top: -40px;
 	}
 }
+
+.ngx-datepicker-container {
+	z-index: inherit !important;
+}
+.ngx-datepicker-calendar-container {
+	z-index: 1;
+}

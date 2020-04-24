@@ -29,17 +29,6 @@
   </ion-toolbar>
 </ion-header>
 
-<div *ngIf="daySelected" class="day-selected">
-  <div *ngFor="let event of daysEvents">
-    title: {{event.title}} <br>
-    start: {{event.start}} <br>
-    end: {{event.end}} <br>
-    <ion-button (click)="deleteEvent(event)">
-      Delete event
-    </ion-button>
-  </div>
-</div>
-
 
 <!--  <div class="row text-center">
     <div class="col-md-4">
