@@ -1,6 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>event-modal</ion-title>
+    <ion-row>
+      <ion-col>
+        <ion-title>event-modal</ion-title>
+      </ion-col>
+      <ion-col>
+        <ion-button class="ion-float-right" (click)="addEvent()">
+          Add event
+        </ion-button>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
@@ -13,7 +22,13 @@
             title:
           </ion-col>
           <ion-col>
-            <input [(ngModel)]="item.title">
+            <input placeholder="Add title here" [(ngModel)]="item.title">
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label>All day</ion-label>
+              <ion-toggle [(ngModel)]="item.allDay" (ionChange)="allDayChanged(item)"></ion-toggle>
+            </ion-item>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -23,8 +38,13 @@
           <ion-col>
             <ng-datepicker [(ngModel)]="item.start"></ng-datepicker>
           </ion-col>
-          <ion-col>
-            <input [format]="24" [ngxTimepicker]="startPicker">
+          <ion-col *ngIf="!item.allDay">
+            <ion-button fill="clear">
+              <label for="item.startId">
+                <span> {{ item.startTime ? item.startTime : 'Set start time' }} </span>
+              </label>
+            </ion-button>
+            <input id="item.startId" class="hidden out-of-sight" [format]="24" [ngxTimepicker]="startPicker">
             <ngx-material-timepicker #startPicker (timeSet)="setTime($event, item, 'start')"></ngx-material-timepicker>
           </ion-col>
         </ion-row>
@@ -35,8 +55,13 @@
           <ion-col>
             <ng-datepicker [(ngModel)]="item.end"></ng-datepicker>
           </ion-col>
-          <ion-col>
-            <input [format]="24" [ngxTimepicker]="endPicker">
+          <ion-col *ngIf="!item.allDay">
+            <ion-button fill="clear">
+              <label for="item.endId">
+                <span> {{ item.endTime ? item.endTime : 'Set end time' }} </span>
+              </label>
+            </ion-button>
+            <input id="item.endId" class="hidden out-of-sight" [format]="24" [ngxTimepicker]="endPicker">
             <ngx-material-timepicker #endPicker (timeSet)="setTime($event, item, 'end')">
             </ngx-material-timepicker>
           </ion-col>

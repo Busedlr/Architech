@@ -8,11 +8,10 @@ import * as moment from 'moment';
 })
 export class EventModal implements OnInit {
 	events: any;
+	date: any;
 	constructor() {}
 
-	ngOnInit() {
-		console.log(this.events);
-	}
+	ngOnInit() {}
 
 	setTime(ev, item, period) {
 		const hours = ev.split(':')[0];
@@ -20,8 +19,37 @@ export class EventModal implements OnInit {
 		item[period].setHours(hours);
 		item[period].setMinutes(minutes);
 		item[period].setSeconds(0);
-
 		item.allDay = false;
-		console.log('item', item);
+		const timePeriod = period + 'Time';
+		item[timePeriod] = ev;
+
+		console.log(item);
+	}
+
+	addEvent() {
+		const newEvent = {
+			start: this.date,
+			end: this.date,
+			title: '',
+			color: 'blue',
+			allDay: true,
+			resizable: {
+				beforeStart: true,
+				afterEnd: true
+			},
+			draggable: true,
+			startId: Date.now(),
+			endId: Date.now() + 1,
+			startTime: null,
+			endTime: null
+		};
+
+		console.log('ev', newEvent);
+		this.events.push(newEvent);
+	}
+
+	allDayChanged(item) {
+		item.startTime = null;
+		item.endTime = null;
 	}
 }

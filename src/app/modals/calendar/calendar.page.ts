@@ -131,7 +131,7 @@ export class CalendarPage {
 	) {}
 
 	dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-		this.openModal(events);
+		this.openModal(events, date);
 		if (isSameMonth(date, this.viewDate)) {
 			if (
 				(isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -197,11 +197,12 @@ export class CalendarPage {
 		this.activeDayIsOpen = false;
 	}
 
-	async openModal(events) {
+	async openModal(events, date) {
 		const modal = await this.modalController.create({
 			component: EventModal,
 			componentProps: {
-				events: events
+				events: events,
+				date: date
 			}
 			/* cssClass: 'large-modal', */
 		});
