@@ -31,6 +31,10 @@
           <ion-col>
             <ng-datepicker [(ngModel)]="event.end"></ng-datepicker>
           </ion-col>
+          <ion-col>
+            <input [ngxTimepicker]="picker">
+            <ngx-material-timepicker #picker></ngx-material-timepicker>
+          </ion-col>
         </ion-row>
       </ion-col>
     </ion-row>
