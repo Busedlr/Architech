@@ -24,7 +24,6 @@ export class ProjectData {
 	}
 
 	updateProjectProp(projectId, prop, val) {
-		console.log(val);
 		return this.projectsRef
 			.doc(projectId)
 			.update(prop, val)

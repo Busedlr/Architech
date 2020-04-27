@@ -1,28 +1,41 @@
 <ion-header>
   <ion-toolbar>
+    <ion-button (click)="testStyleChange()">clişck here
 
+    </ion-button>
     <ion-row>
       <ion-col>
         <ion-title>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</ion-title>
       </ion-col>
       <ion-col>
-        <div class="btn btn-primary">
-          Delete
-        </div>
-      </ion-col>
-      <ion-col>
-        <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
+        <div class="btn btn-primary" (click)="setView(CalendarView.Day, events)"
+          [class.active]="view === CalendarView.Day">
           Day
         </div>
       </ion-col>
       <ion-col>
-        <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
+        <div class="btn btn-primary" (click)="setView(CalendarView.Week, events)"
+          [class.active]="view === CalendarView.Week">
           Week
         </div>
       </ion-col>
       <ion-col>
-        <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
+        <div class="btn btn-primary" (click)="setView(CalendarView.Month, events)"
+          [class.active]="view === CalendarView.Month">
           Month
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()">Prev</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()">Next</ion-button>
+      </ion-col>
+      <ion-col>
+        <div class="btn btn-primary" (click)="closeModal()">
+          <ion-icon name="close"></ion-icon>
         </div>
       </ion-col>
     </ion-row>

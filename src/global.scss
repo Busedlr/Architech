@@ -108,3 +108,19 @@
 .ngx-datepicker-calendar-container {
 	z-index: 1;
 }
+
+.cal-month-view .cal-event {
+	width: 100%;
+	height: 7px;
+	border-radius: 0;
+	display: inline-block;
+	margin: 0px;
+}
+
+.cal-event-new {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	display: inline-block;
+	margin: 2px;
+}

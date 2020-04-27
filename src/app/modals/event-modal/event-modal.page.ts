@@ -71,11 +71,18 @@ export class EventModal implements OnInit {
 	}
 
 	close() {
-		this.events.forEach(item => {
-			const check = moment(item.start).isSameOrBefore(item.end);
-			console.log('dates are in the right order', check);
-		});
-
-		this.modalController.dismiss(this.events);
+		if (this.events.length > 0) {
+			this.events.forEach(item => {
+				if (!moment(item.start).isSameOrBefore(item.end)) {
+					console.log('dates are not the right order');
+				} else if (!item.title) {
+					console.log('there is no title');
+				} else {
+					this.modalController.dismiss(this.events);
+				}
+			});
+		} else {
+			this.modalController.dismiss(this.events);
+		}
 	}
 }

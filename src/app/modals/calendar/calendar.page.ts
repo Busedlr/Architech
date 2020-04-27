@@ -2,7 +2,8 @@ import {
 	Component,
 	ChangeDetectionStrategy,
 	ViewChild,
-	TemplateRef
+	TemplateRef,
+	OnInit
 } from '@angular/core';
 
 import {
@@ -27,6 +28,7 @@ import {
 import * as moment from 'moment';
 import { ModalController } from '@ionic/angular';
 import { EventModal } from '../event-modal/event-modal.page';
+import { ProjectData } from 'src/app/services/project-data';
 
 const colors: any = {
 	red: {
@@ -57,10 +59,7 @@ export class CalendarPage {
 
 	viewDate: Date = new Date();
 
-	/* modalData: {
-		action: string;
-		event: CalendarEvent;
-	}; */
+	events: any[];
 
 	actions: CalendarEventAction[] = [
 		{
@@ -82,68 +81,23 @@ export class CalendarPage {
 
 	refresh: Subject<any> = new Subject();
 
-	events: any[] = [
-		{
-			start: addHours(startOfDay(new Date()), 2),
-			end: addHours(new Date(), 2),
-			title: 'A draggable and resizable event',
-			color: colors.yellow,
-			actions: this.actions,
-			resizable: {
-				beforeStart: true,
-				afterEnd: true
-			},
-			draggable: true,
-			startId: Date.now(),
-			endId: Date.now() + 1
-		}
-
-		/* 	{
-			start: subDays(startOfDay(new Date()), 1),
-			end: addDays(new Date(), 1),
-			title: 'A 3 day event',
-			color: colors.red,
-			actions: this.actions,
-			allDay: true,
-			resizable: {
-				beforeStart: true,
-				afterEnd: true
-			},
-			draggable: true
-		},
-		{
-			start: startOfDay(new Date()),
-			title: 'An event with no end date',
-			color: colors.yellow,
-			actions: this.actions
-		},
-		{
-			start: subDays(endOfMonth(new Date()), 3),
-			end: addDays(endOfMonth(new Date()), 3),
-			title: 'A long event that spans 2 months',
-			color: colors.blue,
-			allDay: true
-		},
-		{
-			start: addHours(startOfDay(new Date()), 2),
-			end: addHours(new Date(), 2),
-			title: 'A draggable and resizable event',
-			color: colors.yellow,
-			actions: this.actions,
-			resizable: {
-				beforeStart: true,
-				afterEnd: true
-			},
-			draggable: true
-		} */
-	];
-
 	activeDayIsOpen: boolean = false;
 
 	constructor(
-		private modal: NgbModal,
-		public modalController: ModalController
+		public modalController: ModalController,
+		public projectData: ProjectData
 	) {}
+
+	ngOnInit() {
+		if (this.events.length) {
+			this.events.map(item => {
+				if (item.start.seconds) {
+					item.end = new Date(item.end.seconds * 1000);
+					item.start = new Date(item.start.seconds * 1000);
+				}
+			});
+		}
+	}
 
 	dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
 		this.openModal(events, date);
@@ -205,8 +159,16 @@ export class CalendarPage {
 		this.events = this.events.filter(event => event !== eventToDelete);
 	}
 
-	setView(view: CalendarView) {
+	setView(view: CalendarView, events) {
+		console.log('events', events);
 		this.view = view;
+		events.forEach(item => {
+			const index = this.events.findIndex(x => x.startId === item.startId);
+			if (index !== -1) {
+				this.events.splice(index, 1);
+			}
+			this.events.push(item);
+		});
 	}
 
 	closeOpenMonthViewDay() {
@@ -222,17 +184,51 @@ export class CalendarPage {
 			}
 			/* cssClass: 'large-modal', */
 		});
-		modal.onDidDismiss().then(events => {
-			events.data.forEach(item => {
-				const index = this.events.findIndex(x => x.startId === item.startId);
-				if (index !== -1) {
-					this.events.splice(index, 1);
+		modal.onDidDismiss().then(eventsArray => {
+			console.log('eventsArray', eventsArray);
+			eventsArray.data.forEach(item => {
+				if (this.events) {
+					const index = this.events.findIndex(x => x.startId === item.startId);
+					if (index !== -1) {
+						this.events.splice(index, 1);
+					}
+					this.events.push(item);
+				} else {
+					this.events.push(item);
 				}
-				this.events.push(item);
 			});
 			this.viewDate = date;
 			console.log(this.events);
 		});
 		return await modal.present();
+	}
+
+	closeModal() {
+		this.modalController.dismiss(this.events);
+	}
+
+	testStyleChange() {
+		const eventClasses = document.querySelectorAll('.cal-event');
+		console.log(eventClasses);
+
+		eventClasses.forEach(element => {
+			const event = element as HTMLElement;
+			console.log('event', event);
+		});
+
+		const classAll = document.getElementsByClassName('cal-event');
+		console.log('classAll', classAll);
+
+		/* console.log(this.events);
+
+		const eventClasses = document.querySelectorAll('.cal-event');
+		console.log(eventClasses);
+		const lastElement = eventClasses.length - 1;
+	//	eventClasses.forEach(element => {
+	//		console.log('element', element);
+	//		element.classList.replace('cal-event', 'cal-event-new');
+	//	});
+		eventClasses[lastElement].classList.replace('cal-event', 'cal-event-new');
+		console.log(eventClasses[lastElement]); */
 	}
 }
