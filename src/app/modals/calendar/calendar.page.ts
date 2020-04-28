@@ -181,11 +181,11 @@ export class CalendarPage {
 			componentProps: {
 				events: events,
 				date: date
-			}
-			/* cssClass: 'large-modal', */
+			},
+			backdropDismiss: false,
+			cssClass: 'event-modal-container'
 		});
 		modal.onDidDismiss().then(eventsArray => {
-			console.log('eventsArray', eventsArray);
 			eventsArray.data.forEach(item => {
 				if (this.events) {
 					const index = this.events.findIndex(x => x.startId === item.startId);
@@ -198,7 +198,6 @@ export class CalendarPage {
 				}
 			});
 			this.viewDate = date;
-			console.log(this.events);
 		});
 		return await modal.present();
 	}

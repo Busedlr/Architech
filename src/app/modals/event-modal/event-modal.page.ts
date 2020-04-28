@@ -9,11 +9,16 @@ import { ModalController } from '@ionic/angular';
 	styleUrls: ['./event-modal.page.scss']
 })
 export class EventModal implements OnInit {
+	eventsToDelete: any;
 	events: any;
 	date: any;
 	constructor(public modalController: ModalController) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		/* if (!this.events.length) {
+			this.addEvent();
+		} */
+	}
 
 	setStartTime(ev, item) {
 		let start;
@@ -68,6 +73,7 @@ export class EventModal implements OnInit {
 
 	deleteEvent(eventToDelete: CalendarEvent) {
 		this.events = this.events.filter(event => event !== eventToDelete);
+		this.eventsToDelete.push(eventToDelete);
 	}
 
 	close() {

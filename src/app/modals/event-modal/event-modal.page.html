@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-row>
       <ion-col>
@@ -14,10 +14,84 @@
       </ion-col>
     </ion-row>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
-  <div class="day-selected">
+  <ion-row>
+    <ion-col size="10">
+      Events of the day
+    </ion-col>
+    <ion-col size="2">
+      <ion-icon (click)="close()" name="close"></ion-icon>
+    </ion-col>
+  </ion-row>
+  <div *ngFor="let item of events" id="day-selected">
+    <ion-row>
+      <ion-col size="11">
+        Title
+      </ion-col>
+      <ion-col size="1">
+        <ion-icon (click)="deleteEvent(item)" id="delete-icon" name="trash"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <input class="input" placeholder="Add title here" [(ngModel)]="item.title">
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-row>
+          start
+        </ion-row>
+        <ion-row>
+          <ng-datepicker [(ngModel)]="item.start"></ng-datepicker>
+        </ion-row>
+      </ion-col>
+      <ion-col>
+        <ion-row>
+          end
+        </ion-row>
+        <ion-row>
+          <ng-datepicker [(ngModel)]="item.end"></ng-datepicker>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>All day</ion-label>
+          <ion-toggle [(ngModel)]="item.allDay" (ionChange)="allDayChanged(item)"></ion-toggle>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-button [ngClass]="{'clickable': !item.allDay, 'not-clickable': item.allDay}" fill="clear">
+          <label for="item.startId">
+            <span> {{ item.startTime ? item.startTime : 'Set start time' }} </span>
+          </label>
+        </ion-button>
+        <input id="item.startId" class="hidden out-of-sight" [format]="24" [ngxTimepicker]="startPicker">
+        <ngx-material-timepicker #startPicker (timeSet)="setStartTime($event, item)"></ngx-material-timepicker>
+      </ion-col>
+      <ion-col>
+        <ion-button class="time-button" fill="clear">
+          <label [ngClass]="{'clickable': !item.allDay, 'not-clickable': item.allDay}" for="item.endId">
+            <span> {{ item.endTime ? item.endTime : 'Set end time' }} </span>
+          </label>
+        </ion-button>
+        <input id="item.endId" class="hidden out-of-sight" [format]="24" [ngxTimepicker]="endPicker">
+        <ngx-material-timepicker #endPicker (timeSet)="setEndTime($event, item)">
+        </ngx-material-timepicker>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-row>
+    <ion-button class="ion-float-right" (click)="addEvent()">
+      Add event
+    </ion-button>
+  </ion-row>
+
+
+
+  <!-- <div class="day-selected">
     <ion-row *ngFor="let item of events">
       <ion-col size="10">
         <ion-row>
@@ -72,7 +146,15 @@
       </ion-col>
       <ion-col size="2">
         <ion-button (click)="deleteEvent(item)">Delete</ion-button>
+
       </ion-col>
     </ion-row>
+
+    <ion-button (click)="close()">close</ion-button>
+
   </div>
+  <ion-button class="ion-float-right" (click)="addEvent()">
+    Add event
+  </ion-button> -->
+
 </ion-content>

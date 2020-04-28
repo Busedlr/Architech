@@ -9,3 +9,47 @@
 	border: none;
 	padding: 0;
 }
+
+#day-selected {
+	margin: 10px;
+	width: 95%;
+	border-radius: 4px;
+	&:hover {
+		#delete-icon {
+			visibility: visible;
+		}
+	}
+}
+
+#delete-icon {
+	visibility: hidden;
+}
+
+.not-clickable {
+	color: grey;
+	cursor: default;
+	label {
+		cursor: pointer;
+	}
+}
+
+.not-clickable:hover {
+	background-color: white;
+}
+
+.clickable {
+	label {
+		cursor: pointer;
+	}
+	cursor: pointer;
+}
+
+.input {
+	padding: 0;
+	border-radius: 3px;
+	margin: 5px;
+	width: 90%;
+	height: 35px;
+	background-color: rgb(255, 255, 255, 0.8);
+	box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
