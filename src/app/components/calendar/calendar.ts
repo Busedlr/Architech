@@ -10,6 +10,7 @@ import { ProjectData } from 'src/app/services/project-data';
 })
 export class Calendar implements OnInit {
 	@Input('project') project;
+	events: any;
 	constructor(
 		public modalController: ModalController,
 		public projectData: ProjectData
@@ -20,7 +21,7 @@ export class Calendar implements OnInit {
 		const modal = await this.modalController.create({
 			component: CalendarPage,
 			componentProps: {
-				events: this.project.events || []
+				events: this.events || []
 			},
 			cssClass: 'large-modal',
 			backdropDismiss: false
@@ -31,8 +32,10 @@ export class Calendar implements OnInit {
 				'events',
 				events.data
 			);
-
-			console.log('eventsDataDismissed', events.data);
+			this.projectData.getProjectById(this.project.id).then(res => {
+				this.project = res.data();
+				this.events = this.project.events;
+			});
 		});
 		return await modal.present();
 	}

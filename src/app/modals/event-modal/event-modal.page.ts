@@ -9,7 +9,6 @@ import { ModalController } from '@ionic/angular';
 	styleUrls: ['./event-modal.page.scss']
 })
 export class EventModal implements OnInit {
-	eventsToDelete: any;
 	events: any;
 	date: any;
 	constructor(public modalController: ModalController) {}
@@ -63,7 +62,16 @@ export class EventModal implements OnInit {
 			endTime: null
 		};
 
+		setTimeout(() => {
+			this.focusNewInput(newEvent.startId);
+		}, 200);
+
 		this.events.push(newEvent);
+	}
+
+	focusNewInput(inputId) {
+		const input = document.getElementById(inputId) as HTMLInputElement;
+		input.focus();
 	}
 
 	allDayChanged(item) {
@@ -71,9 +79,13 @@ export class EventModal implements OnInit {
 		item.endTime = null;
 	}
 
-	deleteEvent(eventToDelete: CalendarEvent) {
-		this.events = this.events.filter(event => event !== eventToDelete);
-		this.eventsToDelete.push(eventToDelete);
+	deleteEvent(eventToDelete) {
+		/* this.events = this.events.filter(event => event !== eventToDelete); */
+		const index = this.events.findIndex(x => {
+			x.title === eventToDelete.title;
+		});
+		this.events.splice(index, 1);
+		eventToDelete['deleted'] = true;
 	}
 
 	close() {

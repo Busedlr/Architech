@@ -160,7 +160,6 @@ export class CalendarPage {
 	}
 
 	setView(view: CalendarView, events) {
-		console.log('events', events);
 		this.view = view;
 		events.forEach(item => {
 			const index = this.events.findIndex(x => x.startId === item.startId);
@@ -186,18 +185,31 @@ export class CalendarPage {
 			cssClass: 'event-modal-container'
 		});
 		modal.onDidDismiss().then(eventsArray => {
-			eventsArray.data.forEach(item => {
-				if (this.events) {
-					const index = this.events.findIndex(x => x.startId === item.startId);
-					if (index !== -1) {
+			console.log('eventsArray', eventsArray);
+			if (eventsArray.data.length) {
+				eventsArray.data.forEach(item => {
+					if (this.events) {
+						const index = this.events.findIndex(
+							x => x.startId === item.startId
+						);
+						if (index !== -1) {
+							this.events.splice(index, 1);
+						}
+						this.events.push(item);
+					} else {
+						this.events.push(item);
+					}
+					if (item.deleted) {
+						const index = this.events.findIndex(
+							x => x.startId === item.startId
+						);
 						this.events.splice(index, 1);
 					}
-					this.events.push(item);
-				} else {
-					this.events.push(item);
-				}
-			});
-			this.viewDate = date;
+				});
+				this.viewDate = date;
+			} else {
+				this.events = [];
+			}
 		});
 		return await modal.present();
 	}
