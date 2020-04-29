@@ -186,30 +186,23 @@ export class CalendarPage {
 		});
 		modal.onDidDismiss().then(eventsArray => {
 			console.log('eventsArray', eventsArray);
-			if (eventsArray.data.length) {
-				eventsArray.data.forEach(item => {
-					if (this.events) {
-						const index = this.events.findIndex(
-							x => x.startId === item.startId
-						);
-						if (index !== -1) {
-							this.events.splice(index, 1);
-						}
-						this.events.push(item);
-					} else {
-						this.events.push(item);
-					}
-					if (item.deleted) {
-						const index = this.events.findIndex(
-							x => x.startId === item.startId
-						);
+
+			eventsArray.data.forEach(item => {
+				if (this.events) {
+					const index = this.events.findIndex(x => x.startId === item.startId);
+					if (index !== -1) {
 						this.events.splice(index, 1);
 					}
-				});
-				this.viewDate = date;
-			} else {
-				this.events = [];
-			}
+					this.events.push(item);
+				} else {
+					this.events.push(item);
+				}
+				if (item.deleted) {
+					const index = this.events.findIndex(x => x.startId === item.startId);
+					this.events.splice(index, 1);
+				}
+			});
+			this.viewDate = date;
 		});
 		return await modal.present();
 	}

@@ -13,6 +13,7 @@ export class ProjectData {
 	storageRef: any;
 	settings: any = {};
 	projects: any[] = [];
+	events: any[] = [];
 	currentProject: any;
 
 	constructor() {
@@ -179,6 +180,40 @@ export class ProjectData {
 			.getDownloadURL()
 			.then(downloadUrl => {
 				return downloadUrl;
+			});
+	}
+
+	getAllEvents() {
+		this.events = [];
+		return this.projectsRef
+			.doc(this.currentProject.id)
+			.collection('events')
+			.get()
+			.then(result => {
+				result.docs.forEach(doc => {
+					let event = doc.data();
+					event.id = doc.id;
+					this.events.push(event);
+				});
+				return true;
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	}
+
+	getMonthlyEvents(currentDate) {
+		console.log('got here', currentDate);
+		return this.projectsRef
+			.doc(this.currentProject.id)
+			.collection('events')
+			.where('monthsSpans', 'array-contains', currentDate)
+			.get()
+			.then(result => {
+				result.docs.forEach(doc => {
+					console.log('res of monthly events', doc.data());
+				});
+				return true;
 			});
 	}
 

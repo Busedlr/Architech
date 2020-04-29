@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CalendarPage } from 'src/app/modals/calendar/calendar.page';
 import { ProjectData } from 'src/app/services/project-data';
+import * as moment from 'moment';
 
 @Component({
 	selector: 'calendar',
@@ -15,7 +16,16 @@ export class Calendar implements OnInit {
 		public modalController: ModalController,
 		public projectData: ProjectData
 	) {}
-	ngOnInit() {}
+	ngOnInit() {
+		this.getMonthlyEvents();
+	}
+
+	getMonthlyEvents() {
+		const currentMonth = moment().month() + 1;
+		const currentDate = currentMonth.toString() + moment().year().toString();
+		console.log('currentDate', currentDate);
+		this.projectData.getMonthlyEvents(currentDate);
+	}
 
 	async openModal() {
 		const modal = await this.modalController.create({
