@@ -6,10 +6,10 @@ import * as moment from 'moment';
 
 @Component({
 	selector: 'calendar',
-	templateUrl: './calendar.html',
-	styleUrls: ['./calendar.scss']
+	templateUrl: './upcoming-events.html',
+	styleUrls: ['./upcoming-events.scss']
 })
-export class Calendar implements OnInit {
+export class UpcomingEvents implements OnInit {
 	@Input('project') project;
 	currentMonthsEvents: any[] = [];
 	monthlyEvents: any[] = [];

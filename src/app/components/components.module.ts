@@ -10,12 +10,12 @@ import { Info } from './info/info';
 import { Images } from './images/images';
 import { Documents } from './documents/documents';
 import { Companies } from './companies/companies';
-import { Calendar } from './calendar/calendar';
+import { UpcomingEvents } from './upcoming-events/upcoming-events';
 import { ToDoList } from './todo-list/todo-list';
 
 @NgModule({
 	imports: [CommonModule, FormsModule, IonicModule, RouterModule],
-	declarations: [Info, Images, Documents, Companies, ToDoList, Calendar],
-	exports: [Info, Images, Documents, Companies, ToDoList, Calendar]
+	declarations: [Info, Images, Documents, Companies, ToDoList, UpcomingEvents],
+	exports: [Info, Images, Documents, Companies, ToDoList, UpcomingEvents]
 })
 export class ComponentsModule {}
