@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
 import { CalendarEvent } from 'angular-calendar';
 import { ModalController } from '@ionic/angular';
+import { ProjectData } from 'src/app/services/project-data';
 
 @Component({
 	selector: 'event-modal',
@@ -11,7 +12,10 @@ import { ModalController } from '@ionic/angular';
 export class EventModal implements OnInit {
 	events: any;
 	date: any;
-	constructor(public modalController: ModalController) {}
+	constructor(
+		public modalController: ModalController,
+		public projectData: ProjectData
+	) {}
 
 	ngOnInit() {
 		/* if (!this.events.length) {
@@ -31,7 +35,7 @@ export class EventModal implements OnInit {
 		item.startTime = ev;
 		item.start = start;
 
-		console.log(item);
+		this.isModified(item);
 	}
 
 	setEndTime(ev, item) {
@@ -42,31 +46,44 @@ export class EventModal implements OnInit {
 		item.end.setSeconds(0);
 		item.allDay = false;
 		item.endTime = ev;
+
+		this.isModified(item);
+	}
+
+	test() {
+		return 'fgbfgb';
 	}
 
 	addEvent() {
 		const newEvent = {
 			start: moment(this.date).startOf('day').toDate(),
 			end: moment(this.date).endOf('day').toDate(),
+			monthsSpan: [] = [],
 			title: '',
 			color: 'red',
 			allDay: true,
+			startTime: null,
+			endTime: null,
 			resizable: {
 				beforeStart: true,
 				afterEnd: true
 			},
 			draggable: true,
 			startId: Date.now(),
-			endId: Date.now() + 1,
-			startTime: null,
-			endTime: null
+			endId: Date.now() + 1
 		};
 
-		setTimeout(() => {
+		/* setTimeout(() => {
 			this.focusNewInput(newEvent.startId);
 		}, 200);
-
+ */
 		this.events.push(newEvent);
+	}
+
+	isModified(event) {
+		if (event.id) {
+			event.modified = true;
+		}
 	}
 
 	focusNewInput(inputId) {
@@ -80,20 +97,53 @@ export class EventModal implements OnInit {
 	}
 
 	deleteEvent(eventToDelete) {
-		/* this.events = this.events.filter(event => event !== eventToDelete); */
+		if (eventToDelete.id) {
+			this.projectData.deleteEvent(eventToDelete);
+		}
 		const index = this.events.findIndex(x => {
 			x.title === eventToDelete.title;
 		});
 		this.events.splice(index, 1);
-		eventToDelete['deleted'] = true;
+	}
+
+	addMonthsSpan(event) {
+		let startMonth = moment(event.start).month() + 1;
+		let endMonth = moment(event.end).month() + 1;
+		let startYear = moment(event.start).year();
+		let endYear = moment(event.end).year();
+		const difference = endYear - startYear;
+
+		if (startYear === endYear) {
+			if (startMonth === endMonth) {
+				event.monthsSpan.push(startMonth.toString() + startYear.toString());
+			} else {
+				for (; startMonth <= endMonth; startMonth++) {
+					event.monthsSpan.push(startMonth.toString() + startYear.toString());
+				}
+			}
+		} else {
+			if (difference > 1) {
+				for (let i = 1; i <= difference; i++) {
+					for (let x = 1; i <= 12; i++) {
+						startYear = startYear + i;
+						event.monthsSpan.push(x.toString() + startYear.toString());
+					}
+				}
+			}
+			for (; startMonth <= 12; startMonth++) {
+				event.monthsSpan.push(startMonth.toString() + startYear.toString());
+			}
+			for (let z = 1; z <= endMonth; z++) {
+				event.monthsSpan.push(z.toString() + endYear.toString());
+			}
+		}
 	}
 
 	close() {
-		if (this.events.length > 0) {
-			this.events.forEach(item => {
-				if (!moment(item.start).isSameOrBefore(item.end)) {
-					console.log('dates are not the right order');
-				} else if (!item.title) {
+		if (this.events.length) {
+			this.events.forEach(event => {
+				this.addMonthsSpan(event);
+				if (!event.title) {
 					console.log('there is no title');
 				} else {
 					this.modalController.dismiss(this.events);

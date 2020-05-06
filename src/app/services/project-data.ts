@@ -14,7 +14,10 @@ export class ProjectData {
 	settings: any = {};
 	projects: any[] = [];
 	events: any[] = [];
+	currentMonthsEvents: any[] = [];
+	monthlyEvents: any[] = [];
 	currentProject: any;
+	currentDate: any;
 
 	constructor() {
 		this.db = firebase.firestore();
@@ -24,23 +27,36 @@ export class ProjectData {
 		this.getSettings();
 	}
 
-	updateProjectProp(projectId, prop, val) {
+	saveProject(projectData) {
 		return this.projectsRef
-			.doc(projectId)
-			.update(prop, val)
-			.then(() => {
-				return true;
+			.add(projectData)
+			.then(doc => {
+				return doc;
 			})
 			.catch(error => {
 				console.log(error);
 			});
 	}
 
-	saveProject(projectData) {
-		return this.projectsRef
-			.add(projectData)
+	saveEvents(event) {
+		this.projectsRef
+			.doc(this.currentProject.id)
+			.collection('events')
+			.add(event)
 			.then(doc => {
 				return doc;
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	}
+
+	updateProjectProp(projectId, prop, val) {
+		return this.projectsRef
+			.doc(projectId)
+			.update(prop, val)
+			.then(() => {
+				return true;
 			})
 			.catch(error => {
 				console.log(error);
@@ -59,7 +75,7 @@ export class ProjectData {
 			});
 	}
 
-	getProjects() {
+	/* getProjects() {
 		return this.projectsRef
 			.get()
 			.then(result => {
@@ -68,7 +84,7 @@ export class ProjectData {
 			.catch(error => {
 				console.log(error);
 			});
-	}
+	} */
 
 	setProjects() {
 		this.projects = [];
@@ -183,6 +199,7 @@ export class ProjectData {
 			});
 	}
 
+	//will we ever need this??
 	getAllEvents() {
 		this.events = [];
 		return this.projectsRef
@@ -202,16 +219,40 @@ export class ProjectData {
 			});
 	}
 
-	getMonthlyEvents(currentDate) {
-		console.log('got here', currentDate);
+	getCurrentMonthsEvents() {
 		return this.projectsRef
 			.doc(this.currentProject.id)
 			.collection('events')
-			.where('monthsSpans', 'array-contains', currentDate)
+			.where('monthsSpan', 'array-contains', this.currentDate)
 			.get()
 			.then(result => {
 				result.docs.forEach(doc => {
-					console.log('res of monthly events', doc.data());
+					let event = doc.data();
+					event.start = new Date(event.start.seconds * 1000);
+					event.end = new Date(event.end.seconds * 1000);
+					event.id = doc.id;
+					this.currentMonthsEvents.push(event);
+					this.monthlyEvents.push(event);
+				});
+
+				return true;
+			});
+	}
+
+	getMonthlyEvents(viewedDate) {
+		this.monthlyEvents = [];
+		return this.projectsRef
+			.doc(this.currentProject.id)
+			.collection('events')
+			.where('monthsSpan', 'array-contains', viewedDate)
+			.get()
+			.then(result => {
+				result.docs.forEach(doc => {
+					let event = doc.data();
+					event.start = new Date(event.start.seconds * 1000);
+					event.end = new Date(event.end.seconds * 1000);
+					event.id = doc.id;
+					this.monthlyEvents.push(event);
 				});
 				return true;
 			});
@@ -220,6 +261,18 @@ export class ProjectData {
 	delete(item) {
 		return this.storageRef
 			.child(item.fullPath)
+			.delete()
+			.then(res => {
+				return res;
+			});
+	}
+
+	deleteEvent(item) {
+		console.log('got untill here', item);
+		return this.projectsRef
+			.doc(this.currentProject.id)
+			.collection('events')
+			.doc(item.id)
 			.delete()
 			.then(res => {
 				return res;

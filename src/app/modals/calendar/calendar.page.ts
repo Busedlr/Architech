@@ -60,6 +60,7 @@ export class CalendarPage {
 	viewDate: Date = new Date();
 
 	events: any[];
+	deletedEvents: any[] = [];
 
 	actions: CalendarEventAction[] = [
 		{
@@ -89,14 +90,15 @@ export class CalendarPage {
 	) {}
 
 	ngOnInit() {
-		if (this.events.length) {
+		//maybe we dont need this anymore
+		/* 	if (this.events.length) {
 			this.events.map(item => {
 				if (item.start.seconds) {
 					item.end = new Date(item.end.seconds * 1000);
 					item.start = new Date(item.start.seconds * 1000);
 				}
 			});
-		}
+		} */
 	}
 
 	dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -161,16 +163,21 @@ export class CalendarPage {
 
 	setView(view: CalendarView, events) {
 		this.view = view;
-		events.forEach(item => {
+		/* events.forEach(item => {
 			const index = this.events.findIndex(x => x.startId === item.startId);
 			if (index !== -1) {
 				this.events.splice(index, 1);
 			}
 			this.events.push(item);
-		});
+		}); */
 	}
 
-	closeOpenMonthViewDay() {
+	async closeOpenMonthViewDay() {
+		const month = moment(this.viewDate).month() + 1;
+		const year = moment(this.viewDate).year();
+		const viewedDate = month.toString() + year.toString();
+		await this.projectData.getMonthlyEvents(viewedDate);
+		this.events = this.projectData.monthlyEvents;
 		this.activeDayIsOpen = false;
 	}
 
@@ -185,30 +192,27 @@ export class CalendarPage {
 			cssClass: 'event-modal-container'
 		});
 		modal.onDidDismiss().then(eventsArray => {
-			console.log('eventsArray', eventsArray);
-
-			eventsArray.data.forEach(item => {
-				if (this.events) {
-					const index = this.events.findIndex(x => x.startId === item.startId);
-					if (index !== -1) {
+			if (eventsArray.data.length) {
+				eventsArray.data.forEach(event => {
+					if (event.modified && event.id) {
+						const index = this.events.findIndex(
+							x => x.startId === event.startId
+						);
 						this.events.splice(index, 1);
+						this.events.push(event);
 					}
-					this.events.push(item);
-				} else {
-					this.events.push(item);
-				}
-				if (item.deleted) {
-					const index = this.events.findIndex(x => x.startId === item.startId);
-					this.events.splice(index, 1);
-				}
-			});
+					if (!event.id) {
+						this.events.push(event);
+					}
+				});
+			}
 			this.viewDate = date;
 		});
 		return await modal.present();
 	}
 
 	closeModal() {
-		this.modalController.dismiss(this.events);
+		this.modalController.dismiss();
 	}
 
 	testStyleChange() {

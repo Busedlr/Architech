@@ -11,42 +11,58 @@ import * as moment from 'moment';
 })
 export class Calendar implements OnInit {
 	@Input('project') project;
-	events: any;
+	currentMonthsEvents: any[] = [];
+	monthlyEvents: any[] = [];
 	constructor(
 		public modalController: ModalController,
 		public projectData: ProjectData
 	) {}
 	ngOnInit() {
-		this.getMonthlyEvents();
+		this.getCurrentMonthsEvents();
 	}
 
-	getMonthlyEvents() {
+	async getCurrentMonthsEvents() {
 		const currentMonth = moment().month() + 1;
-		const currentDate = currentMonth.toString() + moment().year().toString();
-		console.log('currentDate', currentDate);
-		this.projectData.getMonthlyEvents(currentDate);
+		this.projectData.currentDate =
+			currentMonth.toString() + moment().year().toString();
+		await this.projectData.getCurrentMonthsEvents();
+		this.currentMonthsEvents = this.projectData.currentMonthsEvents;
+		this.monthlyEvents = this.projectData.monthlyEvents;
 	}
 
 	async openModal() {
 		const modal = await this.modalController.create({
 			component: CalendarPage,
 			componentProps: {
-				events: this.events || []
+				events: this.monthlyEvents || []
 			},
 			cssClass: 'large-modal',
 			backdropDismiss: false
 		});
-		modal.onDidDismiss().then(events => {
-			this.projectData.updateProjectProp(
+
+		modal.onDidDismiss().then(() => {
+			this.monthlyEvents.forEach(event => {
+				if (event.modified && event.id) {
+					this.projectData.deleteEvent(event).then(() => {
+						this.projectData.saveEvents(event);
+					});
+				}
+				if (!event.id) {
+					this.projectData.saveEvents(event);
+				}
+			});
+		});
+
+		/* 	this.projectData.updateProjectProp(
 				this.project.id,
 				'events',
 				events.data
 			);
 			this.projectData.getProjectById(this.project.id).then(res => {
 				this.project = res.data();
-				this.events = this.project.events;
-			});
-		});
+				this.monthlyEvents = this.project.events;
+			}); */
+
 		return await modal.present();
 	}
 }
