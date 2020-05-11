@@ -23,7 +23,7 @@ const routes: Routes = [
 	{
 		path: 'project/:id',
 		loadChildren: () =>
-			import('./pages/project/project.module').then(m => m.ProjectDetailModule)
+			import('./pages/project/project.module').then(m => m.ProjectModule)
 	},
 	{
 		path: 'image-display',

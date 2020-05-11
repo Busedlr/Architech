@@ -16,6 +16,8 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
+import { FormatDatePipe } from './pipes/format-date.pipe';
+
 @NgModule({
 	declarations: [AppComponent],
 	entryComponents: [],
@@ -32,11 +34,11 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 			useFactory: adapterFactory
 		})
 	],
-
 	providers: [
 		StatusBar,
 		SplashScreen,
-		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+		FormatDatePipe
 	],
 	bootstrap: [AppComponent]
 })

@@ -2,33 +2,23 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CalendarPage } from 'src/app/modals/calendar/calendar.page';
 import { ProjectData } from 'src/app/services/project-data';
-import * as moment from 'moment';
+import { CalendarData } from 'src/app/services/calendar-service';
+import { FormatDatePipe } from 'src/app/pipes/format-date.pipe';
 
 @Component({
-	selector: 'calendar',
+	selector: 'upcoming-events',
 	templateUrl: './upcoming-events.html',
 	styleUrls: ['./upcoming-events.scss']
 })
 export class UpcomingEvents implements OnInit {
-	@Input('project') project;
-	currentMonthsEvents: any[] = [];
 	monthlyEvents: any[] = [];
 	constructor(
 		public modalController: ModalController,
-		public projectData: ProjectData
+		public projectData: ProjectData,
+		public calendarData: CalendarData,
+		public formatDate: FormatDatePipe
 	) {}
-	ngOnInit() {
-		this.getCurrentMonthsEvents();
-	}
-
-	async getCurrentMonthsEvents() {
-		const currentMonth = moment().month() + 1;
-		this.projectData.currentDate =
-			currentMonth.toString() + moment().year().toString();
-		await this.projectData.getCurrentMonthsEvents();
-		this.currentMonthsEvents = this.projectData.currentMonthsEvents;
-		this.monthlyEvents = this.projectData.monthlyEvents;
-	}
+	ngOnInit() {}
 
 	async openModal() {
 		const modal = await this.modalController.create({

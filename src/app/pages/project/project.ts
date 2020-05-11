@@ -6,6 +6,7 @@ import { Images } from 'src/app/components/images/images';
 import { PopoverController } from '@ionic/angular';
 import { SegmentMenu } from 'src/app/components/segment-menu/segment-menu';
 import { SegmentsService } from 'src/app/services/segments-service';
+import { CalendarData } from 'src/app/services/calendar-service';
 
 @Component({
 	selector: 'project',
@@ -16,13 +17,15 @@ export class ProjectDetail implements OnInit {
 	@ViewChild(Images, { static: false }) child: Images;
 	loading: boolean;
 	segment: any = 'image';
+	test: number = 5;
 
 	constructor(
 		public projectData: ProjectData,
 		public route: ActivatedRoute,
 		public router: Router,
 		public popoverController: PopoverController,
-		public segmentsService: SegmentsService
+		public segmentsService: SegmentsService,
+		public calendarData: CalendarData
 	) {}
 
 	async ngOnInit() {
@@ -35,6 +38,7 @@ export class ProjectDetail implements OnInit {
 			this.projectData.currentProject.id = projectRes.id;
 			this.segmentsService.segmentName = this.segment;
 		}
+		await this.calendarData.getCurrentMonthEvents();
 		this.loading = false;
 	}
 

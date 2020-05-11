@@ -220,6 +220,7 @@ export class ProjectData {
 	}
 
 	getCurrentMonthsEvents() {
+		console.log('currentData', this.currentDate);
 		return this.projectsRef
 			.doc(this.currentProject.id)
 			.collection('events')
@@ -235,6 +236,8 @@ export class ProjectData {
 					this.monthlyEvents.push(event);
 				});
 
+				console.log('currentMonthsEvents', this.currentMonthsEvents);
+				console.log('monthlyEvents', this.monthlyEvents);
 				return true;
 			});
 	}
