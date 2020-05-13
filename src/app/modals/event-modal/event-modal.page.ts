@@ -26,11 +26,6 @@ export class EventModal implements OnInit {
 		this.events.map(event => {
 			this.dayEvents.push(event);
 		});
-
-		console.log('dayEvents', this.dayEvents);
-		/* if (!this.events.length) {
-			this.addEvent();
-		} */
 	}
 
 	setStartTime(ev, item) {
@@ -101,34 +96,17 @@ export class EventModal implements OnInit {
 			if (event.delete && event.id) {
 				await this.calendarData.deleteEvent(event);
 			} else if (!event.id) {
-				console.log('event to create', event);
 				await this.calendarData.createEvent(event);
 			} else {
 				await this.calendarData.replaceEvent(event);
 			}
-			/* switch (event) {
-				case event.delete && event.id:
-					await this.calendarData.deleteEvent(event);
-					break;
-				case !event.id:
-					console.log('event to create', event);
-					await this.calendarData.createEvent(event);
-					break;
-			} */
 		}
 		const monthlyEvents = await this.calendarData.getMonthlyEvents();
-		console.log('monthly events', monthlyEvents);
 		this.modalController.dismiss(monthlyEvents);
 	}
 	closeNoSaving() {
 		this.modalController.dismiss();
 	}
-
-	/* isModified(event) {
-		if (event.id) {
-			event.modified = true;
-		}
-	} */
 
 	focusNewInput(inputId) {
 		const input = document.getElementById(inputId) as HTMLInputElement;
@@ -139,16 +117,6 @@ export class EventModal implements OnInit {
 		item.startTime = null;
 		item.endTime = null;
 	}
-
-	/* deleteEvent(eventToDelete) {
-		if (eventToDelete.id) {
-			this.projectData.deleteEvent(eventToDelete);
-		}
-		const index = this.events.findIndex(x => {
-			x.title === eventToDelete.title;
-		});
-		this.events.splice(index, 1);
-	} */
 
 	flagDeleteEvent(eventToDelete) {
 		eventToDelete.delete = true;
@@ -184,21 +152,6 @@ export class EventModal implements OnInit {
 			for (let z = 1; z <= endMonth; z++) {
 				event.monthsSpan.push(z.toString() + endYear.toString());
 			}
-		}
-	}
-
-	close() {
-		if (this.events.length) {
-			this.events.forEach(event => {
-				this.addMonthsSpan(event);
-				if (!event.title) {
-					console.log('there is no title');
-				} else {
-					this.modalController.dismiss(this.events);
-				}
-			});
-		} else {
-			this.modalController.dismiss(this.events);
 		}
 	}
 }
