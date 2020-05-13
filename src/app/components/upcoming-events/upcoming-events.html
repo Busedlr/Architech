@@ -3,7 +3,7 @@
     <ion-icon name="resize" class="expand-icon"></ion-icon>
   </div>
   <ion-row *ngFor="let event of calendarData.currentMonthEvents; let i = index">
-    <div> {{event.title}} </div>
+    <div style="font-weight: bold;"> {{event.title}} </div>
     <div> start: {{event.start | formatDate}} </div>
     <div> end: {{event.end | formatDate}} </div>
   </ion-row>

@@ -26,9 +26,10 @@ import {
 	CalendarView
 } from 'angular-calendar';
 import * as moment from 'moment';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { EventModal } from '../event-modal/event-modal.page';
 import { ProjectData } from 'src/app/services/project-data';
+import { CalendarData } from 'src/app/services/calendar-data';
 
 const colors: any = {
 	red: {
@@ -85,20 +86,23 @@ export class CalendarPage {
 	activeDayIsOpen: boolean = false;
 
 	constructor(
+		public calendarData: CalendarData,
 		public modalController: ModalController,
 		public projectData: ProjectData
 	) {}
 
 	ngOnInit() {
 		//maybe we dont need this anymore
-		/* 	if (this.events.length) {
+		this.events = this.calendarData.monthlyEvents;
+		console.log('events', this.events);
+		if (this.events.length) {
 			this.events.map(item => {
 				if (item.start.seconds) {
 					item.end = new Date(item.end.seconds * 1000);
 					item.start = new Date(item.start.seconds * 1000);
 				}
 			});
-		} */
+		}
 	}
 
 	dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {

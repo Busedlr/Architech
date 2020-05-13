@@ -28,8 +28,6 @@ export class CalendarData {
 					this.currentMonthEvents.push(event);
 					this.monthlyEvents.push(event);
 				});
-				console.log('currentMonthsEvents', this.currentMonthEvents);
-				console.log('monthlyEvents', this.monthlyEvents);
 				return true;
 			});
 	}

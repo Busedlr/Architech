@@ -6,7 +6,7 @@ import { Images } from 'src/app/components/images/images';
 import { PopoverController } from '@ionic/angular';
 import { SegmentMenu } from 'src/app/components/segment-menu/segment-menu';
 import { SegmentsService } from 'src/app/services/segments-service';
-import { CalendarData } from 'src/app/services/calendar-service';
+import { CalendarData } from 'src/app/services/calendar-data';
 
 @Component({
 	selector: 'project',

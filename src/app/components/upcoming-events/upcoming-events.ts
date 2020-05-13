@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CalendarPage } from 'src/app/modals/calendar/calendar.page';
 import { ProjectData } from 'src/app/services/project-data';
-import { CalendarData } from 'src/app/services/calendar-service';
+import { CalendarData } from 'src/app/services/calendar-data';
 import { FormatDatePipe } from 'src/app/pipes/format-date.pipe';
 
 @Component({
@@ -23,15 +23,12 @@ export class UpcomingEvents implements OnInit {
 	async openModal() {
 		const modal = await this.modalController.create({
 			component: CalendarPage,
-			componentProps: {
-				events: this.monthlyEvents || []
-			},
 			cssClass: 'large-modal',
 			backdropDismiss: false
 		});
 
 		modal.onDidDismiss().then(() => {
-			this.monthlyEvents.forEach(event => {
+			/* this.monthlyEvents.forEach(event => {
 				if (event.modified && event.id) {
 					this.projectData.deleteEvent(event).then(() => {
 						this.projectData.saveEvents(event);
@@ -40,7 +37,7 @@ export class UpcomingEvents implements OnInit {
 				if (!event.id) {
 					this.projectData.saveEvents(event);
 				}
-			});
+			}); */
 		});
 
 		/* 	this.projectData.updateProjectProp(
