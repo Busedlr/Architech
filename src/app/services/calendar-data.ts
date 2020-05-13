@@ -57,6 +57,11 @@ export class CalendarData {
 			});
 	}
 
+	async replaceEvent(event) {
+		await this.deleteEvent(event);
+		await this.createEvent(event);
+	}
+
 	getMonthlyEvents() {
 		this.monthlyEvents = [];
 		console.log('viewedDate', this.viewedDate);

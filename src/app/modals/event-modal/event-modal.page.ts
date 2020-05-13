@@ -94,6 +94,8 @@ export class EventModal implements OnInit {
 			} else if (!event.id) {
 				console.log('event to create', event);
 				await this.calendarData.createEvent(event);
+			} else {
+				await this.calendarData.replaceEvent(event);
 			}
 			/* switch (event) {
 				case event.delete && event.id:
