@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-button (click)="testStyleChange()">clişck here
+    <ion-button (click)="testStyleChange()">clişckş here
 
     </ion-button>
     <ion-row>
@@ -26,12 +26,12 @@
         </div>
       </ion-col>
       <ion-col>
-        <ion-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-          (viewDateChange)="closeOpenMonthViewDay()">Prev</ion-button>
+        <ion-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="changeMonth()">Prev
+        </ion-button>
       </ion-col>
       <ion-col>
-        <ion-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
-          (viewDateChange)="closeOpenMonthViewDay()">Next</ion-button>
+        <ion-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="changeMonth()">Next
+        </ion-button>
       </ion-col>
       <ion-col>
         <div class="btn btn-primary" (click)="closeModal()">

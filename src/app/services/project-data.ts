@@ -13,11 +13,7 @@ export class ProjectData {
 	storageRef: any;
 	settings: any = {};
 	projects: any[] = [];
-	events: any[] = [];
-	currentMonthsEvents: any[] = [];
-	monthlyEvents: any[] = [];
 	currentProject: any;
-	currentDate: any;
 
 	constructor() {
 		this.db = firebase.firestore();
@@ -186,68 +182,6 @@ export class ProjectData {
 			});
 	}
 
-	//will we ever need this??
-	getAllEvents() {
-		this.events = [];
-		return this.projectsRef
-			.doc(this.currentProject.id)
-			.collection('events')
-			.get()
-			.then(result => {
-				result.docs.forEach(doc => {
-					let event = doc.data();
-					event.id = doc.id;
-					this.events.push(event);
-				});
-				return true;
-			})
-			.catch(error => {
-				console.log(error);
-			});
-	}
-
-	getCurrentMonthsEvents() {
-		console.log('currentData', this.currentDate);
-		return this.projectsRef
-			.doc(this.currentProject.id)
-			.collection('events')
-			.where('monthsSpan', 'array-contains', this.currentDate)
-			.get()
-			.then(result => {
-				result.docs.forEach(doc => {
-					let event = doc.data();
-					event.start = new Date(event.start.seconds * 1000);
-					event.end = new Date(event.end.seconds * 1000);
-					event.id = doc.id;
-					this.currentMonthsEvents.push(event);
-					this.monthlyEvents.push(event);
-				});
-
-				console.log('currentMonthsEvents', this.currentMonthsEvents);
-				console.log('monthlyEvents', this.monthlyEvents);
-				return true;
-			});
-	}
-
-	getMonthlyEvents(viewedDate) {
-		this.monthlyEvents = [];
-		return this.projectsRef
-			.doc(this.currentProject.id)
-			.collection('events')
-			.where('monthsSpan', 'array-contains', viewedDate)
-			.get()
-			.then(result => {
-				result.docs.forEach(doc => {
-					let event = doc.data();
-					event.start = new Date(event.start.seconds * 1000);
-					event.end = new Date(event.end.seconds * 1000);
-					event.id = doc.id;
-					this.monthlyEvents.push(event);
-				});
-				return true;
-			});
-	}
-
 	delete(item) {
 		return this.storageRef
 			.child(item.fullPath)
@@ -256,26 +190,6 @@ export class ProjectData {
 				return res;
 			});
 	}
-
-	/* deleteEvent(item) {
-		return this.projectsRef
-			.doc(this.currentProject.id)
-			.collection('events')
-			.doc(item.id)
-			.delete()
-			.then(res => {
-				return res;
-			});
-	} */
-
-	/*   deleteDocument(doc) {
-    return this.storageRef
-      .child(doc.fullPath)
-      .delete()
-      .then((res) => {
-        return res;
-      });
-  } */
 
 	updateProjectData(imageUrl, id) {
 		this.db.collection('projects').doc(id).update({ thumbnail: imageUrl });

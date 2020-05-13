@@ -75,8 +75,6 @@ export class TodoListPage implements OnInit {
 			id: Date.now().toString()
 		};
 
-		console.log('item', item);
-
 		this.editing = true;
 
 		this.items.push(item);

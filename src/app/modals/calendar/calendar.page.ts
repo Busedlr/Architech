@@ -92,10 +92,8 @@ export class CalendarPage {
 	) {}
 
 	ngOnInit() {
-		//maybe we dont need this anymore
 		this.events = this.calendarData.monthlyEvents;
 		this.defineViewedDate();
-		console.log('events', this.events);
 		if (this.events.length) {
 			this.events.map(item => {
 				if (item.start.seconds) {
@@ -185,10 +183,10 @@ export class CalendarPage {
 		this.calendarData.viewedDate = month.toString() + year.toString();
 	}
 
-	async closeOpenMonthViewDay() {
+	async changeMonth() {
 		this.defineViewedDate();
 		await this.calendarData.getMonthlyEvents();
-		this.events = this.projectData.monthlyEvents;
+		this.events = this.calendarData.monthlyEvents;
 		this.activeDayIsOpen = false;
 	}
 
@@ -218,15 +216,11 @@ export class CalendarPage {
 
 	testStyleChange() {
 		const eventClasses = document.querySelectorAll('.cal-event');
-		console.log(eventClasses);
-
 		eventClasses.forEach(element => {
 			const event = element as HTMLElement;
-			console.log('event', event);
 		});
 
 		const classAll = document.getElementsByClassName('cal-event');
-		console.log('classAll', classAll);
 
 		/* console.log(this.events);
 
