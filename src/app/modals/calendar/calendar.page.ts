@@ -171,7 +171,7 @@ export class CalendarPage {
 	setView(view: CalendarView, events) {
 		this.view = view;
 		/* events.forEach(item => {
-			const index = this.events.findIndex(x => x.startId === item.startId);
+			const index = this.events.findIndex(x => x.timeId === item.timeId);
 			if (index !== -1) {
 				this.events.splice(index, 1);
 			}

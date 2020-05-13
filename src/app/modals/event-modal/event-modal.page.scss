@@ -25,18 +25,6 @@
 	visibility: hidden;
 }
 
-.not-clickable {
-	color: grey;
-	cursor: default;
-	label {
-		cursor: pointer;
-	}
-}
-
-.not-clickable:hover {
-	background-color: white;
-}
-
 .clickable {
 	label {
 		cursor: pointer;

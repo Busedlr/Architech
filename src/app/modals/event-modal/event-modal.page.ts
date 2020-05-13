@@ -14,6 +14,7 @@ export class EventModal implements OnInit {
 	events: any;
 	dayEvents: any[] = [];
 	date: any;
+	timeline: string;
 	loading: boolean = false;
 	constructor(
 		public modalController: ModalController,
@@ -33,18 +34,13 @@ export class EventModal implements OnInit {
 	}
 
 	setStartTime(ev, item) {
-		let start;
-		start = item.start;
 		const hours = ev.split(':')[0];
 		const minutes = ev.split(':')[1];
-		start.setHours(hours);
-		start.setMinutes(minutes);
-		start.setSeconds(0);
+		item.start.setHours(hours);
+		item.start.setMinutes(minutes);
+		item.start.setSeconds(0);
 		item.allDay = false;
 		item.startTime = ev;
-		item.start = start;
-
-		this.isModified(item);
 	}
 
 	setEndTime(ev, item) {
@@ -55,8 +51,22 @@ export class EventModal implements OnInit {
 		item.end.setSeconds(0);
 		item.allDay = false;
 		item.endTime = ev;
+	}
 
-		this.isModified(item);
+	setTime(ev, item) {
+		console.log('timeline', JSON.stringify(this.timeline));
+		const time = this.timeline + 'Time';
+		const hours = ev.split(':')[0];
+		const minutes = ev.split(':')[1];
+		item[this.timeline].setHours(hours);
+		item[this.timeline].setMinutes(minutes);
+		item[this.timeline].setSeconds(0);
+		item.allDay = false;
+		item[time] = ev;
+	}
+
+	setTimeline(timeline) {
+		this.timeline = timeline;
 	}
 
 	addEvent() {
@@ -74,12 +84,11 @@ export class EventModal implements OnInit {
 				afterEnd: true
 			},
 			draggable: true,
-			startId: Date.now(),
-			endId: Date.now() + 1
+			timeId: Date.now()
 		};
 
 		/* setTimeout(() => {
-			this.focusNewInput(newEvent.startId);
+			this.focusNewInput(newEvent.timeId);
 		}, 200);
  */
 		this.dayEvents.push(newEvent);
@@ -115,11 +124,11 @@ export class EventModal implements OnInit {
 		this.modalController.dismiss();
 	}
 
-	isModified(event) {
+	/* isModified(event) {
 		if (event.id) {
 			event.modified = true;
 		}
-	}
+	} */
 
 	focusNewInput(inputId) {
 		const input = document.getElementById(inputId) as HTMLInputElement;
