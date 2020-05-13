@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { CalendarEvent } from 'angular-calendar';
 import { ModalController } from '@ionic/angular';
 import { ProjectData } from 'src/app/services/project-data';
+import { CalendarData } from 'src/app/services/calendar-data';
 
 @Component({
 	selector: 'event-modal',
@@ -11,13 +12,21 @@ import { ProjectData } from 'src/app/services/project-data';
 })
 export class EventModal implements OnInit {
 	events: any;
+	dayEvents: any[] = [];
 	date: any;
+	loading: boolean = false;
 	constructor(
 		public modalController: ModalController,
-		public projectData: ProjectData
+		public projectData: ProjectData,
+		public calendarData: CalendarData
 	) {}
 
 	ngOnInit() {
+		this.events.map(event => {
+			this.dayEvents.push(event);
+		});
+
+		console.log('dayEvents', this.dayEvents);
 		/* if (!this.events.length) {
 			this.addEvent();
 		} */
@@ -50,10 +59,6 @@ export class EventModal implements OnInit {
 		this.isModified(item);
 	}
 
-	test() {
-		return 'fgbfgb';
-	}
-
 	addEvent() {
 		const newEvent = {
 			start: moment(this.date).startOf('day').toDate(),
@@ -77,7 +82,35 @@ export class EventModal implements OnInit {
 			this.focusNewInput(newEvent.startId);
 		}, 200);
  */
-		this.events.push(newEvent);
+		this.dayEvents.push(newEvent);
+	}
+
+	async saveAndClose() {
+		this.loading = true;
+		for (const event of this.dayEvents) {
+			this.addMonthsSpan(event);
+			if (event.delete && event.id) {
+				await this.calendarData.deleteEvent(event);
+			} else if (!event.id) {
+				console.log('event to create', event);
+				await this.calendarData.createEvent(event);
+			}
+			/* switch (event) {
+				case event.delete && event.id:
+					await this.calendarData.deleteEvent(event);
+					break;
+				case !event.id:
+					console.log('event to create', event);
+					await this.calendarData.createEvent(event);
+					break;
+			} */
+		}
+		const monthlyEvents = await this.calendarData.getMonthlyEvents();
+		console.log('monthly events', monthlyEvents);
+		this.modalController.dismiss(monthlyEvents);
+	}
+	closeNoSaving() {
+		this.modalController.dismiss();
 	}
 
 	isModified(event) {
@@ -96,7 +129,7 @@ export class EventModal implements OnInit {
 		item.endTime = null;
 	}
 
-	deleteEvent(eventToDelete) {
+	/* deleteEvent(eventToDelete) {
 		if (eventToDelete.id) {
 			this.projectData.deleteEvent(eventToDelete);
 		}
@@ -104,6 +137,10 @@ export class EventModal implements OnInit {
 			x.title === eventToDelete.title;
 		});
 		this.events.splice(index, 1);
+	} */
+
+	flagDeleteEvent(eventToDelete) {
+		eventToDelete.delete = true;
 	}
 
 	addMonthsSpan(event) {

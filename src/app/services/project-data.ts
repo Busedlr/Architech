@@ -38,19 +38,6 @@ export class ProjectData {
 			});
 	}
 
-	saveEvents(event) {
-		this.projectsRef
-			.doc(this.currentProject.id)
-			.collection('events')
-			.add(event)
-			.then(doc => {
-				return doc;
-			})
-			.catch(error => {
-				console.log(error);
-			});
-	}
-
 	updateProjectProp(projectId, prop, val) {
 		return this.projectsRef
 			.doc(projectId)
@@ -270,8 +257,7 @@ export class ProjectData {
 			});
 	}
 
-	deleteEvent(item) {
-		console.log('got untill here', item);
+	/* deleteEvent(item) {
 		return this.projectsRef
 			.doc(this.currentProject.id)
 			.collection('events')
@@ -280,7 +266,7 @@ export class ProjectData {
 			.then(res => {
 				return res;
 			});
-	}
+	} */
 
 	/*   deleteDocument(doc) {
     return this.storageRef

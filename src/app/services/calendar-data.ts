@@ -8,6 +8,7 @@ import { ProjectData } from './project-data';
 export class CalendarData {
 	currentMonthEvents: any[] = [];
 	monthlyEvents: any[] = [];
+	viewedDate: string;
 	constructor(public projectData: ProjectData) {}
 
 	async getCurrentMonthEvents() {
@@ -32,14 +33,40 @@ export class CalendarData {
 			});
 	}
 
-	/* getMonthlyEvents(viewedDate) {
-		this.monthlyEvents = [];
-		return this.projectsRef
-			.doc(this.currentProject.id)
+	deleteEvent(event) {
+		return this.projectData.projectsRef
+			.doc(this.projectData.currentProject.id)
 			.collection('events')
-			.where('monthsSpan', 'array-contains', viewedDate)
+			.doc(event.id)
+			.delete()
+			.then(res => {
+				return res;
+			});
+	}
+
+	createEvent(event) {
+		this.projectData.projectsRef
+			.doc(this.projectData.currentProject.id)
+			.collection('events')
+			.add(event)
+			.then(doc => {
+				return doc;
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	}
+
+	getMonthlyEvents() {
+		this.monthlyEvents = [];
+		console.log('viewedDate', this.viewedDate);
+		return this.projectData.projectsRef
+			.doc(this.projectData.currentProject.id)
+			.collection('events')
+			.where('monthsSpan', 'array-contains', this.viewedDate)
 			.get()
 			.then(result => {
+				console.log('res', result);
 				result.docs.forEach(doc => {
 					let event = doc.data();
 					event.start = new Date(event.start.seconds * 1000);
@@ -47,7 +74,7 @@ export class CalendarData {
 					event.id = doc.id;
 					this.monthlyEvents.push(event);
 				});
-				return true;
+				return this.monthlyEvents;
 			});
-	} */
+	}
 }

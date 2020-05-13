@@ -75,7 +75,7 @@ export class CalendarPage {
 			label: '<i class="fa fa-fw fa-times"></i>',
 			a11yLabel: 'Delete',
 			onClick: ({ event }: { event: CalendarEvent }): void => {
-				this.events = this.events.filter(iEvent => iEvent !== event);
+				/* this.events = this.events.filter(iEvent => iEvent !== event); */
 				/* this.handleEvent('Deleted', event); */
 			}
 		}
@@ -94,6 +94,7 @@ export class CalendarPage {
 	ngOnInit() {
 		//maybe we dont need this anymore
 		this.events = this.calendarData.monthlyEvents;
+		this.defineViewedDate();
 		console.log('events', this.events);
 		if (this.events.length) {
 			this.events.map(item => {
@@ -162,7 +163,9 @@ export class CalendarPage {
 	}
 
 	deleteEvent(eventToDelete: CalendarEvent) {
-		this.events = this.events.filter(event => event !== eventToDelete);
+		if (this.events.length) {
+			this.events = this.events.filter(event => event !== eventToDelete);
+		}
 	}
 
 	setView(view: CalendarView, events) {
@@ -176,11 +179,15 @@ export class CalendarPage {
 		}); */
 	}
 
-	async closeOpenMonthViewDay() {
+	defineViewedDate() {
 		const month = moment(this.viewDate).month() + 1;
 		const year = moment(this.viewDate).year();
-		const viewedDate = month.toString() + year.toString();
-		await this.projectData.getMonthlyEvents(viewedDate);
+		this.calendarData.viewedDate = month.toString() + year.toString();
+	}
+
+	async closeOpenMonthViewDay() {
+		this.defineViewedDate();
+		await this.calendarData.getMonthlyEvents();
 		this.events = this.projectData.monthlyEvents;
 		this.activeDayIsOpen = false;
 	}
@@ -195,21 +202,11 @@ export class CalendarPage {
 			backdropDismiss: false,
 			cssClass: 'event-modal-container'
 		});
-		modal.onDidDismiss().then(eventsArray => {
-			if (eventsArray.data.length) {
-				eventsArray.data.forEach(event => {
-					if (event.modified && event.id) {
-						const index = this.events.findIndex(
-							x => x.startId === event.startId
-						);
-						this.events.splice(index, 1);
-						this.events.push(event);
-					}
-					if (!event.id) {
-						this.events.push(event);
-					}
-				});
-			}
+		modal.onDidDismiss().then(returnedEvents => {
+			const monthlyEvents = returnedEvents.data.length
+				? returnedEvents.data
+				: [];
+			this.events = monthlyEvents;
 			this.viewDate = date;
 		});
 		return await modal.present();

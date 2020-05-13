@@ -1,64 +1,79 @@
 <ion-content>
-  <ion-row>
-    <ion-col size="10">
-      Events of the day
-    </ion-col>
-    <ion-col size="2">
-      <ion-icon (click)="close()" name="close"></ion-icon>
-    </ion-col>
-  </ion-row>
-  <div *ngFor="let item of events, let i = index" id="day-selected">
+  <div *ngIf="!loading">
     <ion-row>
-      <ion-col size="11">
-        Title
-      </ion-col>
-      <ion-col size="1">
-        <ion-icon (click)="deleteEvent(item)" id="delete-icon" name="trash"></ion-icon>
+      <ion-col size="10">
+        Events of the day
       </ion-col>
     </ion-row>
+    <div *ngFor="let event of dayEvents, let i = index" id="day-selected">
+      <div *ngIf="!event.delete">
+        <ion-row>
+          <ion-col size="11">
+            Title
+          </ion-col>
+          <ion-col size="1">
+            <ion-icon (click)="flagDeleteEvent(event)" id="delete-icon" name="trash"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <input (ngModelChange)="isModified(event)" class="input" placeholder="Add title here"
+            [(ngModel)]="event.title">
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-row>
+              start
+            </ion-row>
+            <ion-row>
+              <ng-datepicker (ngModelChange)="isModified(event)" [(ngModel)]="event.start"></ng-datepicker>
+            </ion-row>
+          </ion-col>
+          <ion-col>
+            <ion-row>
+              end
+            </ion-row>
+            <ion-row>
+              <ng-datepicker (ngModelChange)="isModified(event)" [(ngModel)]="event.end"></ng-datepicker>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>All day</ion-label>
+              <ion-toggle (ngModelChange)="isModified(event)" [(ngModel)]="event.allDay"
+                (ionChange)="allDayChanged(event)">
+              </ion-toggle>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-button [ngClass]="{'clickable': !event.allDay, 'not-clickable': event.allDay}" fill="clear">
+              <label [for]="event.startId">
+                <span> {{ event.startTime ? item.startTime : 'Set start time' }} </span>
+              </label>
+            </ion-button>
+            <input [id]="event.startId" class="hidden out-of-sight" [format]="24" [ngxTimepicker]="i">
+            <ngx-material-timepicker #i (timeSet)="setStartTime($event, event)"></ngx-material-timepicker>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
     <ion-row>
-      <input (ngModelChange)="isModified(item)" class="input" placeholder="Add title here" [(ngModel)]="item.title">
+      <ion-button class="ion-float-right" (click)="addEvent()">
+        Add event
+      </ion-button>
     </ion-row>
     <ion-row>
-      <ion-col>
-        <ion-row>
-          start
-        </ion-row>
-        <ion-row>
-          <ng-datepicker (ngModelChange)="isModified(item)" [(ngModel)]="item.start"></ng-datepicker>
-        </ion-row>
-      </ion-col>
-      <ion-col>
-        <ion-row>
-          end
-        </ion-row>
-        <ion-row>
-          <ng-datepicker (ngModelChange)="isModified(item)" [(ngModel)]="item.end"></ng-datepicker>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-label>All day</ion-label>
-          <ion-toggle (ngModelChange)="isModified(item)" [(ngModel)]="item.allDay" (ionChange)="allDayChanged(item)">
-          </ion-toggle>
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        <ion-button [ngClass]="{'clickable': !item.allDay, 'not-clickable': item.allDay}" fill="clear">
-          <label [for]="item.startId">
-            <span> {{ item.startTime ? item.startTime : 'Set start time' }} </span>
-          </label>
-        </ion-button>
-        <input [id]="item.startId" class="hidden out-of-sight" [format]="24" [ngxTimepicker]="i">
-        <ngx-material-timepicker #i (timeSet)="setStartTime($event, item)"></ngx-material-timepicker>
-      </ion-col>
+      <ion-button (click)="saveAndClose()">
+        Save
+      </ion-button>
+      <ion-button (click)="closeNoSaving()">
+        Cancel
+      </ion-button>
     </ion-row>
   </div>
-  <ion-row>
-    <ion-button class="ion-float-right" (click)="addEvent()">
-      Add event
-    </ion-button>
-  </ion-row>
+
+  <div *ngIf="loading">
+    ADD LOADING SPINNER HERE
+  </div>
 </ion-content>
