@@ -39,7 +39,7 @@ ion-slide {
 }
 
 .image-editing {
-	border: 6px solid rgba(69, 157, 191);
+	border: 6px solid rgb(69, 157, 191);
 	box-shadow: rgba(75, 64, 64, 0.8) 0 0 10px;
 }
 
@@ -78,7 +78,7 @@ ion-slide {
 	width: 40%;
 	position: absolute;
 	visibility: hidden;
-	background-color: rgb(255, 255, 255, 0.8);
+	background-color: rgba(255, 255, 255, 0.8);
 	top: 260px;
 	left: 10%;
 }
