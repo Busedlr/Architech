@@ -64,14 +64,12 @@ export class CalendarData {
 
 	getMonthlyEvents() {
 		this.monthlyEvents = [];
-		console.log('viewedDate', this.viewedDate);
 		return this.projectData.projectsRef
 			.doc(this.projectData.currentProject.id)
 			.collection('events')
 			.where('monthsSpan', 'array-contains', this.viewedDate)
 			.get()
 			.then(result => {
-				console.log('res', result);
 				result.docs.forEach(doc => {
 					let event = doc.data();
 					event.start = new Date(event.start.seconds * 1000);
