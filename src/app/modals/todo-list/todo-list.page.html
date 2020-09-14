@@ -34,7 +34,7 @@
                     [formControlName]="item.detailControl" placeholder="detail goes here"
                     (keyup)="checkEnter(item, $event)">
                   <ng-template #notEditingTwo>
-                    <div> {{todoForm.controls[item.detailControl].value}} </div>
+                    <div [ngStyle]="{'text-decoration':item.checked === true ? 'line-through' : 'none' }"> {{todoForm.controls[item.detailControl].value}} </div>
                   </ng-template>
                 </div>
               </ion-row>
