@@ -60,6 +60,7 @@ export class TodoListPage implements OnInit {
 					this.labelItem(item, dataObj.detail);
 					break;
 			}
+			console.log(item);
 		});
 		return await popover.present();
 	}
