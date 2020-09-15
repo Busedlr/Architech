@@ -9,19 +9,19 @@
           <ion-icon id="close-button" (click)="closeAndSave()" name="close"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row *ngFor="let item of items; let i = index">
+      <ion-row *ngFor="let item of items; let i = index" class="item-container">
         <ion-col>
 
           <ion-row>
             <ion-col size="1">
               <ion-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="item.checked"></ion-checkbox>
             </ion-col>
-            <ion-col class="inputs-col" size="10" (click)="editItem(item)">
+            <ion-col class="inputs-col" size="9" (click)="editItem(item)">
               <ion-row [ngStyle]="{'background-color' : item.label }">
                 <div class="item text-bold">
                   <input *ngIf="item.editing; else notEditing" id="{{item.id}}" class="input-edit"
                     [formControlName]="item.titleControl" placeholder="title goes here"
-                    (keyup)="checkEnter(item, $event, i)">
+                    (keyup)="checkKey(item, $event, i)">
                   <ng-template #notEditing>
                     <div [ngStyle]="{'text-decoration':item.checked === true ? 'line-through' : 'none' }">
                       {{todoForm.controls[item.titleControl].value}} </div>
@@ -32,7 +32,7 @@
                 <div class="item">
                   <input *ngIf="item.editing; else notEditingTwo" class="input-edit"
                     [formControlName]="item.detailControl" placeholder="detail goes here"
-                    (keyup)="checkEnter(item, $event)">
+                    (keyup)="checkKey(item, $event)">
                   <ng-template #notEditingTwo>
                     <div [ngStyle]="{'text-decoration':item.checked === true ? 'line-through' : 'none' }"> {{todoForm.controls[item.detailControl].value}} </div>
                   </ng-template>
@@ -40,8 +40,16 @@
               </ion-row>
             </ion-col>
             <ion-col size="1">
-              <img [ngClass]="{'visible': !editing,'hidden': editing}" class="more-icon"
-                src="../../assets/icon/more.svg" alt="options" (click)="presentPopover($event, item, i)" />
+      
+                <ion-icon name="color-palette" class="action-icon"></ion-icon>
+
+            </ion-col>
+            <ion-col size="1">
+              <ion-row>
+                <ion-col>
+                  <ion-icon name="trash" class="action-icon" (click)="deleteItem(item)"></ion-icon>
+                </ion-col>
+              </ion-row>
             </ion-col>
           </ion-row>
           <ion-row>

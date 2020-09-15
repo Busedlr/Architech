@@ -52,7 +52,8 @@ export class ToDoList implements OnInit {
 				title: form.controls[title].value,
 				detail: form.controls[detail].value,
 				checked: item.checked,
-				label: item.label
+				label: item.label,
+				id: item.id
 			};
 
 			if (todo.title) todoList.push(todo);

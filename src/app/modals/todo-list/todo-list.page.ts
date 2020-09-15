@@ -73,6 +73,7 @@ export class TodoListPage implements OnInit {
 			editing: true,
 			newlyAdded: true,
 			label: 'transparent',
+			labeling: true,
 			id: Date.now().toString()
 		};
 
@@ -103,17 +104,25 @@ export class TodoListPage implements OnInit {
 	editItem(item) {
 		if (this.editing === true) {
 			return;
-		} else {
-			this.editing = true;
-			item.editing = true;
 		}
+		console.log(item);
+
+		this.editing = true;
+		item.editing = true;
+
 		item.titlePrevValue = this.todoForm.controls[item.titleControl].value;
 		item.detailPrevValue = this.todoForm.controls[item.detailControl].value;
+
+		setTimeout(() => {
+			this.focusNewInput(item.id);
+		}, 200);
 	}
 
-	checkEnter(item, ev) {
+	checkKey(item, ev) {
 		if (ev.key === 'Enter') this.saveItem(item);
-		else return;
+		else if (ev.key === 'Escape') {
+			this.cancelEdit(item);
+		} else return;
 	}
 
 	saveItem(item) {

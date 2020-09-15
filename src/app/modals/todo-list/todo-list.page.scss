@@ -40,17 +40,15 @@ ion-button .button-native {
 	margin: 5px;
 }
 
+.action-icon {
+	//display: none;
+}
+
 .item-container {
-	.more-icon {
-		padding: 6px, 6px;
-		display: none;
-		width: 30px;
-		height: 30px;
-	}
 	border-radius: 3px;
 	&:hover {
-		background-color: rgba(250, 249, 249, 0.8);
-		.more-icon {
+		background-color: rgba(137, 135, 135, 0.1);
+		.action-icon {
 			cursor: pointer;
 			display: block;
 		}
@@ -95,4 +93,15 @@ ion-button .button-native {
 	&:hover {
 		cursor: pointer !important;
 	}
+}
+
+.color-red {
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background-color: red;
+}
+
+.label {
+	position: absolute;
 }
