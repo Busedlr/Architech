@@ -51,12 +51,13 @@ export class ToDoList implements OnInit {
 			const todo = {
 				title: form.controls[title].value,
 				detail: form.controls[detail].value,
-				checked: item.checked
+				checked: item.checked,
+				label: item.label
 			};
 
 			if (todo.title) todoList.push(todo);
 		});
-
+		console.log(todoList);
 		await this.projectData.updateProjectProp(this.project.id, 'list', todoList);
 		this.items = todoList;
 	}
