@@ -152,3 +152,37 @@
 		background-color: rgba(137, 135, 135, 0.4);
 	}
 }
+
+.no-padding {
+	padding: 0 !important;
+}
+
+.label {
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	margin: 5px 0px 0px 7px;
+}
+
+.label-select {
+	.popover-wrapper .popover-content {
+		width: 40px;
+		background-color: #fff;
+	}
+}
+
+.red {
+	background-color: #ca0000;
+}
+
+.green {
+	background-color: #008000;
+}
+
+.blue {
+	background-color: #0000ff;
+}
+
+.yellow {
+	background-color: #ffff00;
+}

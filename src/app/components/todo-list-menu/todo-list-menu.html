@@ -1,4 +1,4 @@
-<div *ngIf="!label">
+<!-- <div *ngIf="!label">
   <ion-row>
     <ion-button expand="full" fill="clear" (click)="dismiss('delete')">
       <span>delete</span>
@@ -21,11 +21,16 @@
     <ion-button (click)="dismiss('label', '#69b573')">
       green
     </ion-button>
-    <ion-button (click)="dismiss('label', '#79807a')">
+    <ion-button >
       grey
     </ion-button>
     <ion-button (click)="dismiss('label', 'transparent')">
       none
     </ion-button>
   </ion-row>
-</div>
+</div> -->
+
+<div class="label green" (click)="dismiss('label', '#008000')"></div>
+<div class="label blue" (click)="dismiss('label', '#0000ff')"></div>
+<div class="label yellow" (click)="dismiss('label', '#ffff00')"></div>
+<div class="label red" (click)="dismiss('label', '#ca0000')"></div>

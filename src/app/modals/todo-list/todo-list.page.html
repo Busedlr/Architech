@@ -34,14 +34,35 @@
                     [formControlName]="item.detailControl" placeholder="detail goes here"
                     (keyup)="checkKey(item, $event)">
                   <ng-template #notEditingTwo>
-                    <div [ngStyle]="{'text-decoration':item.checked === true ? 'line-through' : 'none' }"> {{todoForm.controls[item.detailControl].value}} </div>
+                    <div [ngStyle]="{'text-decoration':item.checked === true ? 'line-through' : 'none' }">
+                      {{todoForm.controls[item.detailControl].value}} </div>
                   </ng-template>
                 </div>
               </ion-row>
             </ion-col>
             <ion-col size="1">
-      
-                <ion-icon name="color-palette" class="action-icon"></ion-icon>
+
+              <ion-icon name="color-palette" class="action-icon" id="{{i}}" (click)="presentPopover($event, item, i)">
+              </ion-icon>
+              <!-- <div class="label-select">
+                <ion-grid class="no-padding">
+                  <ion-row>
+                    <ion-col>
+                      <div class="label red"></div>
+                    </ion-col>
+                    <ion-col>
+                      <div class="label green"></div>
+                    </ion-col>
+                    <ion-col>
+                      <div class="label blue"></div>
+                    </ion-col>
+                    <ion-col>
+                      <div class="label yellow"></div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+
+              </div> -->
 
             </ion-col>
             <ion-col size="1">
