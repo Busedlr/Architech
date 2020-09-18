@@ -12,18 +12,7 @@ export class TodoListMenu implements OnInit {
 
 	ngOnInit() {}
 
-	dismiss(action, detail?) {
-		let dataObj = {
-			action: action
-		};
-
-		if (detail) {
-			dataObj['detail'] = detail;
-		}
-		this.popoverController.dismiss(dataObj);
-	}
-
-	chooseLabel() {
-		this.label = true;
+	dismiss(labelColor) {
+		this.popoverController.dismiss(labelColor);
 	}
 }

@@ -1,52 +1,20 @@
-<!-- <div *ngIf="!label">
-  <ion-row>
-    <ion-button expand="full" fill="clear" (click)="dismiss('delete')">
-      <span>delete</span>
-      <ion-icon name="close"></ion-icon>
-    </ion-button>
-  </ion-row>
-  <ion-row>
-    <ion-button expand="full" fill="clear" (click)="chooseLabel()">
-      <span>label</span>
-      <ion-icon name="color-palette"></ion-icon>
-    </ion-button>
-  </ion-row>
-</div> -->
-
 <div>
 	<ion-grid>
 		<ion-row>
-			<ion-col>
-				<div
-					class="label-red center"
-					(click)="dismiss('label', '#ed0505')"
-				></div>
-			</ion-col>
+			<div class="label-red center" (click)="dismiss('#ed0505')"></div>
 		</ion-row>
 		<ion-row>
-			<ion-col>
-				<div
-					class="label-green center"
-					(click)="dismiss('label', '#69b573')"
-				></div>
-			</ion-col>
+			<div class="label-green center" (click)="dismiss('#69b573')"></div>
 		</ion-row>
 		<ion-row>
-			<ion-col>
-				<div
-					class="label-grey center"
-					(click)="dismiss('label', '#79807a')"
-				></div>
-			</ion-col>
+			<div class="label-grey center" (click)="dismiss('#79807a')"></div>
 		</ion-row>
 		<ion-row>
-			<ion-col>
-				<ion-icon
-					class="none-icon center"
-					name="close-circle-outline"
-					(click)="dismiss('label', 'transparent')"
-				></ion-icon>
-			</ion-col>
+			<ion-icon
+				class="none-icon center"
+				name="close-circle-outline"
+				(click)="dismiss('transparent')"
+			></ion-icon>
 		</ion-row>
 	</ion-grid>
 </div>

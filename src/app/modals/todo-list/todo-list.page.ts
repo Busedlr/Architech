@@ -51,19 +51,27 @@ export class TodoListPage implements OnInit {
 			translucent: true
 		});
 		popover.onWillDismiss().then(res => {
-			const dataObj = res.data;
-			switch (dataObj.action) {
-				case 'delete':
-					this.deleteItem(item);
-					break;
-				case 'label':
-					this.labelItem(item, dataObj.detail);
-					break;
-			}
-			console.log(item);
+			const labelColor = res.data;
+			this.labelItem(item, labelColor);
 		});
 		return await popover.present();
 	}
+
+	/* 	popover.onWillDismiss().then(res => {
+		this.labelItem(item, labelColor);
+		const dataObj = res.data;
+		switch (dataObj.action) {
+			case 'delete':
+				this.deleteItem(item);
+				break;
+			case 'label':
+				this.labelItem(item, dataObj.detail);
+				break;
+		}
+		console.log(item);
+	});
+	return await popover.present();
+} */
 
 	addItem() {
 		const item = {
@@ -184,8 +192,8 @@ export class TodoListPage implements OnInit {
 		this.items.splice(index, 1);
 	}
 
-	labelItem(item, color) {
-		item.label = color;
+	labelItem(item, labelColor) {
+		item.label = labelColor;
 	}
 
 	toggleItemCheck(item) {
