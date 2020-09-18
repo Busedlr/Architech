@@ -57,22 +57,6 @@ export class TodoListPage implements OnInit {
 		return await popover.present();
 	}
 
-	/* 	popover.onWillDismiss().then(res => {
-		this.labelItem(item, labelColor);
-		const dataObj = res.data;
-		switch (dataObj.action) {
-			case 'delete':
-				this.deleteItem(item);
-				break;
-			case 'label':
-				this.labelItem(item, dataObj.detail);
-				break;
-		}
-		console.log(item);
-	});
-	return await popover.present();
-} */
-
 	addItem() {
 		const item = {
 			title: '',

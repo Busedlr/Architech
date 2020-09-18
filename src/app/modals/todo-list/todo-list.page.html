@@ -1,6 +1,6 @@
 <ion-grid>
 	<ion-card class="outer-container no-scrollbar y-scroll">
-		<form [formGroup]="todoForm">
+		<ion-toolbar class="toolbar">
 			<ion-row>
 				<ion-col size="11">
 					<div class="title">To Do List</div>
@@ -13,8 +13,11 @@
 					></ion-icon>
 				</ion-col>
 			</ion-row>
+		</ion-toolbar>
+		<form [formGroup]="todoForm">
 			<ion-row *ngFor="let item of items; let i = index" class="item-container">
-				<ion-col>
+				<!-- <ion-col [ngStyle]="{'background-color' : item.label }"> -->
+				<ion-col [ngClass]="item.label">
 					<ion-row>
 						<ion-col size="1">
 							<ion-checkbox
@@ -23,7 +26,7 @@
 							></ion-checkbox>
 						</ion-col>
 						<ion-col class="inputs-col" size="9" (click)="editItem(item)">
-							<ion-row [ngStyle]="{'background-color' : item.label }">
+							<ion-row>
 								<div class="item text-bold">
 									<input
 										*ngIf="item.editing; else notEditing"

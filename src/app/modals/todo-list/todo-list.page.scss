@@ -3,6 +3,52 @@ ion-grid {
 	align-content: center;
 }
 
+ion-card {
+	padding-top: 0 !important;
+}
+
+ion-row {
+	min-height: 12px;
+}
+
+ion-col {
+	border-radius: 5px;
+}
+
+.red-label {
+	background-color: rgb(209, 84, 84);
+	&:hover {
+		background-color: rgb(174, 23, 23);
+	}
+}
+
+.green-label {
+	background-color: rgb(149, 181, 159);
+	&:hover {
+		background-color: rgb(69, 84, 71);
+	}
+}
+
+.blue-label {
+	background-color: rgb(123, 171, 220);
+	&:hover {
+		background-color: rgb(31, 93, 137);
+	}
+}
+
+/* .transparent-label {
+	background-color: rgb(159, 152, 159);
+	&:hover {
+		background-color: rgb(83, 81, 83);
+	}
+} */
+
+.toolbar {
+	position: sticky;
+	top: 0;
+	z-index: 9;
+}
+
 .title {
 	font-size: 24px;
 	margin-bottom: 5px;
@@ -24,13 +70,13 @@ ion-grid {
 	border-radius: 10px !important;
 }
 
-.container {
+/* .container {
 	background-color: white !important;
 	margin: 5px;
 	width: 520px;
 	height: 480px;
 	border-radius: 10px !important;
-}
+} */
 
 .smaller-container {
 	height: 420px;
@@ -45,9 +91,10 @@ ion-button .button-native {
 }
 
 .item-container {
-	border-radius: 3px;
+	border-radius: 5px;
+	margin: 5px;
 	&:hover {
-		background-color: rgba(137, 135, 135, 0.1);
+		background-color: rgb(170, 172, 172);
 		.action-icon {
 			cursor: pointer;
 			display: block;
