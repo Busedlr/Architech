@@ -1,0 +1,47 @@
+/* ion-popover{
+  ion-backdrop{
+  opacity: 0.5 !important;
+  }
+  .popover-wrapper{
+  .popover-content{
+  width:80vw;
+  max-width:500px;
+  }
+  }
+  } */
+
+.center {
+	position: absolute;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.label-red {
+	margin-top: 5px;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	background-color: #ed0505;
+}
+
+.label-green {
+	top: 25px;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	background-color: #69b573;
+}
+
+.label-grey {
+	top: 40px;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	background-color: #79807a;
+}
+
+.none-icon {
+	top: 55px;
+	font-size: 23px;
+}

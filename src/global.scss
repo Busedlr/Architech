@@ -152,3 +152,15 @@
 		background-color: rgba(137, 135, 135, 0.4);
 	}
 }
+
+ion-popover {
+	ion-backdrop {
+		background-color: transparent;
+	}
+	.popover-wrapper {
+		.popover-content {
+			width: 30px;
+			min-height: 110px;
+		}
+	}
+}
