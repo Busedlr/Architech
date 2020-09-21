@@ -48,8 +48,10 @@ export class TodoListPage implements OnInit {
 	}
 
 	async presentPopover(ev: any, item) {
+		console.log('event', ev);
 		const popover = await this.popoverController.create({
 			component: TodoListMenu,
+			cssClass: 'label-select',
 			event: ev,
 			translucent: true
 		});
