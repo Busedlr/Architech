@@ -33,6 +33,9 @@ export class TodoListPage implements OnInit {
 
 	ngOnInit() {
 		this.initForm();
+		if (!this.items.length) {
+			this.addItem();
+		}
 	}
 
 	initForm() {

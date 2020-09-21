@@ -1,16 +1,31 @@
 <ion-card class="component-card no-scrollbar y-scroll">
-  <div class="icon-container" (click)="openModal()">
-    <ion-icon name="resize" class="expand-icon"></ion-icon>
-  </div>
-  <ion-row class="content-row">
-    <ion-col>
-      <ion-item *ngFor="let item of items">
-        {{item.title}}
-        <br />
-        {{item.detail}}
-        <ion-checkbox (ionChange)="saveList(items)" slot="start" color="primary" [(ngModel)]="item.checked">
-        </ion-checkbox>
-      </ion-item>
-    </ion-col>
-  </ion-row>
+	<div class="icon-container" (click)="openModal()">
+		<ion-icon name="resize" class="expand-icon"></ion-icon>
+	</div>
+	<ion-row class="content-row">
+		<ion-col *ngIf="items.length; else addItem">
+			<ion-item *ngFor="let item of items">
+				{{item.title}}
+				<br />
+				{{item.detail}}
+				<ion-checkbox
+					(ionChange)="saveList(items)"
+					slot="start"
+					color="primary"
+					[(ngModel)]="item.checked"
+				>
+				</ion-checkbox>
+			</ion-item>
+		</ion-col>
+		<ng-template #addItem>
+			<div>
+				<p class="add-item center">Add to your todo list</p>
+				<ion-icon
+					class="add-item center"
+					name="add-circle"
+					(click)="openModal()"
+				></ion-icon>
+			</div>
+		</ng-template>
+	</ion-row>
 </ion-card>
