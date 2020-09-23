@@ -201,11 +201,14 @@ export class CalendarPage {
 			cssClass: 'event-modal-container'
 		});
 		modal.onDidDismiss().then(returnedEvents => {
-			const monthlyEvents = returnedEvents.data.length
-				? returnedEvents.data
-				: [];
-			this.events = monthlyEvents;
-			this.viewDate = date;
+			if (returnedEvents.data) {
+				const monthlyEvents = returnedEvents.data.length
+					? returnedEvents.data
+					: [];
+				this.events = monthlyEvents;
+				this.viewDate = date;
+			}
+			console.log('returedev', returnedEvents);
 		});
 		return await modal.present();
 	}

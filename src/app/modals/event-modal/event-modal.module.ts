@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { EventModalRoutingModule } from './event-modal-routing.module';
-
 @NgModule({
 	imports: [CommonModule, FormsModule, IonicModule, EventModalRoutingModule],
 	declarations: []
