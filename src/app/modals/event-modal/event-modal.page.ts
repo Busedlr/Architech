@@ -65,11 +65,21 @@ export class EventModal implements OnInit {
 	}
 
 	addEvent() {
-		const newEvent = {
+		for (const item of this.dayEvents) {
+			if (!item.title) {
+				item.missingTitle = true;
+				this.focusNewInput(item.inputId, item.missingTitle);
+				return;
+			}
+		}
+
+		let newEvent = {
 			start: moment(this.date).startOf('day').toDate(),
 			end: moment(this.date).endOf('day').toDate(),
 			monthsSpan: [] = [],
-			title: '',
+			title: null,
+			previousTitle: null,
+			missingTitle: false,
 			color: 'red',
 			allDay: true,
 			startTime: null,
@@ -79,14 +89,27 @@ export class EventModal implements OnInit {
 				afterEnd: true
 			},
 			draggable: true,
-			timeId: Date.now()
+			timeId: Date.now(),
+			inputId: null
 		};
 
-		/* setTimeout(() => {
-			this.focusNewInput(newEvent.timeId);
+		newEvent.inputId = newEvent.timeId.toString() + 'i';
+
+		setTimeout(() => {
+			this.focusNewInput(newEvent.inputId, newEvent.missingTitle);
 		}, 200);
- */
+
 		this.dayEvents.push(newEvent);
+	}
+
+	savePreviousTitle(event) {
+		event.previousTitle = event.title;
+	}
+
+	checkTitle(event) {
+		if (!event.title.length) {
+			event.title = event.previousTitle;
+		}
 	}
 
 	async saveAndClose() {
@@ -108,8 +131,12 @@ export class EventModal implements OnInit {
 		this.modalController.dismiss();
 	}
 
-	focusNewInput(inputId) {
+	focusNewInput(inputId, missingTitle) {
 		const input = document.getElementById(inputId) as HTMLInputElement;
+		if (missingTitle) {
+			input.placeholder = 'add a title to save your event!';
+		}
+
 		input.focus();
 	}
 

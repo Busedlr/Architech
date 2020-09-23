@@ -7,7 +7,6 @@ import {
 } from '@ionic/angular';
 import { TodoListMenu } from 'src/app/components/todo-list-menu/todo-list-menu';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { ComponentsModule } from 'src/app/components/components.module';
 
 @Component({
 	selector: 'project-todo-list',
