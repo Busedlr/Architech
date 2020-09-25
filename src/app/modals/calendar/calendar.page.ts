@@ -105,6 +105,8 @@ export class CalendarPage {
 	}
 
 	dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+		(document.activeElement as HTMLElement).blur();
+
 		this.openModal(events, date);
 
 		/* if (isSameMonth(date, this.viewDate)) {
@@ -208,7 +210,6 @@ export class CalendarPage {
 				this.events = monthlyEvents;
 				this.viewDate = date;
 			}
-			console.log('returedev', returnedEvents);
 		});
 		return await modal.present();
 	}

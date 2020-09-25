@@ -109,7 +109,7 @@ export class EventModal implements OnInit {
 
 	async saveAndClose() {
 		console.log('save and close');
-		/* this.loading = true;
+		this.loading = true;
 		for (const event of this.dayEvents) {
 			this.addMonthsSpan(event);
 			if (event.title) {
@@ -123,7 +123,7 @@ export class EventModal implements OnInit {
 			}
 		}
 		const monthlyEvents = await this.calendarData.getMonthlyEvents();
-		this.modalController.dismiss(monthlyEvents); */
+		this.modalController.dismiss(monthlyEvents);
 	}
 
 	checkTitle(event) {
