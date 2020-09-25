@@ -108,18 +108,20 @@ export class EventModal implements OnInit {
 	}
 
 	async saveAndClose() {
-		console.log('save and close');
 		this.loading = true;
-		for (const event of this.dayEvents) {
-			this.addMonthsSpan(event);
-			if (event.title) {
-				if (event.delete && event.id) {
-					await this.calendarData.deleteEvent(event);
-				} else if (!event.id) {
-					await this.calendarData.createEvent(event);
-				} else {
-					await this.calendarData.replaceEvent(event);
-				}
+
+		const toKeep = this.dayEvents.filter(x => !x.delete || (x.delete && x.id));
+		this.dayEvents = toKeep;
+
+		for (const ev of this.dayEvents) {
+			this.addMonthsSpan(ev);
+
+			if (ev.delete) {
+				await this.calendarData.deleteEvent(ev);
+			} else if (!ev.id) {
+				await this.calendarData.createEvent(ev);
+			} else {
+				await this.calendarData.replaceEvent(ev);
 			}
 		}
 		const monthlyEvents = await this.calendarData.getMonthlyEvents();
