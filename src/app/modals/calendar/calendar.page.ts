@@ -197,7 +197,7 @@ export class CalendarPage {
 				events: events,
 				date: date
 			},
-			backdropDismiss: false,
+			backdropDismiss: true,
 			cssClass: 'event-modal-container'
 		});
 		modal.onDidDismiss().then(returnedEvents => {

@@ -26,7 +26,7 @@
 						[ngClass]="{'input-error': event.missingTitle}"
 						(focus)="savePreviousTitle(event)"
 						(focusout)="checkTitle(event)"
-						(input)="isMssingTitle(event)"
+						(input)="resetTitleError($event, event)"
 					/>
 				</ion-row>
 				<ion-row>
@@ -94,7 +94,9 @@
 			<ion-button class="ion-float-right" (click)="addEvent()">
 				Add event
 			</ion-button>
-			<ion-button (click)="saveAndClose()"> Save </ion-button>
+			<ion-button [disabled]="emptyTitle" (click)="saveAndClose()">
+				Save
+			</ion-button>
 			<ion-button (click)="closeNoSaving()"> Cancel </ion-button>
 		</div>
 	</div>

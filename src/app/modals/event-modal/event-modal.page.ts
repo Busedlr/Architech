@@ -16,6 +16,7 @@ export class EventModal implements OnInit {
 	date: any;
 	timeline: string;
 	loading: boolean = false;
+	emptyTitle: boolean = false;
 	constructor(
 		public modalController: ModalController,
 		public projectData: ProjectData,
@@ -66,7 +67,7 @@ export class EventModal implements OnInit {
 
 	addEvent() {
 		for (const item of this.dayEvents) {
-			if (!item.title) {
+			if (!item.title && !item.delete) {
 				item.missingTitle = true;
 				this.focusNewInput(item.inputId, item.missingTitle);
 				return;
@@ -100,23 +101,41 @@ export class EventModal implements OnInit {
 		}, 200);
 
 		this.dayEvents.push(newEvent);
+
+		setTimeout(() => {
+			this.emptyTitle = true;
+		}, 200);
 	}
 
 	async saveAndClose() {
-		this.loading = true;
+		console.log('save and close');
+		/* this.loading = true;
 		for (const event of this.dayEvents) {
 			this.addMonthsSpan(event);
-			if (event.delete && event.id) {
-				await this.calendarData.deleteEvent(event);
-			} else if (!event.id) {
-				await this.calendarData.createEvent(event);
-			} else {
-				await this.calendarData.replaceEvent(event);
+			if (event.title) {
+				if (event.delete && event.id) {
+					await this.calendarData.deleteEvent(event);
+				} else if (!event.id) {
+					await this.calendarData.createEvent(event);
+				} else {
+					await this.calendarData.replaceEvent(event);
+				}
 			}
 		}
 		const monthlyEvents = await this.calendarData.getMonthlyEvents();
-		this.modalController.dismiss(monthlyEvents);
+		this.modalController.dismiss(monthlyEvents); */
 	}
+
+	checkTitle(event) {
+		if (event.id) {
+			if (!event.title.length) {
+				event.title = event.previousTitle;
+				event.missingTitle = false;
+				this.emptyTitle = false;
+			}
+		}
+	}
+
 	closeNoSaving() {
 		this.modalController.dismiss();
 	}
@@ -131,18 +150,16 @@ export class EventModal implements OnInit {
 	}
 
 	savePreviousTitle(event) {
-		event.previousTitle = event.title;
+		if (event.id) event.previousTitle = event.title;
 	}
 
-	isMssingTitle(event) {
-		event.missingTitle = false;
-	}
-
-	checkTitle(event) {
-		if (!event.title.length) {
-			event.title = event.previousTitle;
-			event.missingTitle = false;
+	resetTitleError(ev, event) {
+		if (ev.target.value === '') {
+			this.emptyTitle = true;
+		} else {
+			this.emptyTitle = false;
 		}
+		event.missingTitle = false;
 	}
 
 	allDayChanged(item) {
@@ -152,6 +169,11 @@ export class EventModal implements OnInit {
 
 	flagDeleteEvent(eventToDelete) {
 		eventToDelete.delete = true;
+		if (this.dayEvents.some(event => !event.delete && !event.title)) {
+			this.emptyTitle = true;
+		} else {
+			this.emptyTitle = false;
+		}
 	}
 
 	addMonthsSpan(event) {
