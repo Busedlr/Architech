@@ -26,6 +26,7 @@
 						[ngClass]="{'input-error': event.missingTitle}"
 						(focus)="savePreviousTitle(event)"
 						(focusout)="checkTitle(event)"
+						(input)="isMssingTitle(event)"
 					/>
 				</ion-row>
 				<ion-row>

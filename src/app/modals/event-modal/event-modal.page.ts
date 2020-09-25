@@ -102,16 +102,6 @@ export class EventModal implements OnInit {
 		this.dayEvents.push(newEvent);
 	}
 
-	savePreviousTitle(event) {
-		event.previousTitle = event.title;
-	}
-
-	checkTitle(event) {
-		if (!event.title.length) {
-			event.title = event.previousTitle;
-		}
-	}
-
 	async saveAndClose() {
 		this.loading = true;
 		for (const event of this.dayEvents) {
@@ -138,6 +128,21 @@ export class EventModal implements OnInit {
 		}
 
 		input.focus();
+	}
+
+	savePreviousTitle(event) {
+		event.previousTitle = event.title;
+	}
+
+	isMssingTitle(event) {
+		event.missingTitle = false;
+	}
+
+	checkTitle(event) {
+		if (!event.title.length) {
+			event.title = event.previousTitle;
+			event.missingTitle = false;
+		}
 	}
 
 	allDayChanged(item) {
