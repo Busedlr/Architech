@@ -13,6 +13,7 @@ import { CalendarData } from 'src/app/services/calendar-data';
 export class EventModal implements OnInit {
 	events: any;
 	dayEvents: any[] = [];
+	dayEventsCopy: any[] = [];
 	date: any;
 	timeline: string;
 	loading: boolean = false;
@@ -138,8 +139,10 @@ export class EventModal implements OnInit {
 		}
 	}
 
-	closeNoSaving() {
-		this.modalController.dismiss();
+	async closeNoSaving() {
+		//this.modalController.dismiss();
+		const monthlyEvents = await this.calendarData.getMonthlyEvents();
+		this.modalController.dismiss(monthlyEvents);
 	}
 
 	focusNewInput(inputId, missingTitle) {
