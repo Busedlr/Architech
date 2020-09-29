@@ -210,6 +210,7 @@ export class CalendarPage {
 				this.events = monthlyEvents;
 				this.viewDate = date;
 			}
+			this.calendarData.getCurrentMonthEvents();
 		});
 		return await modal.present();
 	}

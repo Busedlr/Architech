@@ -12,6 +12,8 @@ export class CalendarData {
 	constructor(public projectData: ProjectData) {}
 
 	async getCurrentMonthEvents() {
+		this.currentMonthEvents = [];
+		this.monthlyEvents = [];
 		const currentMonth = moment().month() + 1;
 		const currentDate = currentMonth.toString() + moment().year().toString();
 		this.currentMonthEvents = [];
