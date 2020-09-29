@@ -1,9 +1,14 @@
+.body {
+	background-color: var(–ion-color-primary);
+}
+
 .segments {
 	width: 100%;
 }
 
 .page-container {
 	padding: 5px 30px;
+	background-color: var(--ion-color-primary);
 }
 
 #add-image {
