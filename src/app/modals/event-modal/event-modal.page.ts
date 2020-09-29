@@ -15,6 +15,7 @@ export class EventModal implements OnInit {
 	dayEvents: any[] = [];
 	dayEventsCopy: any[] = [];
 	date: any;
+	displayDate: any;
 	timeline: string;
 	loading: boolean = false;
 	emptyTitle: boolean = false;
@@ -28,6 +29,9 @@ export class EventModal implements OnInit {
 		this.events.map(event => {
 			this.dayEvents.push(event);
 		});
+
+		moment.locale('fr');
+		this.displayDate = moment(this.date).format('dddd Do MMMM YYYY');
 	}
 
 	setStartTime(ev, item) {
