@@ -77,19 +77,40 @@
 
 	<div *ngIf="loading">ADD LOADING SPINNER HERE</div> -->
 
+	<div class="modal-content">
+		<div class="header">
+			<div class="capitalize center">{{ displayDate }}</div>
+		</div>
+		<div class="modal-body">
+			<div class="modal-list-item">
+				<ion-grid class="hundred-col-grid">
+					<ion-row class="row-centered">
+						<ion-col size="20">
+							Event title
+						</ion-col>
+						<ion-col size="72">
+							<input type="text" placeholder="Type title here" class="input-minimal">
+						</ion-col>
+						<ion-col size="8">
+							<ion-button fill="clear" class="btn-no-padding no-margin float-right">
+								<img src="../../assets/icon/trash-outline.svg" class="modal-icon" alt="trash icon" />
+							</ion-button>
 
-	<div class="header">
-		<div class="capitalize center">{{ displayDate }}</div>
-	</div>
-	<div class="footer">
-		<ion-button color="secondary" class="footer-button btn-left">
-			<img src="../../assets/icon/save-outline.svg" class="footer-icon center" alt="save icon" />
-		</ion-button>
-		<ion-button color="secondary" class="footer-button btn-middle">
-			<img src="../../assets/icon/add-outline.svg" class="footer-icon center" alt="add icon" />
-		</ion-button>
-		<ion-button color="secondary" class="footer-button btn-right">
-			<img src="../../assets/icon/close-outline.svg" class="footer-icon center" alt="cancel icon" />
-		</ion-button>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</div>
+		</div>
+		<div class="footer">
+			<ion-button color="secondary" class="footer-button btn-no-padding btn-left">
+				<img src="../../assets/icon/save-outline.svg" class="footer-icon modal-icon center" alt="save icon" />
+			</ion-button>
+			<ion-button color="secondary" class="footer-button btn-no-padding btn-middle">
+				<img src="../../assets/icon/add-outline.svg" class="footer-icon modal-icon center" alt="add icon" />
+			</ion-button>
+			<ion-button color="secondary" class="footer-button btn-no-padding btn-right">
+				<img src="../../assets/icon/close-outline.svg" class="footer-icon modal-icon center" alt="cancel icon" />
+			</ion-button>
+		</div>
 	</div>
 </ion-content>

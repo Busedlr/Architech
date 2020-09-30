@@ -58,8 +58,6 @@
 		--border-style: solid;
 		--border-color: #fff;
 		--border-width: 2px;
-		--padding-start: 0px;
-		--padding-end: 0px;
 		--box-shadow: none;
 		height: var(--square-btn-size);
 		width: var(--square-btn-size);
@@ -69,8 +67,6 @@
 		.footer-icon {
 			filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(291deg)
 				brightness(100%) contrast(104%);
-			height: var(--icon-size);
-			width: var(--icon-size);
 		}
 	}
 
@@ -98,7 +94,6 @@
 	z-index: 9;
 	background-color: var(--archi-primary);
 	width: 100%;
-	font-family: 'Poiret One', cursive;
 	font-size: 30px;
 	color: #fff;
 	font-weight: 1000;
@@ -116,9 +111,64 @@
 	transform: translate(-50%, -50%);
 }
 
-.modal-content {
+.modal-body {
 	padding-top: var(--header-size);
+	font-size: 25px;
+	font-weight: 1000;
 }
+
+.modal-content {
+	font-family: 'Poiret One', cursive;
+	.modal-icon {
+		height: var(--icon-size);
+		width: var(--icon-size);
+	}
+
+	.btn-no-padding {
+		--padding-start: 0px;
+		--padding-end: 0px;
+	}
+}
+
+.modal-list-item {
+	background-color: #f6f3f4;
+	border: 1px solid #9e9e9e;
+	border-radius: 1px;
+	width: calc(100% - (var(--side-spacing) * 2));
+	margin: var(--side-spacing) var(--side-spacing) 0 var(--side-spacing);
+	margin-left: var(--side-spacing);
+}
+
+/* ION-GRID */
+.hundred-col-grid {
+	--ion-grid-columns: 100;
+}
+.row-centered {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+/* GENERAL */
+.input-minimal {
+	background-color: transparent;
+	border: none;
+	width: 100%;
+	&:focus {
+		outline: none;
+	}
+}
+
+.no-margin {
+	margin: 0 0 0 0;
+}
+
+.float-right {
+	float: right;
+}
+
+/* WE DID ALL OF THE ABOVE TODAY */
 
 .large-modal .modal-wrapper {
 	width: 100%;
