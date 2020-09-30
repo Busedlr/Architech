@@ -18,7 +18,13 @@
 @import '../node_modules/angular-calendar/css/angular-calendar.css';
 
 :root {
-	--header-size: 40px;
+	--header-size: 60px;
+	--modal-border-radius: 4px;
+	--archi-primary: #cf9a62;
+	--archi-secondary: #1f3229;
+	--side-spacing: 8px;
+	--icon-size: 25px;
+	--square-btn-size: 40px;
 }
 
 .modal-container .modal-wrapper {
@@ -28,11 +34,73 @@
 	box-shadow: none;
 }
 
-.event-modal-container .modal-wrapper {
-	width: 600px;
-	height: 400px;
-	background-color: rgba(255, 255, 255, 0);
-	box-shadow: none;
+.event-modal-container {
+	.modal-wrapper {
+		width: 600px;
+		height: 400px;
+		background-color: rgba(255, 255, 255, 0);
+		box-shadow: none;
+		border-radius: var(--modal-border-radius);
+	}
+}
+
+.footer {
+	position: fixed;
+	bottom: 0px;
+	z-index: 9;
+	background-color: var(--archi-secondary);
+	width: 100%;
+	height: 30px;
+
+	.footer-button {
+		--border-style: solid;
+		--border-color: #fff;
+		--border-width: 2px;
+		--padding-start: 0px;
+		--padding-end: 0px;
+		--box-shadow: none;
+		height: var(--square-btn-size);
+		width: var(--square-btn-size);
+		position: absolute;
+		bottom: 5px;
+		left: var(--side-spacing);
+
+		.footer-icon {
+			filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(291deg)
+				brightness(100%) contrast(104%);
+			height: var(--icon-size);
+			width: var(--icon-size);
+		}
+	}
+}
+
+.header {
+	height: var(--header-size);
+	position: fixed;
+	top: 0px;
+	z-index: 9;
+	background-color: var(--archi-primary);
+	width: 100%;
+	font-family: 'Poiret One', cursive;
+	font-size: 30px;
+	color: #fff;
+	font-weight: 1000;
+}
+
+.capitalize {
+	text-transform: capitalize;
+}
+
+.center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.modal-content {
+	padding-top: var(--header-size);
 }
 
 .large-modal .modal-wrapper {
@@ -176,25 +244,4 @@ ion-popover {
 	-webkit-box-shadow: 0px 0px 10px 0px rgba(255, 0, 0, 1) !important;
 	-moz-box-shadow: 0px 0px 10px 0px rgba(255, 0, 0, 1) !important;
 	box-shadow: 0px 0px 10px 0px rgba(255, 0, 0, 1) !important;
-}
-
-.footer {
-	position: fixed;
-	bottom: 0px;
-	z-index: 9;
-	background-color: #fff;
-	width: 100%;
-}
-
-.header {
-	height: var(--header-size);
-	position: fixed;
-	top: 0px;
-	z-index: 9;
-	background-color: #fff;
-	width: 100%;
-}
-
-.modal-content {
-	padding-top: var(--header-size);
 }
