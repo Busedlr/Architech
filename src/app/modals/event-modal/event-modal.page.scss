@@ -53,4 +53,9 @@
 ion-toggle {
 	zoom: 0.8;
 	padding-top: 8px !important;
+	//--background: #000;
+	--background-checked: var(--archi-primary);
+
+	//--handle-background: #7a49a5;
+	--handle-background-checked: #fff;
 }
