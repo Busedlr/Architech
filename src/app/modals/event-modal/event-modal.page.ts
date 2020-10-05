@@ -112,9 +112,6 @@ export class EventModal implements OnInit {
 
 		this.dayEvents.push(newEvent);
 
-		console.log(newEvent.inputId);
-		console.log(typeof newEvent.inputId);
-
 		setTimeout(() => {
 			const element = document.getElementById(newEvent.inputId);
 			element.scrollIntoView({
@@ -122,7 +119,6 @@ export class EventModal implements OnInit {
 				block: 'center',
 				inline: 'center'
 			});
-
 			this.focusNewInput(newEvent.inputId, newEvent.missingTitle);
 		}, 200);
 
@@ -171,9 +167,10 @@ export class EventModal implements OnInit {
 		const input = document.getElementById(inputId) as HTMLInputElement;
 		if (missingTitle) {
 			input.placeholder = 'add a title to save your event!';
+			input.focus();
+		} else {
+			input.focus({ preventScroll: true });
 		}
-
-		input.focus();
 	}
 
 	savePreviousTitle(event) {
