@@ -113,7 +113,6 @@
 		</div>
 
 		<div class="modal-body">
-			<button (click)="scrollDown()">Click to scroll down</button>
 			<div *ngFor="let event of dayEvents, let i = index; last as isLast" id="day-selected" class="event-container">
 				<div *ngIf="!event.delete" class="modal-list-item" [ngClass]="{'last-item': isLast}">
 					<ion-grid class="hundred-col-grid">
