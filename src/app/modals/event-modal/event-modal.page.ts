@@ -1,4 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	Output,
+	EventEmitter,
+	ViewChild,
+	ElementRef
+} from '@angular/core';
 import * as moment from 'moment';
 import { CalendarEvent } from 'angular-calendar';
 import { ModalController } from '@ionic/angular';
