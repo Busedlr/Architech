@@ -1,17 +1,10 @@
-import {
-	Component,
-	OnInit,
-	Output,
-	EventEmitter,
-	ViewChild,
-	ElementRef
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { CalendarEvent } from 'angular-calendar';
 import { ModalController } from '@ionic/angular';
 import { ProjectData } from 'src/app/services/project-data';
 import { CalendarData } from 'src/app/services/calendar-data';
-
+import frLocale from 'date-fns/locale/fr';
 @Component({
 	selector: 'event-modal',
 	templateUrl: './event-modal.page.html',
@@ -26,6 +19,7 @@ export class EventModal implements OnInit {
 	timeline: string;
 	loading: boolean = false;
 	emptyTitle: boolean = false;
+	pickerOptions: any;
 	constructor(
 		public modalController: ModalController,
 		public projectData: ProjectData,
@@ -33,12 +27,20 @@ export class EventModal implements OnInit {
 	) {}
 
 	ngOnInit() {
+		this.pickerOptions = {
+			displayFormat: 'DD[.]MM[.]YYYY',
+			locale: frLocale,
+			useEmptyBarTitle: false
+		};
+
 		this.events.map(event => {
 			this.dayEvents.push(event);
 		});
 
 		moment.locale('fr');
 		this.displayDate = moment(this.date).format('dddd Do MMMM YYYY');
+
+		console.log(this.events);
 	}
 
 	setStartTime(ev, item) {
@@ -108,11 +110,21 @@ export class EventModal implements OnInit {
 
 		newEvent.inputId = newEvent.timeId.toString() + 'i';
 
+		this.dayEvents.push(newEvent);
+
+		console.log(newEvent.inputId);
+		console.log(typeof newEvent.inputId);
+
 		setTimeout(() => {
+			const element = document.getElementById(newEvent.inputId);
+			element.scrollIntoView({
+				behavior: 'smooth',
+				block: 'center',
+				inline: 'center'
+			});
+
 			this.focusNewInput(newEvent.inputId, newEvent.missingTitle);
 		}, 200);
-
-		this.dayEvents.push(newEvent);
 
 		setTimeout(() => {
 			this.emptyTitle = true;
@@ -151,7 +163,6 @@ export class EventModal implements OnInit {
 	}
 
 	async closeNoSaving() {
-		//this.modalController.dismiss();
 		const monthlyEvents = await this.calendarData.getMonthlyEvents();
 		this.modalController.dismiss(monthlyEvents);
 	}

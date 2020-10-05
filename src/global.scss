@@ -38,11 +38,22 @@
 
 .event-modal-container {
 	.modal-wrapper {
+		&::-webkit-scrollbar,
+		*::-webkit-scrollbar {
+			display: none !important;
+			width: 0 !important;
+			height: 0 !important;
+		}
+
+		scrollbar-width: none !important;
+
+		-ms-overflow-style: none !important;
+
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: var(--modal-width);
-		height: 427px;
+		height: 449px;
 		background-color: rgba(255, 255, 255, 0);
 		box-shadow: none;
 		border-radius: var(--modal-border-radius);
@@ -122,6 +133,7 @@
 
 .modal-content {
 	font-family: 'Poiret One', cursive;
+	min-height: 420px;
 	.modal-icon {
 		height: var(--icon-size);
 		width: var(--icon-size);
@@ -138,7 +150,7 @@
 	border: 1px solid #9e9e9e;
 	border-radius: 1px;
 	width: calc(100% - (var(--side-spacing) * 2));
-	margin: var(--side-spacing) var(--side-spacing) 0 var(--side-spacing);
+	margin: 18px var(--side-spacing) 0 var(--side-spacing);
 	margin-left: var(--side-spacing);
 	padding-bottom: 5px;
 
@@ -157,10 +169,6 @@
 		&:hover {
 			cursor: pointer;
 		}
-	}
-
-	&:first-child {
-		margin-top: 18px;
 	}
 }
 
@@ -278,13 +286,6 @@
 	}
 }
 
-.ngx-datepicker-container {
-	z-index: inherit !important;
-}
-.ngx-datepicker-calendar-container {
-	z-index: 1;
-}
-
 .cal-month-view .cal-event {
 	width: 100%;
 	height: 7px;
@@ -299,18 +300,6 @@
 	border-radius: 50%;
 	display: inline-block;
 	margin: 2px;
-}
-
-.ngx-datepicker-container {
-	input {
-		box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-		width: 100% !important;
-		height: 35px;
-		padding: 0;
-		border-radius: 3px;
-		margin: 5px;
-		background-color: rgba(255, 255, 255, 0.8);
-	}
 }
 
 .action-icon {
@@ -341,4 +330,24 @@ ion-popover {
 	-webkit-box-shadow: 0px 0px 10px 0px rgba(255, 0, 0, 1) !important;
 	-moz-box-shadow: 0px 0px 10px 0px rgba(255, 0, 0, 1) !important;
 	box-shadow: 0px 0px 10px 0px rgba(255, 0, 0, 1) !important;
+}
+
+// COPIED NG-DATEPICKER CSS
+.ngx-datepicker-input {
+	border: none !important;
+	font-size: 25px !important;
+	padding: 0 !important;
+}
+
+.ngx-datepicker-container input {
+	background-color: transparent;
+	box-shadow: none;
+	margin: 0;
+}
+
+.ngx-datepicker-calendar-container {
+	z-index: 5;
+	position: fixed !important;
+	left: 158px !important;
+	top: 70px !important;
 }

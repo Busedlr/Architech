@@ -107,36 +107,27 @@
 	<div *ngIf="loading">ADD LOADING SPINNER HERE</div> -->
 
 	<div class="modal-content">
+
 		<div class="header">
 			<div class="capitalize center">{{ displayDate }}</div>
 		</div>
+
 		<div class="modal-body">
-			<div *ngFor="let event of dayEvents, let i = index" id="day-selected">
-				<div *ngIf="!event.delete" class="modal-list-item">
+			<button (click)="scrollDown()">Click to scroll down</button>
+			<div *ngFor="let event of dayEvents, let i = index; last as isLast" id="day-selected" class="event-container">
+				<div *ngIf="!event.delete" class="modal-list-item" [ngClass]="{'last-item': isLast}">
 					<ion-grid class="hundred-col-grid">
 						<ion-row class="row-centered">
 							<ion-col size="22"> Evènement </ion-col>
 							<ion-col size="70">
-								<input
-									type="text"
-									placeholder="Nom de l'événement"
-									class="input-minimal"
-									[id]="event.inputId"
-									[(ngModel)]="event.title"
-									[ngClass]="{'input-error': event.missingTitle}"
-									(focus)="savePreviousTitle(event)"
-									(focusout)="checkTitle(event)"
-									(input)="resetTitleError($event, event)"
-								/>
+								<input [id]="event.inputId" type="text" placeholder="Nom de l'événement" class="input-minimal"
+									[(ngModel)]="event.title" [ngClass]="{'input-error': event.missingTitle}"
+									(focus)="savePreviousTitle(event)" (focusout)="checkTitle(event)"
+									(input)="resetTitleError($event, event)" />
 							</ion-col>
 							<ion-col size="8">
-								<img
-									src="../../assets/icon/trash-outline.svg"
-									class="modal-icon float-right"
-									alt="trash icon"
-									(click)="flagDeleteEvent(event)"
-									id="delete-icon"
-								/>
+								<img src="../../assets/icon/trash-outline.svg" class="modal-icon float-right" alt="trash icon"
+									(click)="flagDeleteEvent(event)" id="delete-icon" />
 							</ion-col>
 						</ion-row>
 						<ion-row class="border-bottom center-horizontal"> </ion-row>
@@ -144,23 +135,19 @@
 							<ion-col size="85">
 								<ion-row class="detail-row">
 									<ion-col size="33"> Début </ion-col>
-									<ion-col size="31">
-										<ng-datepicker [(ngModel)]="event.start"></ng-datepicker>
+									<ion-col size="32">
+										<ng-datepicker [options]="pickerOptions" [(ngModel)]="event.start"></ng-datepicker>
 									</ion-col>
-									<ion-col size="36">
+									<ion-col size="35">
 										<div class="center-horizontal">
-											<img
-												src="../../assets/icon/clock-outline.svg"
-												class="modal-icon"
-												alt="clock icon"
-											/>
+											<img src="../../assets/icon/clock-outline.svg" class="modal-icon" alt="clock icon" />
 										</div>
 									</ion-col>
 								</ion-row>
 								<ion-row class="detail-row">
 									<ion-col size="33"> Fin </ion-col>
-									<ion-col size="31"> 20.12.2020 </ion-col>
-									<ion-col size="36">
+									<ion-col size="32"> 20.12.2020 </ion-col>
+									<ion-col size="35">
 										<div class="center-horizontal">
 											<!-- <img src="../../assets/icon/clock-outline.svg" class="modal-icon" alt="clock icon"> -->
 											18:00
@@ -238,39 +225,15 @@
 			</div> -->
 		</div>
 		<div class="footer">
-			<ion-button
-				[disabled]="emptyTitle"
-				(click)="saveAndClose()"
-				color="secondary"
-				class="footer-button btn-no-padding btn-left"
-			>
-				<img
-					src="../../assets/icon/save-outline.svg"
-					class="footer-icon modal-icon center"
-					alt="save icon"
-				/>
+			<ion-button [disabled]="emptyTitle" (click)="saveAndClose()" color="secondary"
+				class="footer-button btn-no-padding btn-left">
+				<img src="../../assets/icon/save-outline.svg" class="footer-icon modal-icon center" alt="save icon" />
 			</ion-button>
-			<ion-button
-				(click)="addEvent()"
-				color="secondary"
-				class="footer-button btn-no-padding btn-middle"
-			>
-				<img
-					src="../../assets/icon/add-outline.svg"
-					class="footer-icon modal-icon center"
-					alt="add icon"
-				/>
+			<ion-button (click)="addEvent()" color="secondary" class="footer-button btn-no-padding btn-middle">
+				<img src="../../assets/icon/add-outline.svg" class="footer-icon modal-icon center" alt="add icon" />
 			</ion-button>
-			<ion-button
-				(click)="closeNoSaving()"
-				color="secondary"
-				class="footer-button btn-no-padding btn-right"
-			>
-				<img
-					src="../../assets/icon/close-outline.svg"
-					class="footer-icon modal-icon center"
-					alt="cancel icon"
-				/>
+			<ion-button (click)="closeNoSaving()" color="secondary" class="footer-button btn-no-padding btn-right">
+				<img src="../../assets/icon/close-outline.svg" class="footer-icon modal-icon center" alt="cancel icon" />
 			</ion-button>
 		</div>
 	</div>
