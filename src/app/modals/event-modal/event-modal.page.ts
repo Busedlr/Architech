@@ -112,18 +112,28 @@ export class EventModal implements OnInit {
 
 		this.dayEvents.push(newEvent);
 
+		if (this.dayEvents.length > 2) {
+			this.scrollAndFocusNewEvent(newEvent.inputId, newEvent.missingTitle);
+		} else {
+			setTimeout(() => {
+				this.focusNewInput(newEvent.inputId, newEvent.missingTitle);
+			}, 200);
+		}
+
 		setTimeout(() => {
-			const element = document.getElementById(newEvent.inputId);
+			this.emptyTitle = true;
+		}, 200);
+	}
+
+	scrollAndFocusNewEvent(inputId, missingTitle) {
+		setTimeout(() => {
+			const element = document.getElementById(inputId);
 			element.scrollIntoView({
 				behavior: 'smooth',
 				block: 'center',
 				inline: 'center'
 			});
-			this.focusNewInput(newEvent.inputId, newEvent.missingTitle);
-		}, 200);
-
-		setTimeout(() => {
-			this.emptyTitle = true;
+			this.focusNewInput(inputId, missingTitle);
 		}, 200);
 	}
 
