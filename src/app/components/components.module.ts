@@ -10,10 +10,11 @@ import { Companies } from './companies/companies';
 import { UpcomingEvents } from './upcoming-events/upcoming-events';
 import { ToDoList } from './todo-list/todo-list';
 import { PipesModule } from '../pipes/pipes.module';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
-	imports: [CommonModule, FormsModule, IonicModule, RouterModule, PipesModule],
-	declarations: [Info, Images, Documents, Companies, ToDoList, UpcomingEvents],
-	exports: [Info, Images, Documents, Companies, ToDoList, UpcomingEvents]
+  imports: [CommonModule, FormsModule, IonicModule, RouterModule, PipesModule],
+  declarations: [Info, Images, Documents, Companies, ToDoList, UpcomingEvents, NavbarComponent],
+  exports: [Info, Images, Documents, Companies, ToDoList, UpcomingEvents, NavbarComponent]
 })
 export class ComponentsModule {}

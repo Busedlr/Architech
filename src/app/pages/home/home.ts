@@ -1,32 +1,34 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProjectData } from 'src/app/services/project-data';
+import { BouquetsService, Bouquet } from 'src/app/services/bouquets.service';
 
 @Component({
-	selector: 'home',
-	templateUrl: 'home.html',
-	styleUrls: ['home.scss']
+  selector: 'home',
+  templateUrl: 'home.html',
+  styleUrls: ['home.scss']
 })
-export class Home {
-	db: any;
-	projectsRef: any;
-	loading: boolean;
-	projects = [];
+export class Home implements OnInit {
+  featuredBouquets: Bouquet[] = [];
+  email = '';
+  subscribed = false;
 
-	constructor(public router: Router, public projectData: ProjectData) {
-		this.getProjects();
-	}
+  constructor(private bouquetsService: BouquetsService, private router: Router) {}
 
-	getProjects() {
-		this.loading = true;
-		this.projectData.setProjects().then(() => {
-			this.loading = false;
-		});
-	}
+  ngOnInit() {
+    this.featuredBouquets = this.bouquetsService.getFeatured();
+  }
 
-	goToDetail(project) {
-		this.projectData.currentProject = project;
-		this.router.navigate(['/project/' + this.projectData.currentProject.id]);
-	}
+  goToShop() {
+    this.router.navigate(['/shop']);
+  }
+
+  goToBouquet(id: number) {
+    this.router.navigate(['/bouquet', id]);
+  }
+
+  subscribe() {
+    if (this.email.trim()) {
+      this.subscribed = true;
+    }
+  }
 }

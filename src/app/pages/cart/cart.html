@@ -1,0 +1,64 @@
+<ion-content [fullscreen]="true">
+  <div class="cart-page">
+
+    <header class="cart-header">
+      <p class="page-label">Fleur de Noces</p>
+      <h1 class="page-title">Your Bag</h1>
+    </header>
+
+    <!-- Empty state -->
+    <div class="cart-empty" *ngIf="items.length === 0">
+      <p class="empty-icon">✿</p>
+      <p class="empty-msg">Your bag is empty.</p>
+      <p class="empty-sub">Discover something beautiful.</p>
+      <button class="btn-outline" (click)="goToShop()">Browse Collection</button>
+    </div>
+
+    <!-- Cart items + summary -->
+    <div class="cart-content" *ngIf="items.length > 0">
+      <div class="cart-items">
+        <div class="cart-item" *ngFor="let item of items">
+          <div class="item-visual" [style.background]="item.bouquet.gradient">
+            <span [style.color]="item.bouquet.textColor">✿</span>
+          </div>
+          <div class="item-info">
+            <h3 class="item-name">{{ item.bouquet.name }}</h3>
+            <p class="item-sub">{{ item.bouquet.subtitle }}</p>
+            <p class="item-price">${{ item.bouquet.price }}</p>
+          </div>
+          <div class="item-controls">
+            <div class="qty-control">
+              <button (click)="updateQty(item.bouquet.id, item.quantity - 1)">−</button>
+              <span>{{ item.quantity }}</span>
+              <button (click)="updateQty(item.bouquet.id, item.quantity + 1)">+</button>
+            </div>
+            <button class="remove-btn" (click)="remove(item.bouquet.id)">Remove</button>
+          </div>
+          <p class="item-subtotal">${{ item.bouquet.price * item.quantity }}</p>
+        </div>
+      </div>
+
+      <aside class="cart-summary">
+        <h2 class="summary-title">Order Summary</h2>
+
+        <div class="summary-row" *ngFor="let item of items">
+          <span>{{ item.bouquet.name }} × {{ item.quantity }}</span>
+          <span>${{ item.bouquet.price * item.quantity }}</span>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-total">
+          <span>Total</span>
+          <span>${{ total }}</span>
+        </div>
+
+        <p class="summary-note">Final pricing confirmed at consultation. Seasonal adjustments may apply.</p>
+
+        <button class="btn-checkout" (click)="checkout()">Request to Order</button>
+        <button class="btn-continue" (click)="goToShop()">Continue Shopping</button>
+      </aside>
+    </div>
+
+  </div>
+</ion-content>

@@ -1,0 +1,156 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(248, 245, 240, 0.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(196, 168, 130, 0.12);
+  transition: background 0.4s ease, border-color 0.4s ease;
+
+  &.nav-home {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  .nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 56px;
+    transition: padding 0.3s ease;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #2C2A27;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.3s;
+
+    .nav-home & { color: #F8F5F0; }
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 52px;
+
+    a {
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(44, 42, 39, 0.6);
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.3s;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: currentColor;
+        transition: width 0.3s ease;
+      }
+
+      &:hover {
+        color: #2C2A27;
+        &::after { width: 100%; }
+      }
+
+      .nav-home & {
+        color: rgba(248, 245, 240, 0.7);
+        &:hover { color: #F8F5F0; }
+      }
+    }
+  }
+
+  .nav-cart {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cart-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 9px;
+    background: #C4A882;
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+
+    span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: #2C2A27;
+      transition: transform 0.3s, opacity 0.3s;
+
+      .nav-home & { background: #F8F5F0; }
+    }
+
+    &.open span:first-child { transform: translateY(7px) rotate(45deg); }
+    &.open span:last-child { transform: translateY(-7px) rotate(-45deg); }
+  }
+
+  @media (max-width: 768px) {
+    .nav-inner { padding: 18px 24px; }
+
+    .nav-links {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(248, 245, 240, 0.98);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 44px;
+      z-index: 999;
+
+      &.open { display: flex; }
+
+      a {
+        font-size: 13px;
+        color: rgba(44, 42, 39, 0.65) !important;
+        &:hover { color: #2C2A27 !important; }
+      }
+    }
+
+    .menu-toggle {
+      display: flex;
+      position: relative;
+      z-index: 1001;
+    }
+  }
+}

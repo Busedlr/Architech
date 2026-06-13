@@ -1,0 +1,19 @@
+<nav class="navbar" [class.nav-home]="isHomePage">
+  <div class="nav-inner">
+    <a class="nav-logo" (click)="navigate('/home')">Fleur de Noces</a>
+
+    <div class="nav-links" [class.open]="menuOpen">
+      <a (click)="navigate('/shop')">Collection</a>
+      <a (click)="navigate('/home')">Our Story</a>
+      <a (click)="navigate('/cart')" class="nav-cart">
+        Bag
+        <span class="cart-badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </a>
+    </div>
+
+    <button class="menu-toggle" (click)="menuOpen = !menuOpen" [class.open]="menuOpen">
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>

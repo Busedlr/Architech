@@ -1,0 +1,66 @@
+<ion-content [fullscreen]="true">
+  <div class="bouquet-page" *ngIf="bouquet">
+
+    <div class="product-layout">
+      <!-- Left: Visual -->
+      <div class="product-visual">
+        <div class="product-hero-img" [style.background]="bouquet.gradient">
+          <div class="hero-bloom" [style.color]="bouquet.textColor">✿</div>
+        </div>
+        <div class="product-detail-meta">
+          <span class="detail-cat">{{ bouquet.category }}</span>
+          <span class="detail-id">No. 0{{ bouquet.id }}</span>
+        </div>
+      </div>
+
+      <!-- Right: Info -->
+      <div class="product-info">
+        <button class="back-btn" (click)="goToShop()">← Collection</button>
+
+        <div class="info-body">
+          <h1 class="info-name">{{ bouquet.name }}</h1>
+          <p class="info-subtitle">{{ bouquet.subtitle }}</p>
+          <p class="info-price">from ${{ bouquet.price }}</p>
+
+          <p class="info-desc">{{ bouquet.description }}</p>
+
+          <div class="info-details">
+            <p class="details-label">What's inside</p>
+            <ul class="details-list">
+              <li *ngFor="let d of bouquet.details">{{ d }}</li>
+            </ul>
+          </div>
+
+          <div class="info-actions">
+            <button
+              class="btn-add"
+              (click)="addToCart()"
+              [class.added]="added"
+            >
+              <span *ngIf="!added">Reserve This Bouquet</span>
+              <span *ngIf="added">Added to Bag ✓</span>
+            </button>
+            <button class="btn-bag" (click)="goToCart()" *ngIf="added">View Bag →</button>
+          </div>
+
+          <p class="info-note">Every bouquet is handmade to order. Delivery and pickup available for weddings across the region.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related -->
+    <section class="related">
+      <p class="section-label">You might also love</p>
+      <div class="related-grid">
+        <div class="related-card" *ngFor="let r of related" (click)="goToBouquet(r.id)">
+          <div class="related-img" [style.background]="r.gradient">
+            <div class="related-bloom" [style.color]="r.textColor">✿</div>
+          </div>
+          <p class="related-name">{{ r.name }}</p>
+          <p class="related-price">from ${{ r.price }}</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</ion-content>

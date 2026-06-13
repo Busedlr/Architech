@@ -1,26 +1,131 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
 
-<ion-content>
-  <div *ngIf="!loading; else isLoading">
-    <ion-card (click)="goToDetail(project)" *ngFor="let project of projectData.projects">
-      <!-- <img src="{{ project.thumbnail }}" alt="project image" /> -->
-      <div>{{ project.info.project_name }}</div>
-      <div>{{ project.info.first_name }} {{ project.info.last_name }}</div>
-      <div>{{ project.info.project_address }}</div>
-    </ion-card>
-    <ion-button [routerLink]="'/create-project'" routerDirection="forward">create a new project</ion-button>
-  </div>
+  <!-- ─── HERO ─────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
 
-  <ng-template #isLoading>
-    <div>
-      LOADING ...
+    <div class="hero-text">
+      <p class="hero-eyebrow">Bespoke Bridal Florals</p>
+      <h1 class="hero-title">Every petal,<br><em>a promise.</em></h1>
+      <button class="hero-cta" (click)="goToShop()">Explore Collection</button>
     </div>
-  </ng-template>
+
+    <!-- The notepad -->
+    <div class="notepad" aria-hidden="true">
+      <div class="notepad-top">
+        <span class="hole"></span>
+        <span class="hole"></span>
+        <span class="hole"></span>
+      </div>
+      <div class="notepad-body">
+        <div class="margin-line"></div>
+        <div class="note-content">
+          <p>for the bride</p>
+          <p>who has always known—</p>
+          <p>it's the small things</p>
+          <p>that make forever.</p>
+          <p class="note-sign">— F. de N.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ─── INTRO ─────────────────────────────────────────── -->
+  <section class="intro">
+    <div class="intro-inner">
+      <p class="intro-label">est. Paris, 2018</p>
+      <h2 class="intro-heading">We don't make bouquets.<br>We make heirlooms.</h2>
+      <p class="intro-body">Each arrangement is designed for one bride, on one day. Grown in small batches, gathered by hand, and composed with the same care you've put into every other detail of your wedding.</p>
+    </div>
+  </section>
+
+  <!-- ─── FEATURED COLLECTION ───────────────────────────── -->
+  <section class="featured">
+    <div class="section-header">
+      <p class="section-label">The Collection</p>
+      <h2 class="section-title">Featured Bouquets</h2>
+    </div>
+
+    <div class="featured-grid">
+      <div
+        class="bouquet-card"
+        *ngFor="let b of featuredBouquets; let i = index"
+        [class.card-tall]="i % 3 === 1"
+        (click)="goToBouquet(b.id)"
+      >
+        <div class="card-image" [style.background]="b.gradient">
+          <div class="card-bloom" [style.color]="b.textColor">✿</div>
+        </div>
+        <div class="card-info">
+          <p class="card-category">{{ b.category }}</p>
+          <h3 class="card-name">{{ b.name }}</h3>
+          <p class="card-subtitle">{{ b.subtitle }}</p>
+          <span class="card-price">from ${{ b.price }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="featured-footer">
+      <button class="btn-outline" (click)="goToShop()">View Full Collection</button>
+    </div>
+  </section>
+
+  <!-- ─── PHILOSOPHY ────────────────────────────────────── -->
+  <section class="philosophy">
+    <div class="philosophy-inner">
+      <div class="philosophy-visual">
+        <div class="phil-img phil-img-1"></div>
+        <div class="phil-img phil-img-2"></div>
+      </div>
+      <div class="philosophy-text">
+        <p class="section-label">Our philosophy</p>
+        <h2>Grown slow.<br>Chosen with care.</h2>
+        <p>We source only what is seasonal, local, and grown without compromise. Nothing is imported purely for convenience. Every stem arrives the morning of your wedding — never a day before.</p>
+        <p>This is slow floristry. And it shows.</p>
+        <button class="btn-text" (click)="goToShop()">See how we work →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── NEWSLETTER ────────────────────────────────────── -->
+  <section class="newsletter">
+    <div class="newsletter-inner">
+      <p class="section-label">Stay close</p>
+      <h2>Seasonal notes &amp; new arrangements,<br>delivered quietly.</h2>
+      <div class="newsletter-form" *ngIf="!subscribed">
+        <input
+          type="email"
+          placeholder="your@email.com"
+          [(ngModel)]="email"
+          (keyup.enter)="subscribe()"
+        />
+        <button (click)="subscribe()">Subscribe</button>
+      </div>
+      <p class="subscribed-msg" *ngIf="subscribed">Thank you — we'll be in touch with care.</p>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <p class="footer-logo">Fleur de Noces</p>
+        <p class="footer-tagline">Bespoke bridal florals, by appointment.</p>
+      </div>
+      <div class="footer-links">
+        <a (click)="goToShop()">Collection</a>
+        <a>Appointments</a>
+        <a>Press</a>
+        <a>Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 Fleur de Noces. All rights reserved.</p>
+    </div>
+  </footer>
 
 </ion-content>

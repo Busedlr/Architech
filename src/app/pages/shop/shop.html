@@ -1,0 +1,44 @@
+<ion-content [fullscreen]="true">
+  <div class="shop-page">
+
+    <header class="shop-header">
+      <p class="page-label">Fleur de Noces</p>
+      <h1 class="page-title">The Collection</h1>
+      <p class="page-subtitle">Each bouquet is handcrafted to order. Seasonal, unhurried, and entirely yours.</p>
+
+      <nav class="filter-nav">
+        <button
+          *ngFor="let f of filters"
+          [class.active]="activeFilter === f.key"
+          (click)="setFilter(f.key)"
+        >{{ f.label }}</button>
+      </nav>
+    </header>
+
+    <div class="product-grid">
+      <article
+        class="product-card"
+        *ngFor="let b of bouquets; let i = index"
+        [class.card-wide]="i % 5 === 0"
+        (click)="goToBouquet(b.id)"
+      >
+        <div class="product-image" [style.background]="b.gradient">
+          <div class="product-bloom" [style.color]="b.textColor">✿</div>
+          <div class="product-hover-label">View Bouquet</div>
+        </div>
+        <div class="product-meta">
+          <span class="product-cat">{{ b.category }}</span>
+          <h2 class="product-name">{{ b.name }}</h2>
+          <p class="product-sub">{{ b.subtitle }}</p>
+          <p class="product-price">from ${{ b.price }}</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="shop-footer-note">
+      <p>All bouquets are made to order · Available for weddings in 2026 &amp; 2027<br>
+      Book a consultation to begin — <a>hello@fleurdenoces.com</a></p>
+    </div>
+
+  </div>
+</ion-content>
