@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dilara — UX Designer & AI Product Builder</title>
-  <meta name="description" content="UX designer who builds products with AI. Design thinking meets builder mentality." />
+  <title>Buse Kılınç — UX Designer & AI Product Builder</title>
+  <meta name="description" content="UX designer who builds products with AI. Not your average portfolio." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@500;700&family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -15,7 +15,7 @@
   <!-- NAV -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">D<span>.</span></a>
+      <a href="#" class="nav-logo">BK<span>.</span></a>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#work">Work</a></li>
@@ -37,25 +37,44 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <div class="hero-bg">
-      <div class="blob blob-1"></div>
-      <div class="blob blob-2"></div>
-      <div class="blob blob-3"></div>
-    </div>
-    <div class="hero-content">
-      <span class="hero-eyebrow">UX Designer → AI Product Builder</span>
-      <h1 class="hero-title">
-        I design things.<br />
-        <span class="gradient-text">Then I build them<br />with AI.</span>
-      </h1>
-      <p class="hero-sub">
-        I'm Dilara — a UX designer who got tired of handing off designs and never seeing them ship. Now I build the products myself, powered by AI.
-      </p>
-      <div class="hero-ctas">
-        <a href="#work" class="btn btn-primary">See my work</a>
-        <a href="#contact" class="btn btn-ghost">Get in touch ↗</a>
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+
+    <div class="hero-inner">
+
+      <!-- LEFT: name stack -->
+      <div class="hero-left">
+        <span class="hero-handwritten">hi, I'm</span>
+
+        <div class="hero-name-block">
+          <h1 class="hero-name-first">BUSE</h1>
+          <div class="hero-name-second-row">
+            <h1 class="hero-name-last gradient-text">KILINÇ</h1>
+            <span class="hero-badge">available ✦</span>
+          </div>
+        </div>
+
+        <p class="hero-role">UX designer. AI builder.<br /><em>The kind that ships.</em></p>
+
+        <div class="hero-ctas">
+          <a href="#work" class="btn btn-primary">See my work</a>
+          <a href="#contact" class="btn btn-ghost">Get in touch ↗</a>
+        </div>
       </div>
+
+      <!-- RIGHT: photo -->
+      <div class="hero-right">
+        <div class="hero-photo-frame">
+          <div class="hero-photo-placeholder">
+            <span class="hero-photo-hint">your photo<br />goes here</span>
+          </div>
+          <span class="hero-photo-caption handwritten">Buse, making things happen</span>
+        </div>
+        <span class="hero-accent-tag handwritten">ux × ai × product</span>
+      </div>
+
     </div>
+
     <div class="hero-scroll-hint">scroll ↓</div>
   </section>
 
@@ -63,7 +82,7 @@
   <section class="section what-i-do" id="about">
     <div class="container">
       <div class="section-label">What I do</div>
-      <h2 class="section-title">Design thinking meets<br /><span class="gradient-text">builder mentality.</span></h2>
+      <h2 class="section-title">Not just wireframes.<br /><span class="gradient-text">Actual products.</span></h2>
       <div class="cards-grid">
         <div class="card card-1 fade-in">
           <div class="card-icon">✦</div>
@@ -76,7 +95,7 @@
         <div class="card card-2 fade-in">
           <div class="card-icon">⚡</div>
           <h3>AI Product Building</h3>
-          <p>From idea to working product in days, not months. I use AI as a co-builder — writing code, generating content, and shipping things that were impossible solo before.</p>
+          <p>From idea to working product in days, not months. I use AI as a co-builder — writing code, generating content, shipping things that were impossible solo before.</p>
           <div class="card-tags">
             <span>Claude</span><span>Cursor</span><span>v0</span><span>Framer</span>
           </div>
@@ -84,7 +103,7 @@
         <div class="card card-3 fade-in">
           <div class="card-icon">◎</div>
           <h3>Product Strategy</h3>
-          <p>I connect user needs to business goals. I ask the uncomfortable questions early so we build the right thing — not just the thing someone asked for.</p>
+          <p>I ask the uncomfortable questions early so we build the right thing — not just the thing someone requested in a meeting nobody needed.</p>
           <div class="card-tags">
             <span>Discovery</span><span>Roadmapping</span><span>Validation</span>
           </div>
@@ -100,16 +119,16 @@
       <h2 class="section-title">Things I've built<br /><span class="gradient-text">& designed.</span></h2>
       <div class="projects-grid">
         <div class="project-card project-card-featured fade-in">
-          <div class="project-card-bg bg-purple"></div>
+          <div class="project-card-bg bg-cherry"></div>
           <div class="project-card-content">
             <span class="project-tag">Ionic · Angular · Firebase</span>
             <h3>ArchiTech</h3>
-            <p>A full-stack project management app for architects — calendar, clients, documents, and to-do lists in one place. Built with Ionic/Angular and a Firebase backend.</p>
+            <p>A full-stack project management app for architects — calendar, clients, documents, and to-do lists in one place.</p>
             <a href="#" class="project-link">View project →</a>
           </div>
         </div>
         <div class="project-card fade-in">
-          <div class="project-card-bg bg-coral"></div>
+          <div class="project-card-bg bg-golden"></div>
           <div class="project-card-content">
             <span class="project-tag">AI · Product · Design</span>
             <h3>Coming soon</h3>
@@ -118,11 +137,11 @@
           </div>
         </div>
         <div class="project-card fade-in">
-          <div class="project-card-bg bg-cyan"></div>
+          <div class="project-card-bg bg-sajari"></div>
           <div class="project-card-content">
             <span class="project-tag">UX Research · Design</span>
             <h3>Case study</h3>
-            <p>A deep dive into a product design challenge — research, iterations, and outcomes that moved the needle.</p>
+            <p>A design challenge from scratch — research, iterations, outcomes.</p>
             <span class="project-wip">Adding soon ✦</span>
           </div>
         </div>
@@ -190,7 +209,7 @@
     <div class="container">
       <div class="contact-inner">
         <div class="contact-blob"></div>
-        <span class="section-label">Get in touch</span>
+        <span class="contact-handwritten handwritten">don't be shy —</span>
         <h2 class="section-title">Got a wild idea?<br /><span class="gradient-text">Let's build it.</span></h2>
         <p class="contact-sub">Whether you need a design partner, a product co-builder, or just want to talk about what AI can do for your product — I'm in.</p>
         <a href="mailto:b.dilara@live.com" class="btn btn-primary btn-large">Say hello ✉</a>
@@ -202,8 +221,8 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-inner">
-        <a href="#" class="nav-logo">D<span>.</span></a>
-        <p>Designed & built by Dilara — with AI as co-pilot.</p>
+        <a href="#" class="nav-logo">BK<span>.</span></a>
+        <p>Designed by Buse — built with AI.</p>
         <div class="footer-links">
           <a href="#">LinkedIn</a>
           <a href="#">GitHub</a>
