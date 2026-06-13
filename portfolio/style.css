@@ -6,21 +6,21 @@
 }
 
 :root {
-  --bg: #252623;
-  --bg-card: #2e2c29;
-  --bg-card-hover: #383531;
-  --cherry: #500e2a;
-  --cherry-light: #7a1a40;
-  --bubblegum: #e6bac7;
-  --golden: #a87101;
-  --sajari: #675d2c;
-  --oatmilk: #eee3db;
-  --text: #eee3db;
-  --text-muted: #8a7d72;
-  --text-secondary: #b5a99e;
-  --border: rgba(238, 227, 219, 0.1);
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  /* color/neutral/charcoal */   --bg:            #252623;
+  /* color/neutral/card */       --bg-card:       #2e2c29;
+  /* color/neutral/card-hover */  --bg-card-hover: #383531;
+  /* color/brand/cherry */        --cherry:        #500e2a;
+  /* color/brand/cherry-light */  --cherry-light:  #7a1a40;
+  /* color/brand/bubblegum */     --bubblegum:     #e6bac7;
+  /* color/brand/golden */        --golden:        #a87101;
+  /* color/brand/sajari */        --sajari:        #675d2c;
+  /* color/neutral/oatmilk */     --oatmilk:       #eee3db;
+  /* color/text/primary */        --text:          #eee3db;
+  /* color/text/muted */          --text-muted:    #8a7d72;
+  /* color/text/secondary */      --text-secondary:#b5a99e;
+  /* color/border/default */      --border:        rgba(238, 227, 219, 0.10);
+  /* font/family/display */       --font-display:  'Syne', sans-serif;
+  /* font/family/body */          --font-body:     'Inter', sans-serif;
 }
 
 html {
